@@ -1,4 +1,5 @@
-gazeldx.github.io
+张健(Lane)'s blog -> http://gazeldx.github.io/
 ===================
 
-张健(Lane) http://gazeldx.github.io/ 's repo
+[常用的git命令](http://gazeldx.github.io/git.html)
+
