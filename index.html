@@ -1,5 +1,20 @@
-  $ git config --global user.email 'mail_zlj a-t 163.com' -> Set email
-  $ git config --global user.email -> Show email
-  
-  $ git remote add origin https://github.com/gazeldx/duokong.git -> add a remote URL
-  $ git remote -v -> list all remotes
+---
+layout: default
+---
+
+<div class="home">
+
+  <h1>Posts</h1>
+
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>
