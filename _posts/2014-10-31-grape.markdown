@@ -1,0 +1,7 @@
+---
+layout: post
+title:  "Grape I need remember!"
+date:   2014-10-31 09:16:42
+categories: 
+---
+    prefix :api # Means grape will response to the URL like 'http://your_domain/api/...'
