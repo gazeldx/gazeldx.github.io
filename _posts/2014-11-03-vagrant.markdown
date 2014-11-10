@@ -1,0 +1,33 @@
+##虚拟机
+创建并运行虚拟机
+    $ vagrant box add lucid64 http://files.vagrantup.com/lucid64.box   
+    $ vagrant init lucid64 
+    $ vagrant up 
+登入虚拟机
+    $ vagrant ssh 
+打包虚拟机
+    $ vagrant package --vagrantfile Vagrantfile.pkg 
+vagrant模板
+http://www.vagrantbox.es/
+
+##Rails环境安装
+    $ sudo apt-get update
+    $ sudo apt-get install curl
+安装RVM
+    $ \curl -sSL https://get.rvm.io | bash -s stable
+先退出虚拟机，然后再登入，并执行rvm info看rvm是否已经安装成功
+    $ exit
+    $ rvm info
+安装ruby
+    $ rvm list known
+    $ rvm install ruby-2.1
+发现报错了，因为一些依赖的lib包没安装成功。解决方法见 https://ruby-china.org/topics/15221 12楼的回复。
+    $ rvm use ruby2.1.4 --default
+    $ rvm gemset create rails4.1.7
+    $ rvm use ruby-2.1.4@rails4.1.7 --default
+    $ gem install rails
+    $ rails new ucweb --database=postgresql
+    
+    $ sudo apt-get install git-core vim postgresql-8.4
+    
+
