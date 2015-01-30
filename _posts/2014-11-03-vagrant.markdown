@@ -10,6 +10,8 @@
 vagrant模板
 http://www.vagrantbox.es/
 
+boxes are stored at `~/.vagrant.d/boxes`
+
 ##Rails环境安装
     $ sudo apt-get update
     $ sudo apt-get install curl

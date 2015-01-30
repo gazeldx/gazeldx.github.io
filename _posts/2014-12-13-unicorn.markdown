@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "Unicorn"
+date:   2014-12-13 15:16:42
+categories: 
+---
+
+无缝重启已经解决了，原来是这样的:
+
+用这个命令就能通知 unicorn 进程重启
+
+    kill -USR2 `cat /rails/app/path/tmp/pids/unicorn.pid`
+    
+但是之前一直没成的原因是 unicorn.rb 里面有项 preload_app 开启了，将它去掉就可以用上面的命令重启
+
+    preload_app true
+    
+http://stackoverflow.com/questions/5794176/restart-unicorn-with-a-usr2-quitting-old-master
+
+https://ruby-china.org/topics/35
+
+配合 god 或者 monit 监控并发送 singal 来管理/切换服务器进程
+
+* Unicorn 是进程式的，即如果加sleep在某个controller中，会直接导致进程卡住，所有请求全部卡住。即在此时任何浏览器访问任何页面都无效。而puma、thin(通过ruby xx.rb方式）启动不会出现这种问题。只在访问该controller的request会被卡住，因为他们是线程式的。

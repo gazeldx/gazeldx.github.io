@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "Good Gems"
+date:   2014-12-13 15:16:45
+categories: 
+---
+
+Simple, efficient background processing for Ruby
+https://github.com/mperham/sidekiq
+
+
+The Ruby Framework for Process Management. Process monitoring
+https://github.com/mojombo/god

@@ -1,0 +1,31 @@
+---
+layout: post
+title:  "Redis"
+date:   2015-01-28 08:16:42
+categories: Redis
+---
+
+## Most used Redis Commands
+```
+SET 'abc' 'def'
+GET 'abc'
+TYPE key1 # Result can be string, hash, list
+hgetall 'a_hash_key'
+hmget 'a_hash_key' id, status# id, status is the keys in the hash
+hget 'a_hash_key' id# get only one key's value
+
+http://redis.io/commands/type
+redis> SET key1 "value"
+OK
+redis> LPUSH key2 "value"
+(integer) 1
+redis> SADD key3 "value"
+(integer) 1
+redis> TYPE key1
+string
+redis> TYPE key2
+list
+redis> TYPE key3
+set
+redis>
+```

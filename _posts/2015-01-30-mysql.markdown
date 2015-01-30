@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "MySQL个人笔记"
+date:   2015-01-30 08:16:42
+categories: database mysql
+---
+### Commands
+```
+$ mysql.server start
+$ mysql.server stop
+$ mysql# Cli tool
+
+
+```
