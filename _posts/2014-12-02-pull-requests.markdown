@@ -5,6 +5,7 @@ date:   2014-12-02 15:16:42
 categories: 
 ---
 ## Pull Requests
+
 ### Rails
     default_scope { order('created_at') }
 Will cause all the query e.g: `self.company.groups.order('id DESC')` not work. This is a big bug!

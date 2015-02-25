@@ -9,13 +9,17 @@ categories: websocket ruby
 #### ps -> Process Status
     $ ps
     $ ps -p 1337 -o comm=
-    $ ps aux | grep postgres # 查看postgres的进程 
+    $ ps aux | grep postgres # 查看postgres的进程
+    $ NUM=`ps M <pid> | wc -l | xargs` && expr $NUM - 1 #Mac下查看一个process下的线程数
+
 #### netstat
 http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
 
 ```bash
 $ netstat -tulnp
 $ netstat -atunp
+$ ngrep -d any -pqW byline port 5672# 根据端口来抓包
+
 ```
 
     

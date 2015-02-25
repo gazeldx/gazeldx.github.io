@@ -4,7 +4,7 @@ title:  "Ruby Thread and Process"
 date:   2014-12-17 15:16:42
 categories: 
 ---
-
+* $ NUM=`ps M <pid> | wc -l | xargs` && expr $NUM - 1 #Mac下查看一个process下的线程数
 
 * 个人理解：rails和thin等web app frameworks 需要通过web server来启动，也就是说web server会启动进程，该进程会把rails加在到进程的内存，在有请求过来时将请求交给rails处理。rails进程其实就是加载它的web server的进程（或线程）。
 
@@ -14,7 +14,11 @@ categories:
 
 * eventmachine是通过在initialize/eventmachine.rb 中加入 Thread.new { EventMachine.run } 来完成启动的，所以它其实和rails其实是在同一个进程中。
 
-* hutch是需要启动一个新的进程来监听rabbitmq的，可以查看它的源代码来看如何通过命令行启动一个新的进程。
+* http://rubylearning.com/satishtalim/ruby_threads.html
 
-* Rabbitmq的生产者们和消费者们的往往都不在同一个进程中，特别是在复杂的系统中。
+  When a Ruby program terminates, all threads are killed, regardless of their states.
+
+* hutch是需要启动一个新的进程来监听rabbitmq的，可以查看它的源代码来看如何通过命令行启动一个新的进程。http://localhost:15672/#/connections 可以看到rabbitmq的连接情况。
+
+* Rabbitmq的生产者们和消费者们的往往都不在同一个进程中，可能在不同的机器上，特别是在复杂的系统中。
 
