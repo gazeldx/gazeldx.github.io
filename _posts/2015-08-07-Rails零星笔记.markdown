@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Rails零星笔记"
+date:   2015-08-07 09:26:24
+categories: Rails
+---
+
+* Rails中保存的created_at值是Web服务器的时间，不是数据库服务器的当前时间。
+测试方法是在两台服务器中都`date` 一下，并故意通过`date 080310042015`的方式修改下Web服务器的时间，使得其与数据库时间不一致。
+然后在`rails console`中创建一个对象，如: `Menu.create!(name: 'test')` ,然后可以看到created_at的值就是Web服务器的当前时间。
+
+* Rails中的/public/favicon.ico默认的是空的，在加入了本网站的favicon.ico后，在production模式下，启动Nginx，需要配置.conf来显示它。
+```
+$ vim /etc/nginx/conf.d/your_project.conf
+加入
+server {
+    location ~* ^/assets/|favicon.ico {
+    }
+}
+```
+
+

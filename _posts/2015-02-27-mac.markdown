@@ -1,0 +1,62 @@
+---
+layout: post
+title:  "Mac"
+date:   2015-02-27 08:16:42
+categories: Mac
+---
+## 待解决问题
+目前我XCode一直打不开，报错plugin错误。我查了下资料，说可能是一些plugin在新版本下兼容性的问题。要把相关plugins卸掉。
+需要尝试一下。
+
+
+* Install JRE on mac: You need to download a dpg file and double click this file.
+
+## XCode
+
+
+XCode在Mac中非常重要，开发人员一定要用，不能移除。Python也是必要的。
+安装后还要装Command Line Tools, https://developer.apple.com/downloads/index.action#
+$ gcc报错，
+报gcc错误，无法编译，可以通过安装xcode develop commandLineTools后设置：
+$ sudo xcode-select -switch /Library/Developer/CommandLineTools
+
+## Postgresql
+### Mac
+    $ psql -d postgres # Login to postgres
+    
+    $ psql -l # List all databases
+    
+    # \dt # List all tables.
+    
+    # \d+ schema_migrations # Show DDL of a table
+    
+    $ CREATE USER postgres SUPERUSER;# if you got error: ActiveRecord::NoDatabaseError: FATAL:  role "postgres" does not exist
+    http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
+    
+    http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x
+    $ less /usr/local/var/postgres/postgresql.conf
+    $ ps aux|grep postgres
+    $ pg_ctl -D /usr/local/var/postgres status
+    $ pg_ctl -D /usr/local/var/postgres restart
+    
+    TroubleShoot: could not connect to server: No such file or directory Is the server running locally and accepting connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?
+    $ mkdir /var/pgsql_socket/
+    $ ln -s /private/tmp/.s.PGSQL.5432 /var/pgsql_socket/
+    
+    
+    http://stackoverflow.com/questions/10301794/difference-between-rake-dbmigrate-dbreset-and-dbschemaload
+
+    http://stackoverflow.com/questions/25970132/pg-tblspc-missing-after-installation-of-os-x-yosemite
+#### pg_hba.conf
+    这个重要，因为涉及到允许哪些ip地址的哪些用户以什么样的方式访问哪些数据库！
+    http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
+
+
+### 其他
+在Teminal中提示 ： You have new mail 解决办法：
+http://stackoverflow.com/questions/22163102/you-have-mail-message-in-terminal-os-x
+
+### 卸载MacKeeper
+这个东西和360干一样的事情：流氓软件变身杀毒软件。
+卸载时你发现无法把它拖到垃圾箱，因为它是Open状态，这时Activity Monitor就派上用场了。
+找到MacKeeper并把它强制停止，然后再试试把他拖到垃圾箱，应该就可以了吧？

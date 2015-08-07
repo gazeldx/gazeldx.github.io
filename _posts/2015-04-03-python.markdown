@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "Python学习"
+date:   2015-04-03 15:16:42
+categories: 
+---
+
+在Mac 悠仙美地系统中，貌似Ruby开发环境和Python开发环境无法共存。
+安装一些Python和Ruby都用到的包,比如json，Ruby报native extention的错。
+
+因为 http://stackoverflow.com/questions/22352838/ruby-gem-install-json-fails-on-mavericks-and-xcode-5-1-unknown-argument-mul
+
+所以开发Ruby和Python最好用两台分开的机器。
+
+但是，Python是Mac必备的，因为 http://clang.llvm.org/get_started.html 是要Python跑测试的。
+而Clang是和Xcode深度绑定的，所以Xcode也是开发者必备的。
+报gcc错误，无法编译，可以通过安装xcode develop commandLineTools后设置：
+$ sudo xcode-select -switch /Library/Developer/CommandLineTools
+
+
+
+### 移除Python
+http://stackoverflow.com/questions/3819449/how-to-uninstall-python-2-7-on-a-mac-os-x-10-6-4
+

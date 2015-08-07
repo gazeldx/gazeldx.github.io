@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "GitLab"
+date:   2015-07-27 15:26:24
+categories: gitLab
+---
+# 安装
+安装就按照官方文档安装，有趣的是gitlab用了chef来进行自动安装，非常酷。
+
+# 配置
+```bash
+$ vim /etc/gitlab/gitlab.rb
+$ 修改external_url
+$ 搜素worker，把unicorn workers 设置为CPU核数+1
+$ 搜索ssh，把port=your_port打开，阿里云可能不是22端口，需要设置正确，改完后，页面上某个项目的ssh地址就变成了 ssh://git@ip:port/zhangjian/nodesl.git
+$ gitlab-ctl reconfigure
+```
+
+

@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "Ruby编码问题汇总"
+date:   2015-08-07 09:26:24
+categories: gitLab
+---
+
+```ruby
+'I am 中国人'.encoding #=> #<Encoding:UTF-8>
+'I am 中国人'.encode('gbk', 'utf-8') #=> "I am \x{D6D0}\x{B9FA}\x{C8CB}"
+'I am 中国人'.encode('gbk', 'utf-8').encoding #=> #<Encoding:GBK>
+```
+
+# CSV windows上中文乱码问题解决方案
+## 导出csv在windows上中文乱码
+这是因为windows的Excel软件比较霸道，utf-8的文字就不给你默认识别出来，
+可以用 `'your_content'.encode('gbk', 'utf-8')` 来转换为gbk格式并输出。
+```ruby
+send_data('your_content'.encode('gbk', 'utf-8'), filename: "Some_Template.csv")
+```
+
+## 导入
+```
+require 'csv' # 这里用CSV
+a_file = CSV.open(uploader.file.instance_variable_get(:@file), encoding: 'gbk:utf-8') # a_file是二维数组。为了应对windows用户导入，需要用`encoding: 'gbk:utf-8'`。gbk是原始编码; utf-8是转后编码，用于存储到数据库中
+```

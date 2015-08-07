@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "NPM"
+date:   2015-04-08 08:16:42
+categories: NPM
+---
+
+
+```bash
+$ mkdir your_project_name
+$ cd your_project_name
+$ touch package.json # NPM用这个来定义包，和Ruby的Gemfile类似
+$ npm install pm2 --save # 自动会修改package.json，把这个pm2作为本项目的一个dependency包
+$ npm install # 自动安装package.json中定义的所有dependencies包
+$ sudo npm install pm2 --save -g # 这里加了-g，会产生两个影响：1、有一些新的可执行命令行了 2、被安装到了/usr/local/lib/node_modules/pm2下了。（见：/usr/local/bin/pm2 -> /usr/local/lib/node_modules/pm2/bin/pm2），因此，加了-g后，--save就无效了。
+$ npm update --save # 更新所有的依赖并保存到package.json
+```

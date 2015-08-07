@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "PM2"
+date:   2015-04-08 08:16:42
+categories: PM2 nodejs
+---
+
+```bash
+$ pm2 list
+$ pm2 start your.js -i 3 # 启动3个cluster，注意mode不是fork，如果已经加入list，请$pm2 delete your后再试
+$ pm2 reload # 线上无缝重启，要多个cluster才行
+$ pm2 update # 升级pm2
+$ pm2 flush #清空日志
+```

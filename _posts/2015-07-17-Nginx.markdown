@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "Nginx"
+date:   2015-07-17 08:16:42
+categories: Nginx
+---
+
+```bash
+$ killall -HUP nginx # 无缝重启Nginx（对于修改了Nginx配置的时候很有用）
+```
+
+* 如果出现403错误，即后台的 Permission Deny，可以尝试修改/etc/nginx/nginx.conf，将 `user root;` 加入。
+
+

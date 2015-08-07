@@ -24,5 +24,7 @@ Check out the [Jekyll docs][jekyll] for more info on how to get the most out of 
 [jekyll]:    http://jekyllrb.com
 
 
+# Good Jekyll Template
+https://github.com/facebook/react/tree/master/docs
 
 [comment]: <> (This is hidden part. If you don't want others see.)

@@ -22,8 +22,7 @@ synchronize = true
 进一步查看一下production.log的日志信息。
 
 3 用Sneakers消费消息的时候websocket-rails的synchronize = true，Sneakers出现了报错信息。但貌似消息本身被正常的消费掉了，
-但并没能成功的调用websocket-rails,以至于我只好通过http::get的方式调用websocket-rails，虽然设置了timeout，但这也是性能
-上的一大缺憾，直接导致程序无法支持高并发！
+但并没能成功的调用websocket-rails,以至于我只好通过http::get的方式调用websocket-rails，虽然设置了timeout，但这也是性能上的一大缺憾，直接导致程序无法支持高并发！
 
 ### 目前方向
 由于以上三个待解决的问题，我已经开始尝试用node.js和faye组合来完成websocket了。
