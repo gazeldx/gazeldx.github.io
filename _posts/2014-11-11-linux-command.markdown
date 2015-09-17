@@ -13,7 +13,6 @@ categories: websocket ruby
     $ NUM=`ps M <pid> | wc -l | xargs` && expr $NUM - 1 #Mac下查看一个process下的线程数
 ## System information
     $ cat /proc/cpuinfo
-    
 
 ## netstat
 ```bash
@@ -85,4 +84,7 @@ http://docs.openshift.com/online/user_guide/ssh_keys.html#tutorial-creating-and-
     $ rhc sshkey add mysshkey ~/.ssh/id_rsa.pub
    
    
-```    
+```
+
+# 其他
+$ > logfile # 清掉一个日志文件内容

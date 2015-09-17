@@ -16,10 +16,23 @@ categories: git
     $ git push -u coding coding_local:master # Push to (coding master) remote branch from coding_local branch
     $ git push origin --delete develop # Delete a remote branch develop.
     $ git branch -d the_local_branch # Delete a local branch
-    
+
+## git代码提交
+* 平时开发，在本地建一个'branch 你的姓名'，如'branch zhangsan'，并把开发代码提交到remote的'branch 你的姓名'。测试确认无问题后合入master
+* 'branch master'作为产品更新的唯一branch
+* 如果涉及到某个功能需要多人合作完成，这时把自己已经完成，并无不可运行错误的代码，从'branch 你的姓名'合入到'branch develop'中，等develop测试完毕，合入到master中
+
 #### git branch
-    $ git branch # View local branches
-    $ git branch -r # View remote branches
+```
+$ git branch # View local branches
+$ git branch -r # View remote branches
+...
+$ git reset --hard a_commit # 强行回滚到某个旧版本
+...
+$ git fetch # 如果git remote有更新，必须要fetch一下，否则可能找不到最新的commits
+$ git cherry-pick a_commit # 把某个commit放到当前本地branch
+```
+
 http://stackoverflow.com/questions/1519006/how-do-you-create-a-remote-git-branch
 ```
 $ git checkout -b your_branch #这句话不会修改任何代码。git pull才会。your_branch的内容是独立的。如果是新建的，则等于现在的内容。
@@ -32,8 +45,6 @@ $ git pull origin master
 $ git merge test
 $ git push origin master
 
-Run git fetch to update the "cache" of all remote repositories.
-   $ git fetch
 Run `$ git log <path/branch>` to view the log
 ```
 
@@ -47,7 +58,10 @@ $ git pull git://github.com/chenge/ruby-db-admin.git master # Merge from Pull re
 ```
 
 #### git stash
-    $ 可以把一些改动先藏起来。这样就可以成功pull 代码了，否则可能报错有冲突，不让你pull。pull完代码后，再git stash apply stash@{id}，就可以把本地藏起来的改动合入本地，可能需要你解决一下冲突。
+$ 可以把一些改动先藏起来。这样就可以成功pull 代码了，否则可能报错有冲突，不让你pull。pull完代码后，再git stash apply stash@{id}，就可以把本地藏起来的改动合入本地，可能需要你解决一下冲突。
+$ git stash list
+$ git stash show -p stash@{0} # 查看stash@{0}内容
+$ git stash apply stash@{0} # 将stash@{0}内容恢复到当前版本
     
 Upload SSH public key
 
