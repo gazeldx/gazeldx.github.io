@@ -11,7 +11,7 @@ categories: git
 * 如果涉及到某个功能需要多人合作完成，这时把自己已经完成，并无不可运行错误的代码，从'branch 你的姓名'合入到'branch develop'中，等develop测试完毕，合入到master中
 
 **可能涉及的一些git操作**
-```bash
+```
 ...
 $ git reset --hard a_commit # 强行回滚到某个旧版本
 ...
@@ -20,13 +20,13 @@ $ git cherry-pick a_commit # 把某个commit放到当前本地branch
 ```
 
 #### git config
-```bash
+```
 $ git config --global user.email 'mail_zlj a-t 163.com' ＃Set email
 $ git config --global user.email #Show email
 ```
 
 #### git remote
-```bash
+```
 $ git remote add origin https://github.com/gazeldx/duokong.git #Add a remote URL
 $ git remote -v #List all remotes
 $ git remote set-url origin https://github.com/gazeldx/hutch.git
@@ -34,12 +34,12 @@ $ git remote add upstream https://github.com/gocardless/hutch.git
 ```
 
 #### git push
-```bash
+```
 $ git push -u coding coding_local:master # Push to (coding master) remote branch from coding_local branch
 ```
 
 #### git branch
-```bash
+```
 $ git branch # View local branches
 $ git branch -r # View remote branches
 $ git branch -d the_local_branch # Delete a local branch
