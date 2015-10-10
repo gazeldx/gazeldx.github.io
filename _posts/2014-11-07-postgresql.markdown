@@ -48,10 +48,33 @@ categories: database PostgreSQL
 如果有大表，备份费力，可以通过如下方式剔除
 $ pg_dump -U postgres -Fc --exclude-table='big_table_name|not_important_big_table_name' your_production > your_production_20150728
 ## 还原
-$ sudo -u lane pg_restore -d icccc_development < icccc_production_20150716
+$ sudo -u lane pg_restore -d some_development < some_db
 
 报错role "xxx" does not exist解决办法：
 $ sudo -u postgres(or lane) createuser xxx
 
 ## 其他
 Postgresql max integer 2100000000
+
+## Mac homebrew 安装完postgresql后的提示信息
+Lanes-MacBook-Air-2:ucweb lane$ brew install postgresql
+==> Downloading https://homebrew.bintray.com/bottles/postgresql-9.4.4.yosemite.bottle.tar.gz
+######################################################################## 100.0%
+==> Pouring postgresql-9.4.4.yosemite.bottle.tar.gz
+==> /usr/local/Cellar/postgresql/9.4.4/bin/initdb /usr/local/var/postgres
+==> Caveats
+If builds of PostgreSQL 9 are failing and you have version 8.x installed,
+you may need to remove the previous version first. See:
+  https://github.com/Homebrew/homebrew/issues/2510
+
+To migrate existing data from a previous major version (pre-9.4) of PostgreSQL, see:
+  https://www.postgresql.org/docs/9.4/static/upgrading.html
+
+To have launchd start postgresql at login:
+  ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+Then to load postgresql now:
+  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+Or, if you don't want/need launchctl, you can just run:
+  postgres -D /usr/local/var/postgres
+==> Summary
+🍺  /usr/local/Cellar/postgresql/9.4.4: 3014 files, 40M
