@@ -4,6 +4,8 @@ title:  "Rails零星笔记"
 date:   2015-08-07 09:26:24
 categories: Rails
 ---
+* `rake db:migrate`会自动创建db/schema.rb，但在production mode下，不会创建db/schema.rb，也不会更新它，
+不过数据库还是会正确的把migration的内容做了，schema_migrations表也会顺利更新到最新。
 
 * Rails中保存的created_at值是Web服务器的时间，不是数据库服务器的当前时间。
 测试方法是在两台服务器中都`date` 一下，并故意通过`date 080310042015`的方式修改下Web服务器的时间，使得其与数据库时间不一致。

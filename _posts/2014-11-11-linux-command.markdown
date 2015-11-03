@@ -21,7 +21,6 @@ $ netstat -tulnp # Mac下是无效的
 $ lsof -i -P | grep 19801 # Mac下使用
 $ netstat -atunp
 $ ngrep -d any -pqW byline port 5672 # 根据端口来抓包
-
 ```
 http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
     
@@ -38,53 +37,8 @@ $ date 080310042015 # 将Linux系统时间设置为2015年8月3日10点4分
 $ hwclock -w; # 更新Bios的时间，使得其与本地时间保持一致
 ntp伺服器普通情况下不太用得到，就像上面这样设置一下一般就可以了。
 
-# CentOS
-```bash
-su -c 'yum provides javac' # 查看哪个包提供javac
-```
-
-```
-   $ vi /etc/sysconfig/i18n #Change language
-   $ cat /etc/redhat-release 
-   $ yum update
-   $ yum install git
-   
-报错：No package git available.
-
-解决见： http://blog.csdn.net/laiahu/article/details/7516939
-   
-   rpm -Uvh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
-   
-git clone时报错：
-
-   Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
-   
-   fatal: Could not read from remote repository.
-   
-可能是因为 公钥没有上传到gitlab上。解决见：  https://help.github.com/articles/generating-ssh-keys/#platform-linux
-
-还是不行的话就看：
-
-解决见： http://stackoverflow.com/questions/21518074/permission-denied-publickey-gssapi-keyex-gssapi-with-mic-on-openshift
-
-这时就要安装ruby了，因为rhc是要用rubygems的。见：https://rvm.io/
-
-   Remove the keys: $ rhc sshkey-remove 
-   
-   https://developers.openshift.com/en/getting-started-rhel-centos.html#client-tools
-   
-   $ gem install rhc   
-
-这时你要在openshift.com注册了，不过reCAPTCHA是google提供的，要翻墙才行。可以用海bei的VPN。
-
-然后 https://help.github.com/articles/generating-ssh-keys/#platform-linux
-
-http://docs.openshift.com/online/user_guide/ssh_keys.html#tutorial-creating-and-uploading-ssh-keys
-
-    $ rhc sshkey add mysshkey ~/.ssh/id_rsa.pub
-   
-   
-```
-
 # 其他
+```bash
 $ > logfile # 清掉一个日志文件内容
+$ nohup make & #在后台执行make操作，并输出到nohup.out。其中`make`可以是任何Linux命令
+```

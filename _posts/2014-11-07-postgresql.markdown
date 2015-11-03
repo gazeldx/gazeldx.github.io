@@ -14,6 +14,8 @@ categories: database PostgreSQL
     
     # \d+ schema_migrations # Show DDL of a table
     
+    # \q 退出psql
+    
     $ CREATE USER postgres SUPERUSER;# if you got error: ActiveRecord::NoDatabaseError: FATAL:  role "postgres" does not exist
     http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
     
