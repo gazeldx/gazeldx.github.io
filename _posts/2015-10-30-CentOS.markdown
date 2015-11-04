@@ -4,6 +4,12 @@ title:  "CentOS"
 date:   2015-10-30 16:26:42
 categories: CentOS
 ---
+### 拿到CentOS后第一步
+```
+$ yum -y update #This will update installed software on CentOS to the latest versions
+$ yum -y groupinstall 'Development Tools'
+```
+
 ###
 ```bash
 $ su -c 'yum provides javac' #查看哪个包提供javac

@@ -8,10 +8,12 @@ categories: Node
 $ npm install java #可以用它来调用Java写的接口
 ```
 ### 安装NodeJSv4.2.1时报错
-    error /usr/src/node-v4.2.1/out/Release/obj.target/v8_base/deps/v8/src/accessors.o
+    1、error /usr/src/node-v4.2.1/out/Release/obj.target/v8_base/deps/v8/src/accessors.o
+    2、/usr/src/node-v0.12.7/out/Release/mksnapshot: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /usr/src/node-v0.12.7/out/Release/mksnapshot)
 ```
-解决方法见下：
-http://itbilu.com/nodejs/core/NkKsm_hxe.html
-http://itbilu.com/linux/management/V1vdnt9ll.html
+这是GCC版本过低导致，解决方法见下：
+http://itbilu.com/linux/management/V1vdnt9ll.html 解决问题1
+http://itbilu.com/nodejs/core/NkKsm_hxe.html 解决问题1
+http://itbilu.com/linux/management/NymXRUieg.html 解决问题2
 ```
 
