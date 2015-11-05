@@ -8,6 +8,7 @@ categories: CentOS
 ```
 $ yum -y update #This will update installed software on CentOS to the latest versions
 $ yum -y groupinstall 'Development Tools'
+$ yum install man #用于查看各种软件的使用手册
 ```
 
 ###

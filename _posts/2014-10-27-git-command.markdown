@@ -11,7 +11,6 @@ categories: git
 * 如果涉及到某个功能需要多人合作完成，这时把自己已经完成，并无不可运行错误的代码，从'branch 你的姓名'合入到'branch develop'中，等develop测试完毕，合入到master中
 
 **可能涉及的一些git操作**
-
 {% highlight bash %}
 $ git reset --hard a_commit # 强行回滚到某个旧版本
 $ git fetch # 如果git remote有更新，必须要fetch一下，否则可能找不到最新的commits

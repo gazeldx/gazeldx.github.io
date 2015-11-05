@@ -1,11 +1,26 @@
 ---
-layout: post
+layout: 
 title:  "PostgreSQL个人笔记"
 date:   2014-10-27 08:16:42
 categories: database PostgreSQL
 ---
-## PostgreSQL
-### Mac
+## 安装
+### CentOS
+源码安装
+{% highlight bash %}
+$ curl -O https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
+$ tar zxvf postgresql-9.3.5.tar.gz
+$ cd postgresql-9.3.5
+$ ./configure #这里报错：configure: error: readline library not found，解决见下
+$ yum -y install -y readline-devel
+按照INSTALL文件的描述执行，之后
+$ cd /usr/local/pgsql/bin/
+$ su postgres
+$ ./pg_ctl -D /usr/local/pgsql/data status #看下启动状态
+$ ./pg_ctl -D /usr/local/pgsql/data start #启动PostgreSQL
+{% endhighlight %}
+
+## 常用命令
     $ psql -d postgres # Login to postgres
     
     $ psql -l # List all databases
@@ -18,7 +33,28 @@ categories: database PostgreSQL
     
     $ CREATE USER postgres SUPERUSER;# if you got error: ActiveRecord::NoDatabaseError: FATAL:  role "postgres" does not exist
     http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
+  
+    http://stackoverflow.com/questions/10301794/difference-between-rake-dbmigrate-dbreset-and-dbschemaload
     
+#### pg_hba.conf
+    这个重要，因为涉及到允许哪些ip地址的哪些用户以什么样的方式访问哪些数据库！
+    http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
+
+## 备份
+如果有大表，备份费力，可以通过如下方式剔除
+$ pg_dump -U postgres -Fc --exclude-table='big_table_name|not_important_big_table_name' your_production > your_production_20150728
+## 还原
+$ sudo -u lane pg_restore -d some_development < some_db
+
+报错role "xxx" does not exist解决办法：
+$ sudo -u postgres(or lane) createuser xxx
+
+## 其他
+Postgresql max integer 2100000000
+
+# Mac
+## 故障处理
+
     http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x
     $ less /usr/local/var/postgres/postgresql.conf
     $ ps aux|grep postgres
@@ -38,26 +74,6 @@ categories: database PostgreSQL
     $ touch /private/tmp/.s.PGSQL.5432
     $ ln -s /private/tmp/.s.PGSQL.5432 /var/pgsql_socket/
     
-    
-    
-    http://stackoverflow.com/questions/10301794/difference-between-rake-dbmigrate-dbreset-and-dbschemaload
-    
-#### pg_hba.conf
-    这个重要，因为涉及到允许哪些ip地址的哪些用户以什么样的方式访问哪些数据库！
-    http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
-
-## 备份
-如果有大表，备份费力，可以通过如下方式剔除
-$ pg_dump -U postgres -Fc --exclude-table='big_table_name|not_important_big_table_name' your_production > your_production_20150728
-## 还原
-$ sudo -u lane pg_restore -d some_development < some_db
-
-报错role "xxx" does not exist解决办法：
-$ sudo -u postgres(or lane) createuser xxx
-
-## 其他
-Postgresql max integer 2100000000
-
 ## Mac homebrew 安装完postgresql后的提示信息
 Lanes-MacBook-Air-2:ucweb lane$ brew install postgresql
 ==> Downloading https://homebrew.bintray.com/bottles/postgresql-9.4.4.yosemite.bottle.tar.gz
@@ -80,3 +96,4 @@ Or, if you don't want/need launchctl, you can just run:
   postgres -D /usr/local/var/postgres
 ==> Summary
 🍺  /usr/local/Cellar/postgresql/9.4.4: 3014 files, 40M
+
