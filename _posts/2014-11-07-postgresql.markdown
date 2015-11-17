@@ -97,3 +97,16 @@ Or, if you don't want/need launchctl, you can just run:
 ==> Summary
 🍺  /usr/local/Cellar/postgresql/9.4.4: 3014 files, 40M
 
+## EXPLAIN
+psql# EXPLAIN SELECT  "customers".* FROM "customers"  WHERE "customers"."company_id" = 64023 AND "customers"."act" IS NULL  ORDER BY "customers"."id" DESC;
+                                               QUERY PLAN                                                
+---------------------------------------------------------------------------------------------------------
+ Sort  (cost=26130.34..26130.34 rows=2 width=1852)
+   Sort Key: id
+   ->  Bitmap Heap Scan on customers  (cost=1151.27..26130.33 rows=2 width=1852)
+         Recheck Cond: (company_id = 64023)
+         Filter: (act IS NULL)
+         ->  Bitmap Index Scan on index_customers_on_company_id  (cost=0.00..1151.27 rows=62245 width=0)
+               Index Cond: (company_id = 64023)
+
+可以看到费时在act IS NULL 这里了。
