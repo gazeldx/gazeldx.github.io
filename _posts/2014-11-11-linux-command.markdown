@@ -4,6 +4,9 @@ title:  "Unix like常用的重要命令整理"
 date:   2014-10-27 08:16:42
 categories: websocket ruby
 ---
+
+https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md#%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8
+
 已经掌握的命令就不再列出了。
 # 待加强的命令
 ## ps -> Process Status
@@ -11,15 +14,17 @@ categories: websocket ruby
     $ ps -p 1337 -o comm=
     $ ps aux | grep postgres # 查看postgres的进程
     $ NUM=`ps M <pid> | wc -l | xargs` && expr $NUM - 1 #Mac下查看一个process下的线程数
+    $ ps -A -o stat,ppid,pid,cmd | grep -e '^[Zz]' # 查找僵尸进程,查出的defunct的进程就是僵尸.
 ## System information
     $ cat /proc/cpuinfo
-
+    $ df -H # disk info
 ## netstat
 ```bash
 $ netstat -lnt # 查看启用的端口号
 $ netstat -tulnp # Mac下是无效的
 $ lsof -i -P | grep 19801 # Mac下使用
 $ netstat -atunp
+$ netstat -an|grep 6379|grep '123.31.11.33'|wc -l # 用于redis的6379在 123.31.11.33 这台机器上有多少连接
 $ ngrep -d any -pqW byline port 5672 # 根据端口来抓包
 ```
 http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
@@ -31,11 +36,56 @@ http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
 print system info
     $ uname -r
 
+## PATH
+在MAC下, `$ echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.bash_profile`
+这样在新窗口 `$ $PATH`测试,可以看到 /usr/local/sbin: 被加到了开头.
+打开`~/.bash_profile`可以看到它在最后一行. 修改`~/.bash_profile`可以调整$PATH的顺序.
+
 ## 设置时钟
 参考http://linux.vbird.org/linux_server/0440ntp.php
 $ date 080310042015 # 将Linux系统时间设置为2015年8月3日10点4分
 $ hwclock -w; # 更新Bios的时间，使得其与本地时间保持一致
 ntp伺服器普通情况下不太用得到，就像上面这样设置一下一般就可以了。
+
+## Cron jobs
+{% highlight bash %}
+$ crontab -l # user的cron jobs list
+$ crontab -e # 编辑user的cron jobs
+{% endhighlight %}
+
+## SCP
+$ scp id_rsa.pub root@132.43.1.22:./ # 把一个文件上传到服务器
+$ scp root@132.43.1.22:test.sh /srv/ #从服务器下载一个文件
+如果要实现自动的下载,这时就需要有不用输入密码的机制了.
+所以要把备份机的id_rsa.pub加入到服务器的~/.ssh/authorized_keys中,详见:http://alvinalexander.com/linux-unix/how-use-scp-without-password-backups-copy
+149的
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAxDI0R/CRHvCGZyDxl7eHDIJAzYINAWyfwooDXkM8bKZ928O4JUf3o2lSc18h4U+5Db/RBV5OOj6WtpjDMG1AUJv6HBfFr1K9/bdw/6SFnlQ5L+z6UU3rhIU2vYLn+Zia1jS5diW64WlVcvrUes9JQqKwIbN7V7IUXbGd1zexF71T5kF57Ulru/sycIp+mWakmbtVYXDAL5Cq7zqHoHP5YMyrRFVnek6t/+jYrP6uCytinZePYX/8kojCLTHNr/uyE/75Tjq/KKg4B7kFp7G9bUV17HmAT4azqVh1zOj+jWNb6gpcNs+w6aM4dGL0C7nBWHYF8rJ7YZRo97m4QVnW1Q== root@localhost.localdomain
+
+## 压缩和解压缩
+### Gzip
+$ gzip -c logger2.log > api_nbms_logger2.log.gz # 这里-c表示输出到流,用 > 可以把流内容输出到一个指定文件,这样,就保留了原文件
+$ gzip logger2.log # 这种方式会导致原文件logger2.log不复存在,生成一个logger2.log.gz文件.所以不建议用,推荐用上面的写法,即带-c参数
+$ gzip -d logger2.log.gz # 解压缩
+
+## 日志相关
+### logrotate
+{% highlight bash %}
+$ touch /etc/logrotate.d/myrails #配置一下
+$ vim /etc/logrotate.d/myrails
+/path/to/myrails/log/production.log {
+  daily
+  missingok
+  rotate 100
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+}
+$ logrotate -vf /etc/logrotate.d/ucwebrails # 立刻生成一下
+{% endhighlight %}
+
+## NFS
+$ mount 172.31.1.52:/home/fs/ /sharedfs/ #NFS挂载,这样,本地的/sharedfs目录就对应到了目标机器172.31.1.52:/home/fs/
 
 # 其他
 ```bash

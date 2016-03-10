@@ -4,13 +4,40 @@ title:  "rbenv使用"
 date:   2015-11-17 14:40:24
 categories: Ruby
 ---
-## Mac下安装
-在参考官方文档的时候要注意:
+# Mac下安装
+在参考官方文档 https://github.com/rbenv/rbenv 的时候要注意:
+
 `$ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile` 这一行要执行下,否则`$ rbenv shell`会报错.
 
-### rbenv-gemset
-默认的gems可能是安装在`~/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems`. 
+## rbenv-gemset
+https://github.com/jf/rbenv-gemset
+
+* 默认的gems可能是安装在`~/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems`.
+ 
 如果系统已经存在某个gem,可能就不会安装到指定的目录了.这时可以`gem uninstall --all`全部删除(看下`~/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems`下是不是基本上空了?)
 然后再`bundle install`,这时看看gems是不是都安装到`~/.rbenv/versions/2.2.3/gemsets/your_gemset_name`下了?
 
-RubyMine8.0开始支持rbenv-gemset了,不过目前RubyMine有个bug,就是在你通过`Preferences => Ruby SDK and gems`改动时,会自动乱改.rbenv-gemsets的定义,避免这个问题的办法就是不要用RubyMine去设置,让RubyMine自动识别就可以了.
+* 如果相要指定gemset下删除某个gem，可以用`$ RBENV_GEMSETS="-global" gem uninstall puma`
+
+* `$ rbenv gemset active`可以用于查看当前目录下有哪些gemset被使用到。
+
+### RubyMine8
+RubyMine8.0开始支持rbenv-gemset了,不过目前RubyMine有个bug,就是在你通过`Preferences => Ruby SDK and gems`改动时,会把所有的在同一个windows中的用到rbenv-gemset的项目的配置都改成一样的.rbenv-gemsets的定义,避免这个问题的办法是不同的Ruby项目在不同的window中打开.
+
+# 常用命令
+## rbenv
+{% highlight bash %}
+$ rbenv local # 查看当前目录的ruby版本，和`less .ruby-version`一样的效果
+$ rbenv global # 如果没有配local，默认用global，用本命令查看global ruby版本
+$ rbenv versions # 显示当前系统中已经安装的ruby版本
+$ rbenv version # 显示当前被激活的ruby版本
+$ rbenv rehash # 任何涉及到可执行命令的，都要rehash下，如安装了gem sequel等
+$ rbenv which rake # 显示一个可执行shims下的bin所在的目录/Users/lane/.rbenv/versions/2.2.3/bin/rake
+$ rbenv whence irb # 查看哪个版本有irb命令可用
+{% endhighlight %}
+
+## rbenv-gemset
+{% highlight bash %}
+$ rbenv-gemset delete 2.2.3 -global # 把2.2.3版本下的"-global"gemset删除，最终会把 /Users/you/.rbenv/versions/2.2.3/gemsets 下的"-global"目录删除
+$ RBENV_GEMSETS="your_gemset" gem install thin # 在指定的gemset下安装一个gem
+{% endhighlight %}

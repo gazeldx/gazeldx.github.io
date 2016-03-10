@@ -44,3 +44,6 @@ redis> TYPE key3
 set
 redis>
 ```
+
+## client
+$ redis-cli client list | grep 172.42.1.39 # 查看在172.42.1.39这台机器上的client的情况, 返回的age单位是秒.

@@ -26,3 +26,6 @@ $ load mod_curl # 加载curl模块
 $ sofia profile internal siptrace on # 如：打开日志
 
 /usr/local/freeswitch/log
+
+## 录音
+FreeSwitch可以用.wav uu-law 800hz的声音,可以由mp3格式转成.

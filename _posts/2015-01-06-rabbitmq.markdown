@@ -5,3 +5,5 @@ date:   2015-01-06 15:16:42
 categories: 
 ---
 
+# 日志
+* 在 /var/log/rabbitmq/rabbit@web1.log-20160103

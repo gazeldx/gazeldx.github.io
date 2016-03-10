@@ -18,6 +18,7 @@ $ cd /usr/local/pgsql/bin/
 $ su postgres
 $ ./pg_ctl -D /usr/local/pgsql/data status #看下启动状态
 $ ./pg_ctl -D /usr/local/pgsql/data start #启动PostgreSQL
+如果pg无法重启,把 /usr/local/pgsql/data/postmaster.pid 删除就可以了正常启动了
 {% endhighlight %}
 
 ## 常用命令
@@ -25,13 +26,15 @@ $ ./pg_ctl -D /usr/local/pgsql/data start #启动PostgreSQL
     
     $ psql -l # List all databases
     
+    $ psql --version # 查看pg版本
+    
     # \dt # List all tables.
     
     # \d+ schema_migrations # Show DDL of a table
     
     # \q 退出psql
     
-    $ CREATE USER postgres SUPERUSER;# if you got error: ActiveRecord::NoDatabaseError: FATAL:  role "postgres" does not exist
+    # CREATE USER postgres SUPERUSER;# if you got error: ActiveRecord::NoDatabaseError: FATAL:  role "postgres" does not exist
     http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
   
     http://stackoverflow.com/questions/10301794/difference-between-rake-dbmigrate-dbreset-and-dbschemaload

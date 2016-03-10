@@ -21,4 +21,8 @@ server {
 }
 ```
 
+## Validation
+User has_many Groups
+如果Group中新加了一个validationS,在User中保存Groups时也会validate到新加的这个validationS.如果验证失败,会报错Groups,具体原因却不提示.
+这是rails可以改进的一个方面.
 

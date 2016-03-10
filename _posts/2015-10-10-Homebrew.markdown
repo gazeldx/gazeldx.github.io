@@ -7,6 +7,8 @@ categories: Homebrew
 
 ## 常用的命令
 {% highlight bash %}
+$ brew doctor # 体检一下
+$ brew update # 更新一下,同步一下brew数据,保持最新.
 $ brew search redis # 查找所有名称含redis的Formula
 $ brew info redis # 看看名称为redis的Formula的详细信息
 $ brew install redis # 安装redis

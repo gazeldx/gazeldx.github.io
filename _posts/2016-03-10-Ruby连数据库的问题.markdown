@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "Ruby连数据库的问题"
+date:   2016-03-10 11:13:31
+categories: Ruby
+---
+# Sequel
+和puma连用,如果报Sequel::PoolTimeout错误,可能是的puma -w的值大于了max_connections的值(默认为4, 见 http://sequel.jeremyevans.net/rdoc/classes/Sequel/ThreadedConnectionPool.html ).
+{% highlight ruby %}
+Sequel.connect({ adapter:          'postgres',
+                user:             Settings.database.username,
+                password:         Settings.database.password,
+                host:             Settings.database.host,
+                port:             5432,
+                pool_class:       Sequel::ThreadedConnectionPool,
+                database:         Settings.database.name,
+                max_connections:  100 })
+{% endhighlight %}
+
+# ActiveRecord
+同样, puma -w的值大于了pool,也会报同样的问题.
+{% highlight ruby %}
+ActiveRecord::Base.establish_connection(
+  adapter:  'postgresql',
+  host:     Settings.database.host,
+  username: Settings.database.username,
+  password: Settings.database.password,
+  database: Settings.database.name,
+  pool: 5,
+  reaping_frequency: 30
+)
+{% endhighlight %}
+这里reaping_frequency不能少,可以确保数据库的自动重连.
+

@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "VIM"
+date:   2015-11-30 16:05:25
+categories: Vim
+---
+# 硬盘
+* RAID5安全性高,多个硬盘互相备份,一块坏了,另一块立刻可用.
