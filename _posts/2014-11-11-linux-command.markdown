@@ -55,7 +55,7 @@ $ crontab -e # 编辑user的cron jobs
 
 ## SCP
 $ scp id_rsa.pub root@132.43.1.22:./ # 把一个文件上传到服务器
-$ scp root@132.43.1.22:test.sh /srv/ #从服务器下载一个文件
+$ scp root@173.131.12.135:/root/production.log ./  #从服务器下载一个文件到当前目录
 如果要实现自动的下载,这时就需要有不用输入密码的机制了.
 所以要把备份机的id_rsa.pub加入到服务器的~/.ssh/authorized_keys中,详见:http://alvinalexander.com/linux-unix/how-use-scp-without-password-backups-copy
 149的
@@ -85,10 +85,48 @@ $ logrotate -vf /etc/logrotate.d/ucwebrails # 立刻生成一下
 {% endhighlight %}
 
 ## NFS
-$ mount 172.31.1.52:/home/fs/ /sharedfs/ #NFS挂载,这样,本地的/sharedfs目录就对应到了目标机器172.31.1.52:/home/fs/
+http://linux.vbird.org/linux_server/0330nfs.php#nfsserver
+
+### client
+{% highlight bash %}
+$ mount 175.111.1.52:/home/fs/ /sharedfs #NFS挂载,这样,本地的/sharedfs目录就对应到了目标机器175.111.1.52:/home/fs/
+$ df # 查看挂载结果
+$ umount /sharedfs # 取消挂载, 如果报错device is busy,则用 umount -l
+{% endhighlight %}
+### server
+{% highlight bash %}
+$ rpm -qa | grep nfs # 看nfs安装了没有
+$ vim /etc/exports
+加入
+/your/server/shared/folder     *(rw,sync,no_root_squash,fsid=0)
+{% endhighlight %}
 
 # 其他
 ```bash
 $ > logfile # 清掉一个日志文件内容
 $ nohup make & #在后台执行make操作，并输出到nohup.out。其中`make`可以是任何Linux命令
 ```
+
+# Linux内存分析
+1. 首先对free -m查看结果进行分析
+`free -m`
+  
+             total       used       free     shared    buffers     cached  
+Mem:          3952       2773       178          0         130        1097  
+-/+ buffers/cache:       1545       2406  
+Swap:         2055          0       2055  
+
+各参数含义：
+total：总物理内存
+used：已使用内存
+free：完全未被使用的内存
+shared：应用程序共享内存
+buffers：缓存，主要用于目录方面,inode值等
+cached：缓存，用于已打开的文件
+-buffers/cache：应用程序使用的内存大小，used减去缓存值
++buffers/cache：所有可供应用程序使用的内存大小，free加上缓存值
+ 
+其中：
+total = used + free
+-buffers/cache=used-buffers-cached，这个是应用程序真实使用的内存大小
++buffers/cache=free+buffers+cached，这个是服务器真实还可利用的内存大小

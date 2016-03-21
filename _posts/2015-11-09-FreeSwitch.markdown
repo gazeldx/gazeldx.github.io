@@ -27,5 +27,7 @@ $ sofia profile internal siptrace on # 如：打开日志
 
 /usr/local/freeswitch/log
 
+`$ ngrep -d any -pqW byline port 8021` # 用于抓包
+
 ## 录音
 FreeSwitch可以用.wav uu-law 800hz的声音,可以由mp3格式转成.
