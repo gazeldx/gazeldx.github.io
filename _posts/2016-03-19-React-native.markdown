@@ -35,6 +35,7 @@ $ adb install app/build/outputs/apk/app-debug.apk # 执行后报错: Failure [IN
 # 继续浅尝
 * 这个介绍ES6和ES5写法的文章建议阅读下: http://bbs.reactnative.cn/topic/15/react-react-native-%E7%9A%84es5-es6%E5%86%99%E6%B3%95%E5%AF%B9%E7%85%A7%E8%A1%A8/2
 
+* 尽量不要把一个APP的文件夹直接改名后用于其它APP, 在调试过程中我遇到一个重名的问题.
 
 
 

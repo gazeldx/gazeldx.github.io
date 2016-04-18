@@ -20,7 +20,7 @@ Sequel.connect({ adapter:          'postgres',
 {% endhighlight %}
 
 # ActiveRecord
-同样, puma -w的值大于了pool,也会报同样的问题.
+同样, puma -w的值大于了pool,也会报同样的问题: ActiveRecord::ConnectionTimeoutError - could not obtain a database connection within 5 seconds. The max pool size is currently 5; consider increasing it
 {% highlight ruby %}
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
@@ -34,4 +34,3 @@ ActiveRecord::Base.establish_connection(
 {% endhighlight %}
 pool的值应该和puma_max_threads一致.
 这里reaping_frequency不能少,可以确保数据库的自动重连.
-

@@ -18,6 +18,7 @@ https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md#%E6%97
 ## System information
     $ cat /proc/cpuinfo
     $ df -H # disk info
+    $ df -T # 查看硬盘格式, 数据库服务器等最好用ext4, 效率更高
 ## netstat
 ```bash
 $ netstat -lnt # 查看启用的端口号
@@ -41,6 +42,12 @@ print system info
 这样在新窗口 `$ $PATH`测试,可以看到 /usr/local/sbin: 被加到了开头.
 打开`~/.bash_profile`可以看到它在最后一行. 修改`~/.bash_profile`可以调整$PATH的顺序.
 
+在linux下修改~/.bash_profile, 加入如下内容可以把你想要的folder加到PATH中:
+{% highlight bash %}
+PATH=/usr/local/pgsql/bin:$PATH:$HOME/bin
+export PATH
+{% endhighlight %}
+
 ## 设置时钟
 参考http://linux.vbird.org/linux_server/0440ntp.php
 $ date 080310042015 # 将Linux系统时间设置为2015年8月3日10点4分
@@ -56,7 +63,8 @@ $ crontab -e # 编辑user的cron jobs
 ## SCP
 $ scp id_rsa.pub root@132.43.1.22:./ # 把一个文件上传到服务器
 $ scp root@173.131.12.135:/root/production.log ./  #从服务器下载一个文件到当前目录
-如果要实现自动的下载,这时就需要有不用输入密码的机制了.
+如果要实现自动的下载,这时就需要有不用输入密码的机制了. 只要执行下面的命令就可以了:
+`$ ssh-copy-id root@ip_b_machine # ip_b_machine是被登录的机器, 这样, 在执行了这条命令的机器上登录ip_b_machine就不用密码了`
 所以要把备份机的id_rsa.pub加入到服务器的~/.ssh/authorized_keys中,详见:http://alvinalexander.com/linux-unix/how-use-scp-without-password-backups-copy
 149的
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAxDI0R/CRHvCGZyDxl7eHDIJAzYINAWyfwooDXkM8bKZ928O4JUf3o2lSc18h4U+5Db/RBV5OOj6WtpjDMG1AUJv6HBfFr1K9/bdw/6SFnlQ5L+z6UU3rhIU2vYLn+Zia1jS5diW64WlVcvrUes9JQqKwIbN7V7IUXbGd1zexF71T5kF57Ulru/sycIp+mWakmbtVYXDAL5Cq7zqHoHP5YMyrRFVnek6t/+jYrP6uCytinZePYX/8kojCLTHNr/uyE/75Tjq/KKg4B7kFp7G9bUV17HmAT4azqVh1zOj+jWNb6gpcNs+w6aM4dGL0C7nBWHYF8rJ7YZRo97m4QVnW1Q== root@localhost.localdomain
@@ -107,7 +115,13 @@ $ > logfile # 清掉一个日志文件内容
 $ nohup make & #在后台执行make操作，并输出到nohup.out。其中`make`可以是任何Linux命令
 ```
 
-# Linux内存分析
+# 性能监控
+## CPU和IO
+`$ top`
+Cpu(s): 10.0%us,  0.9%sy,  0.0%ni, 85.7%id,  3.3%wa,  0.0%hi,  0.1%si,  0.0%st
+这里的85.7%id表示idle-空闲CPU百分比, 越大越好, 3.3%wa表示等待输入输出的CPU时间百分比, 越小越好.
+
+## Linux内存分析
 1. 首先对free -m查看结果进行分析
 `free -m`
   
