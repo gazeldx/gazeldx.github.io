@@ -71,6 +71,106 @@ chkconfig ip6tables off
 
 #### 操作系统配置
 $ df -T # 查看硬盘格式, 数据库服务器等最好用ext4, 效率更高
+一、操作系统安装
+
+1.文件系统:ext4
+
+2.磁盘分布
+* 1)boot: 2GB
+2)swap：
+
+RAM	                             Swap Space
+Between 1 GB and 2 GB	    1.5 times the size of the RAM
+Between 2 GB and 16 GB	    Equal to the size of the RAM
+More than 16 GB	            16 GB
+
+一般16GB
+3)/: 其它全部
+
+3.磁盘布局
+
+PG软件目录：本地磁盘/opt/pgsql9.5 或 /usr/local/pgsql/
+* PGDATA: 磁盘阵列，mout array_dev /opt/pgdata95 (这里的mout应该改为mount)
+
+二、系统参数配置
+
+1.OS参数设置
+
+##### vi  /etc/sysctl.conf
+
+* fs.aio-max-nr = 1048576
+* fs.file-max = 6815744
+
+kernel.shmmax = 4294967295                  # 物理内存一半
+kernel.shmall = 2097152                     # 物理内存大小除以分页大小。# getconf PAGE_SIZE
+                                            # 32GB/4096 ;select 32*(1024*1024*1024)::bigint/4096 as SHMALL;
+kernel.shmmni = 4096                        # SHMMNI参数：设置系统级最大共享内存段数量,default 4096。
+kernel.msgmax = 65536
+kernel.msgmni = 2005
+kernel.msgmnb = 65536
+kernel.sem = 250 32000 100 128
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048576
+
+
+###### vi /etc/security/lmits.conf
+###### End of file
+###### pg limit new add
+postgres       soft    nproc           4096
+postgres       hard    nproc           16384
+postgres       soft    nofile          65535
+postgres       hard    nofile          65535
+postgres       soft    stack           10240
+postgres       hard    stack           32768
+
+
+###### vi /etc/pam.d/login
+session required /lib/security/pam_limits.so
+
+2.postgresql调整
+1)postgresql扩展安装
+cd postgresql-source/contrib/pg_stat_statements
+
+2)修改参数
+
+PGDATA目录postgresql.conf
+
+max_connections = 根据实际情况确定
+superuser_reserved_connections = 根据实际情况确定
+shared_buffers = 25%物理内存，上限40%
+* shared_preload_libraries = 'pg_stat_statements'
+* pg_stat_statements.max = 1000
+* pg_stat_statements.track = all
+work_mem = 64MB根据连接数确定	
+* effective_cache_size = (shared_buffers + os cache的含义?)
+* maintenance_work_mem = 512MB(create index)
+checkpoint_segments = 32                # in logfile segments, min 1, 16MB each	
+checkpoint_completion_target = 0.9
+* fsync = on 
+* vacuum_cost_delay = 10                  # 0-100 milliseconds
+* vacuum_cost_limit = 10000               # 1-10000 credits
+* 50 bgwriter_delay = 10ms                   # 10-10000ms between rounds
+wal_sync_method = fdatasync             # the default is the first option
+* -1 wal_buffers = 16384kB                   # min 32kB, -1 sets based on shared_buffers
+wal_writer_delay = 10ms                 # 1-10000 milliseconds
++ full_page_writes = off
+
+##### Postgresql 开启Log分析
+http://daigong.sinaapp.com/?p=67
+log_min_duration_statement = 1000     # -1 不log sql  0 log 所有sql，如果大于1 ，以ms单位，记录超过该时间的sql，也就是我们说的查找sql中瓶颈
+
+需要注意的是该属性与其他俩个属性有互斥，一定要确保
+
+log_duration = off  #这个的含义是记录所有duration时间
+
+log_statement = 'none' #这个属性代表记录sql的类型
+
+如果这俩个属性开启，你会发现你的log中有一次查询会有很多时间，其中很多是你不关心的。
+
+$ pg_ctl reload -D data #当配置文件改变时，使用. 这样数据库不会重启，只会发出一个信号，让其重新读取log
 
 ## 常用命令
     $ psql -d postgres # Login to postgres
@@ -92,8 +192,9 @@ $ df -T # 查看硬盘格式, 数据库服务器等最好用ext4, 效率更高
      repluser  | Replication                                    | {}
     
     详细见:
-    http://www.postgresql.org/docs/9.2/static/app-createuser.html 
+    http://www.postgresql.org/docs/9.3/static/sql-createrole.html
     http://www.postgresql.org/docs/9.3/static/sql-alterrole.html
+    http://www.postgresql.org/docs/9.2/static/app-createuser.html 
     # ALTER ROLE davide WITH PASSWORD 'hu8jmn3';
 
     
@@ -104,11 +205,23 @@ $ df -T # 查看硬盘格式, 数据库服务器等最好用ext4, 效率更高
   
     http://stackoverflow.com/questions/10301794/difference-between-rake-dbmigrate-dbreset-and-dbschemaload
     
-    select * from pg_stat_activity where datname = 'some_production';
+    select * from pg_stat_activity where datname = 'some_production'; # 查看clients
     
 #### pg_hba.conf
     这个重要，因为涉及到允许哪些ip地址的哪些用户以什么样的方式访问哪些数据库！
     http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
+
+## clients数量过多会导致postgresql直线性能下降
+在大并发时就会有问题.
+连接数据库的clients数量(用SELECT count(*) FROM pg_stat_activity;可以查看)在120内就够了. 不必过多, 够用就好. 
+因为clients都是进程,在postgresql的服务器上用`ps -ef|grep postgres` 可以看到,进程多了是实打实的消耗资源.
+rails的database.yml中pool应填写puma的max_threads值, rails启动后会按puma的min_threads值分配连接数, 够用就不会多分配一个, 也不会少一个, 连接数会是workers * min_threads.
+不够用时, 就会按最多max_threads去分配, 当系统卡时, 所有连接都不会被释放.
+这时候 SELECT count(*) FROM pg_stat_activity; (本次故障时连接数>200, 当时光WEB就占用了workers * max_threads = 5 * 32 = 160个).
+之后我把puma的max_threads改为16, rails的database.yml中pool也改为16, 并用$ kill -s SIGTERM `cat /var/run/ucweb.pid` 把WEB杀死, 
+并重新启动, `bundle exec puma -t 8:16 -w 5 --preload -e production -d -b unix:///var/run/ucweb.sock --pidfile /var/run/ucweb.pid`
+再SELECT count(*) FROM pg_stat_activity where client_addr= 'IP_of_WEB';(返回40, 即workers * min_threads = 5 * 8 = 40个).
+页面卡的问题一下子就解决了, 数据库CPU也正常了.
 
 ## 备份
 如果有大表，备份费力，可以通过如下方式剔除
@@ -142,8 +255,8 @@ $ nohup sudo -u postgres /usr/local/pgsql/bin/pg_restore -d some_production < /s
 * 官方的包在CentOS上我发现无法解压
 {% highlight bash %}
 cd /root/pgbadger/
-pgbadger --prefix 'postgresql.conf里面log_line_prefix的值 ' /path/to/your/pglog/*.log -o out.html
-pgbadger --prefix '%t [%p]: [%l-1] ' /root/pgbadger-master/logs_from_21/postgresql-Wed_1042.log -o out_20160413_1.html
+pgbadger --prefix 'postgresql.conf里面log_line_prefix的值(如'%t [%p]: [%l-1] ')' /path/to/your/pglog/*.log -o out.html
+pgbadger --prefix '[%t/ %u/ %d/ %p]-' /root/pgbadger-master/logs_from_21/postgresql-Wed_1042.log -o out_20160413_1.html
 {% endhighlight %}
 
 ### 性能查看
@@ -157,6 +270,12 @@ from pg_stat_user_tables where schemaname='public' order by pg_relation_size(rel
 
 ## 其他
 Postgresql max integer 2100000000
+查看当前的clients
+$ SELECT usesysid, usename FROM pg_stat_activity;
+
+### greenplum
+http://greenplum.org/ 
+查询性能成为问题的时候可以考虑用它
 
 # Mac
 ## 故障处理
@@ -216,3 +335,14 @@ psql# EXPLAIN SELECT  "customers".* FROM "customers"  WHERE "customers"."company
                Index Cond: (company_id = 64023)
 
 可以看到费时在act IS NULL 这里了。
+
+可以看日志或者查系统视图
+你日志里应该设置记录duration
+SELECT S.procpid, S.start, now() - start AS lap,S.current_query 
+FROM (
+     SELECT backendid,pg_stat_get_backend_pid(S.backendid) AS procpid,pg_stat_get_backend_activity_start(S.backendid) AS start, pg_stat_get_backend_activity(S.backendid) AS current_query 
+     FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS S 
+) AS S ,pg_stat_activity a
+WHERE S.procpid =a.pid
+and a.state ='active'
+ORDER BY lap DESC;

@@ -7,6 +7,11 @@ categories: websocket ruby
 
 https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md#%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8
 
+## 界面的提示为中文或者英文
+vim /etc/sysconfig/i18n
+LANG="zh_CN.UTF-8"
+或
+
 已经掌握的命令就不再列出了。
 # 待加强的命令
 ## ps -> Process Status
@@ -34,8 +39,9 @@ http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
     $ find / -type f -name '*.iso' #查找iso普通文件    
 
 ## uname
-print system info
-    $ uname -r
+print system version
+$ cat /etc/redhat-release
+$ uname -r
 
 ## PATH
 在MAC下, `$ echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.bash_profile`

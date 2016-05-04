@@ -8,7 +8,7 @@ categories: React-Native
 # react-native的hello world
 * 阅读英文文档可以提升英文能力,不过如果有无法解决的问题, 建议阅读下中文文档 => http://reactnative.cn/ 一是更直观些; 二是译者经常加入他的心得, 这些心得是有价值的.
 
-* 在执行`$ react-native init hu`时, 很慢, 请参考 https://github.com/facebook/react-native/issues/2806 , 注意wfxiang08的回复. 
+* 在执行`$ react-native init hu`时, 很慢, 解决办法请参考 https://github.com/facebook/react-native/issues/2806 , 注意wfxiang08的回复. 
 {% highlight bash %}
 echo 'registry = https://registry.npm.taobao.org' > ~/.npmrc
 {% endhighlight %}
