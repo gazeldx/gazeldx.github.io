@@ -5,12 +5,17 @@ date:   2014-10-27 08:16:42
 categories: websocket ruby
 ---
 
+# 最重要的故障排查
+```bash
+$ dd bs=64k count=4k if=/dev/zero of=test oflag=dsync # 测试硬盘性能, 产品服务器上这个值至少要达到100M
+```
+
 https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md#%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8
 
 ## 界面的提示为中文或者英文
 vim /etc/sysconfig/i18n
 LANG="zh_CN.UTF-8"
-或
+或en_US.UTF-8
 
 已经掌握的命令就不再列出了。
 # 待加强的命令
@@ -19,7 +24,7 @@ LANG="zh_CN.UTF-8"
     $ ps -p 1337 -o comm=
     $ ps aux | grep postgres # 查看postgres的进程
     $ NUM=`ps M <pid> | wc -l | xargs` && expr $NUM - 1 #Mac下查看一个process下的线程数
-    $ ps -A -o stat,ppid,pid,cmd | grep -e '^[Zz]' # 查找僵尸进程,查出的defunct的进程就是僵尸.
+    $ ps -ef|grep defunct 或者 ps -A -o stat,ppid,pid,cmd | grep -e '^[Zz]' # 查找僵尸进程zombie,查出的defunct的进程就是僵尸.
 ## System information
     $ cat /proc/cpuinfo
     $ df -H # disk info
@@ -36,7 +41,12 @@ $ ngrep -d any -pqW byline port 5672 # 根据端口来抓包
 http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
     
 ## find
-    $ find / -type f -name '*.iso' #查找iso普通文件    
+```bash
+$ find / -type f -name '*.iso' #查找iso普通文件    
+$ find / -type f -size +500000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }' # 查询所有大小大于500M的文件
+```
+
+`$ grep -i rack Gemfile.lock # 从一个文件中搜索相关文字, 本例是从Gemfile.lock中查找所有包含rack这个字符串的行`
 
 ## uname
 print system version
@@ -65,6 +75,12 @@ ntp伺服器普通情况下不太用得到，就像上面这样设置一下一�
 $ crontab -l # user的cron jobs list
 $ crontab -e # 编辑user的cron jobs
 {% endhighlight %}
+
+因为Cron不会自动把所有的$PATH加载，所以要`vim ~/.bash_profile`，确保node的执行文件所在的目录（`$ which node`所返回的结果，CentOS中是`/usr/local/bin`）在$PATH中。如果没在，请把以下内容加入到`~/.bash_profile`
+```
+PATH=$PATH:/usr/local/bin
+export PATH
+```
 
 ## SCP
 $ scp id_rsa.pub root@132.43.1.22:./ # 把一个文件上传到服务器
@@ -95,7 +111,7 @@ $ vim /etc/logrotate.d/myrails
   notifempty
   copytruncate
 }
-$ logrotate -vf /etc/logrotate.d/ucwebrails # 立刻生成一下
+$ logrotate -vf /etc/logrotate.d/myrails # 立刻生成一下
 {% endhighlight %}
 
 ## NFS

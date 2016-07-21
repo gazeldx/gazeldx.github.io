@@ -30,7 +30,11 @@ $ vi /etc/sysconfig/i18n #修改为：LANG="en_US.UTF-8"
 $ source /etc/sysconfig/i18n #reload
 ```
 
-### yum install search ngrep没有找到相关可安装包
+### 修改主机名
+HOSTNAME=localhost.localdomain
+
+
+### yum install search ngrep没有找到相关可安装包  
 ```bash
 $ sudo yum install epel-release #参考自 http://www.rackspace.com/knowledge_center/article/install-epel-and-additional-repositories-on-centos-and-red-hat
 $ sudo yum upgrade ca-certificates --disablerepo=epel #参考自 http://serverfault.com/questions/637549/epel-repo-for-centos-6-causing-error

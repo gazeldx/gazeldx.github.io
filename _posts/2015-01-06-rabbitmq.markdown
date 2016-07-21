@@ -5,5 +5,8 @@ date:   2015-01-06 15:16:42
 categories: 
 ---
 
+* WEB在 http://127.0.0.1:15672/ user: guest password: guest
+`$ /usr/local/sbin/rabbitmq-server -detached # 后台启动RabbitMQ-Server`
+
 # 日志
 * 在 /var/log/rabbitmq/rabbit@web1.log-20160103

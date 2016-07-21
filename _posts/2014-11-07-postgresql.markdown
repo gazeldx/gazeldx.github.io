@@ -4,19 +4,26 @@ title:  "PostgreSQL个人笔记"
 date:   2014-10-27 08:16:42
 categories: database PostgreSQL
 ---
+
 ## 安装
+### 安装前确认
+```bash
+$ dd bs=64k count=4k if=/dev/zero of=test oflag=dsync # 测试硬盘性能, 产品服务器上这个值至少要达到100M
+$ df -T # 在安装前先查看硬盘格式, 数据库服务器等最好用ext4, 效率更高
+```
+
 ### CentOS
 ####  源码安装
 {% highlight bash %}
-$ curl -O https://ftp.postgresql.org/pub/source/v9.3.5/postgresql-9.3.5.tar.gz
-$ tar zxvf postgresql-9.3.5.tar.gz
-$ cd postgresql-9.3.5
+$ curl -O https://ftp.postgresql.org/pub/source/v9.5.2/postgresql-9.5.2.tar.gz
+$ tar zxvf postgresql-9.5.2.tar.gz
+$ cd postgresql-9.5.2
 $ ./configure #这里报错：configure: error: readline library not found，解决见下
 $ yum -y install -y readline-devel
 按照INSTALL文件的描述执行
-gmake
+make
 su
-gmake install
+make install
 adduser postgres
 mkdir /usr/local/pgsql/data
 chown postgres /usr/local/pgsql/data
@@ -32,6 +39,7 @@ $ ./pg_ctl -D /usr/local/pgsql/data status #看下启动状态
 $ ./pg_ctl -D /usr/local/pgsql/data start #启动PostgreSQL
 $ ./pg_ctl -D /usr/local/pgsql/data restart #重启PostgreSQL
 如果pg无法重启,把 /usr/local/pgsql/data/postmaster.pid 删除就可以了正常启动了
+$ /opt/pgsql/9.5.2/bin/postmaster -D /pgdata95 # 这是另外一种启动方式
 {% endhighlight %}
 
 #### 配置
@@ -47,6 +55,10 @@ listen_addresses = '*'
 max_connections
 shared_buffers = 你机器内存的1/4
 了解下raid10的好处: http://www.dostor.com/article/2009-12-31/2871015.shtml 深度解析RAID类型 全面透视RAID 10优势 https://zh-tw.facebook.com/notes/cerio-service-center/%E5%A6%82%E4%BD%95%E9%81%B8%E6%93%87%E8%87%AA%E5%B7%B1%E9%9C%80%E8%A6%81%E7%9A%84raid%E6%A8%A1%E5%BC%8F/10151279223314892/
+增加了pg 9.5专用参数max_wal_size = 1GB (9.5)
+min_wal_size = 80MB (9.5)
+wal_keep_segments = 1000 (9.5)
+废除了一个参数checkpoint_segments = 128-256  (below 9.5) 
 {% endhighlight %}
 
 ##### 其它设置
@@ -195,8 +207,11 @@ $ pg_ctl reload -D data #当配置文件改变时，使用. 这样数据库不�
     http://www.postgresql.org/docs/9.3/static/sql-createrole.html
     http://www.postgresql.org/docs/9.3/static/sql-alterrole.html
     http://www.postgresql.org/docs/9.2/static/app-createuser.html 
-    # ALTER ROLE davide WITH PASSWORD 'hu8jmn3';
-
+    # /usr/local/pgsql/bin/psql -d postgres -U postgres
+    # CREATE ROLE someuser SUPERUSER CREATEDB CREATEROLE LOGIN;
+    # ALTER ROLE someuser WITH PASSWORD 'hu8jmn3';
+    # ALTER ROLE someuser LOGIN;
+     
     
     # \q 退出psql
     
@@ -223,6 +238,8 @@ rails的database.yml中pool应填写puma的max_threads值, rails启动后会按p
 再SELECT count(*) FROM pg_stat_activity where client_addr= 'IP_of_WEB';(返回40, 即workers * min_threads = 5 * 8 = 40个).
 页面卡的问题一下子就解决了, 数据库CPU也正常了.
 
+* 任何一个查询都会占用1个CPU。慢的SQL会100%的占用CPU若干秒(用top查看)。所以CPU负荷大可能就是慢SQL过多。优化掉就OK了。
+
 ## 备份
 如果有大表，备份费力，可以通过如下方式剔除
 $ pg_dump -U postgres -Fc --exclude-table='big_table_name|not_important_big_table_name' your_production > your_production_20150728
@@ -233,13 +250,13 @@ $ pg_restore -l some_production_0410 > 0401.list # 用这个-l可以看到这个
 $ sudo -u postgres(or lane) createuser xxx
 
 一个完整的数据库备份和还原的过程:
-### 原数据库机器21
+### 原数据库机器
 ```bash
 $ cd /srv/database_backup
 $ nohup /usr/local/pgsql/bin/pg_dump -U postgres -Fc some_production > some_production_0410 &
 ```
 
-#### 新数据库机器130
+#### 新数据库机器
 ```bash
 $ sudo -u postgres /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ status
 $ sudo -u postgres /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ restart -m f # 带这两个参数才能正常的重启, 否则有client连接在是无法顺利关闭的
@@ -254,9 +271,11 @@ $ nohup sudo -u postgres /usr/local/pgsql/bin/pg_restore -d some_production < /s
 ### pgBadger
 * 官方的包在CentOS上我发现无法解压
 {% highlight bash %}
-cd /root/pgbadger/
-pgbadger --prefix 'postgresql.conf里面log_line_prefix的值(如'%t [%p]: [%l-1] ')' /path/to/your/pglog/*.log -o out.html
-pgbadger --prefix '[%t/ %u/ %d/ %p]-' /root/pgbadger-master/logs_from_21/postgresql-Wed_1042.log -o out_20160413_1.html
+$ cd /root/pgbadger-master
+$ pgbadger --prefix 'postgresql.conf里面 log_line_prefix 的值(如'%t [%p]: [%l-1] ')' /path/to/your/pglog/*.log -o out.html
+$ pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pgdata95/pg_log/postgresql-Mon.log -o out_20160530.html
+$ scp root@173.130.1.132:/root/pgbadger-master/out_20160530.html ./ 
+$ pgbadger --prefix '[%t/ %u/ %d/ %p]-' /root/pgbadger-master/logs_from_21/postgresql-Wed_1042.log -o out_20160413_1.html
 {% endhighlight %}
 
 ### 性能查看
