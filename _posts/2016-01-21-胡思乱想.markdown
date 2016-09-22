@@ -13,7 +13,7 @@ https://github.com/gazeldx
 Good at designing and implementing high-concurrency system, improving database performance.  
 Hard-working and code perfectionist.  
 Good learning new skills ability.  
-Sponsorship required to work in the US  
+Sponsorship required to work in the US.
 
 ##WORK EXPERIENCE
 ### Ruby Leader Developer
@@ -41,7 +41,7 @@ GimisTech LTD-May 2005 to September 2008
 
 Hohai University(2001 to 2005). Bachelor in Computer Science  
 
-### ADDITIONAL INFORMATION
+### SKILLS
 
 #### Ruby  
 Experience, years Level Last used, year  
