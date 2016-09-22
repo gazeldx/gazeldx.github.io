@@ -48,7 +48,7 @@ Experience, years Level Last used, year
 Rails 6 Expert 2016  
 Grape 5 Expert 2016  
 Slim 6 Expert 2016  
-rbenv 2 Expert 2016 
+rbenv 2 Expert 2016   
 RVM 4 Expert 2015  
 Pundit 2 Expert 2016  
 Redis 2 Expert 2016  
@@ -79,7 +79,7 @@ Express 2 Senior 2016
 Underscore 2 Senior 2016  
 Handlebars 2 Senior 2016  
 redis 2 Senior 2016  
-Sequelize 1 Advanced 2016 
+Sequelize 1 Advanced 2016  
 React & React-Native 1 Experienced 2016  
 Ember.js 1 Experienced 2015  
 Meteor 1 Experienced 2015  
@@ -98,7 +98,7 @@ Python 1 Experienced 2016
 Experience, years Level Last used, year  
 PostgreSQL 6 Expert 2016  
 Redis 2 Senior 2016  
-MySQL 1 Senior 2013 
+MySQL 1 Senior 2013  
 MongoDB 1 Advanced 2012  
 MS-SQL 2 Advanced 2012  
 Sysbase 2 Advanced 2010  
@@ -123,7 +123,7 @@ FreeSwitch 2 Experienced 2016
 #### Others  
 Experience, years Level Last used, year  
 bootstrap 4 Expert 2016  
-RESTful APIs 2 Senior 2016 
-Scrum 1 Senior 2013 
-Android 1 Experienced 2016 
+RESTful APIs 2 Senior 2016  
+Scrum 1 Senior 2013  
+Android 1 Experienced 2016  
 ...
