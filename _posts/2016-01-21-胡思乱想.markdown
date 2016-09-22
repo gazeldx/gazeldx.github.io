@@ -64,7 +64,7 @@ Haml 1 Senior 2013
 RSpec 1 Senior 2015  
 Capybara 1 Senior 2015  
 Sequel 2 Senior 2016  
-NewRelic 1 Senior 2013 
+NewRelic 1 Senior 2013  
 Chef 1 Advanced 2013  
 ...  
  
