@@ -16,6 +16,12 @@ $ yum install man #用于查看各种软件的使用手册
 $ yum info man #查看man这软件的说明
 ```
 
+rpmforge的源更牛, 如果elrepo的源找不到, 就用rpmforge的源
+```bash
+$ wget http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+$ rpm -Uvh rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+```
+
 ###
 ```bash
 $ su -c 'yum provides javac' #查看哪个包提供javac

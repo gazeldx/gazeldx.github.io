@@ -5,6 +5,8 @@ date:   2015-07-17 08:16:42
 categories: Nginx
 ---
 
+一个教程: https://openresty.org/download/agentzh-nginx-tutorials-zhcn.html
+
 {% highlight bash %}
 $ killall -HUP nginx # 无缝重启Nginx（对于修改了Nginx配置的时候很有用）
 {% endhighlight %}

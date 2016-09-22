@@ -44,6 +44,7 @@ http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
 ```bash
 $ find / -type f -name '*.iso' #查找iso普通文件    
 $ find / -type f -size +500000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }' # 查询所有大小大于500M的文件
+$ find DIR_NAME -type f | wc -l # 遍历某个目录, 显示该目录下的文件数量
 ```
 
 `$ grep -i rack Gemfile.lock # 从一个文件中搜索相关文字, 本例是从Gemfile.lock中查找所有包含rack这个字符串的行`

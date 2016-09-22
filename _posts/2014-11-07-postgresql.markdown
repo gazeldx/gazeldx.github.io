@@ -191,7 +191,7 @@ $ pg_ctl reload -D data #当配置文件改变时，使用. 这样数据库不�
     
     $ psql --version # 查看pg版本
     
-    # \dt # List all tables.
+    # \dt+ # List all tables.
     
     # \d+ schema_migrations # Show DDL of a table
     
@@ -271,7 +271,7 @@ $ nohup sudo -u postgres /usr/local/pgsql/bin/pg_restore -d some_production < /s
 ### pgBadger
 * 官方的包在CentOS上我发现无法解压
 {% highlight bash %}
-$ cd /root/pgbadger-master
+$ cd /root/pgbadger-master  # /home/soft/pgbadger-8.1
 $ pgbadger --prefix 'postgresql.conf里面 log_line_prefix 的值(如'%t [%p]: [%l-1] ')' /path/to/your/pglog/*.log -o out.html
 $ pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pgdata95/pg_log/postgresql-Mon.log -o out_20160530.html
 $ scp root@173.130.1.132:/root/pgbadger-master/out_20160530.html ./ 

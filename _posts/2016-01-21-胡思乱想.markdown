@@ -5,6 +5,128 @@ date:   2015-11-30 15:05:25
 categories: thought
 ---
 
-## 如果在程序员领域能有助产师就好了
-做项目就像生孩子。
+{% highlight ruby %}
+Lane Zhang
+Ruby & JavaScript full stack. High performance. Successful and high concurrency project experience.
+Suzhou, CN
+zjloveztt at gmail.com - 8613812700842
+https://github.com/gazeldx
+Good at designing and implementing high-concurrency system, improving database performance.  
+Hard-working and code perfectionist.  
+Good learning new skills ability.
+Sponsorship required to work in the US
+WORK EXPERIENCE
 
+Ruby Leader Developer
+Unified Communication - Suzhou, CN-March 2014 to Present
+Built Call Center 3(called CC3) SaaS with RoR.  
+CC3 is a successful high concurrency project.  
+I have responsibility for designing most WEB features and implementing them.
+Ruby Leader Developer
+Junde(Shinetech) Inc-October 2012 to December 2013
+Built the offshore develop team for our USA client. 
+MebPro is an medical system based on RoR. Via MebPro, doctors can provide service online and by phone call. 
+http://shinescrum.com/ => https://github.com/gazeldx/scrum/ v1.x is built by myself.
+Java & Ruby Web Developer
+Atech Information Technology-June 2010 to August 2012
+Designed and implemented Atech ERP for restaurants. 
+ERP includes BPM, CRM etc. I also implemented the Web CMS for booking foods from restaurants.
+Java & Web Developer
+ZTE Corp-October 2008 to April 2010
+Designed and implemented WEB Portal architecture. Distributed on SUSE Linux.
+Java & Web Developer
+GimisTech LTD-May 2005 to September 2008
+1 LBS Web for Jiangsu Mobile. 2 Web GPS System for engineering vehicles. 3 Web for judicial parole management.
+EDUCATION
+
+Bachelor in Computer Science
+Hohai University
+2001 to 2005
+
+ADDITIONAL INFORMATION
+
+Ruby  
+Experience, years Level Last used, year  
+Rails 6 Expert 2016  
+Grape 5 Expert 2016  
+Slim 6 Expert 2016  
+rbenv 2 Expert 2016 
+RVM 4 Expert 2015  
+Pundit 2 Expert 2016  
+Redis 2 Expert 2016  
+Puma 3 Expert 2016  
+GitLab 2 Expert 2016  
+Bunny 2 Expert 2016  
+Sneakers 2 Expert 2016  
+will_paginate 6 Expert 2016  
+CarrierWave 6 Expert 2016  
+Faraday 2 Expert 2016  
+Sinatra 4 Senior 2016  
+Haml 1 Senior 2013  
+RSpec 1 Senior 2015  
+Capybara 1 Senior 2015  
+Sequel 2 Senior 2016  
+NewRelic 1 Senior 2013 
+Chef 1 Advanced 2013  
+...  
+ 
+JavaScript  
+Experience, years Level Last used, year  
+jQuery 8 Expert 2016  
+Faye(WebSocket) 2 Expert 2016  
+amqp 2 Expert 2016  
+Node.js 2 Senior 2016  
+CoffeeScript 6 Senior 2016  
+Express 2 Senior 2016  
+Underscore 2 Senior 2016  
+Handlebars 2 Senior 2016  
+redis 2 Senior 2016  
+Sequelize 1 Advanced 2016 
+React & React-Native 1 Experienced 2016  
+Ember.js 1 Experienced 2015  
+Meteor 1 Experienced 2015  
+AngularJS 1 Experienced 2015  
+...  
+ 
+Other Languages  
+Experience, years Level Last used, year  
+Java 5 Senior 2015  
+SQL 11 Senior 2016  
+Bash 4 Advanced 2016  
+Python 1 Experienced 2016  
+...  
+ 
+Database  
+Experience, years Level Last used, year  
+PostgreSQL 6 Expert 2016  
+Redis 2 Senior 2016  
+MySQL 1 Senior 2013 
+MongoDB 1 Advanced 2012  
+MS-SQL 2 Advanced 2012  
+Sysbase 2 Advanced 2010  
+Oracle 2 Advanced 2009  
+...  
+ 
+OS  
+Experience, years Level Last used, year  
+CentOS 2 Senior 2016  
+Debian 3 Senior 2015  
+MacOS 4 Senior 2016  
+...  
+ 
+Software  
+Experience, years Level Last used, year  
+Git 5 Senior 2016  
+Nginx 5 Senior 2016  
+RabbitMQ 2 Advanced 2016  
+FreeSwitch 2 Experienced 2016  
+...  
+ 
+Others  
+Experience, years Level Last used, year  
+bootstrap 4 Expert 2016  
+RESTful APIs 2 Senior 2016 
+Scrum 1 Senior 2013 
+Android 1 Experienced 2016 
+...
+{% endhighlight %}
