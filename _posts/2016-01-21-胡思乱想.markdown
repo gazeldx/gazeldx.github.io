@@ -8,39 +8,38 @@ categories: thought
 ## Lane Zhang
 ### Ruby & JavaScript full stack. High performance. Successful and high concurrency project experience.
 Suzhou, CN
-zjloveztt at gmail.com - 8613812700842
-https://github.com/gazeldx
+zjloveztt at gmail.com - 8613812700842  
+https://github.com/gazeldx  
 Good at designing and implementing high-concurrency system, improving database performance.  
 Hard-working and code perfectionist.  
-Good learning new skills ability.
-Sponsorship required to work in the US
-WORK EXPERIENCE
+Good learning new skills ability.  
+Sponsorship required to work in the US  
 
+##WORK EXPERIENCE
 ### Ruby Leader Developer
-Unified Communication - Suzhou, CN-March 2014 to Present
+Unified Communication - Suzhou, CN-March 2014 to Present  
 Built Call Center 3(called CC3) SaaS with RoR.  
 CC3 is a successful high concurrency project.  
-I have responsibility for designing most WEB features and implementing them.
+I have responsibility for designing most WEB features and implementing them.  
 ### Ruby Leader Developer
-Junde(Shinetech) Inc-October 2012 to December 2013
-Built the offshore develop team for our USA client. 
-MebPro is an medical system based on RoR. Via MebPro, doctors can provide service online and by phone call. 
+Junde(Shinetech) Inc-October 2012 to December 2013  
+Built the offshore develop team for our USA client.   
+MebPro is an medical system based on RoR. Via MebPro, doctors can provide service online and by phone call.   
 http://shinescrum.com/ => https://github.com/gazeldx/scrum/ v1.x is built by myself.
 ### Java & Ruby Web Developer
-Atech Information Technology-June 2010 to August 2012
-Designed and implemented Atech ERP for restaurants. 
+Atech Information Technology-June 2010 to August 2012  
+Designed and implemented Atech ERP for restaurants.   
 ERP includes BPM, CRM etc. I also implemented the Web CMS for booking foods from restaurants.
 ### Java & Web Developer
-ZTE Corp-October 2008 to April 2010
-Designed and implemented WEB Portal architecture. Distributed on SUSE Linux.
+ZTE Corp-October 2008 to April 2010  
+Designed and implemented WEB Portal architecture. Distributed on SUSE Linux.  
 ### Java & Web Developer
-GimisTech LTD-May 2005 to September 2008
-1 LBS Web for Jiangsu Mobile. 2 Web GPS System for engineering vehicles. 3 Web for judicial parole management.
-EDUCATION
+GimisTech LTD-May 2005 to September 2008  
+1 LBS Web for Jiangsu Mobile. 2 Web GPS System for engineering vehicles. 3 Web for judicial parole management.  
 
-Bachelor in Computer Science
-Hohai University
-2001 to 2005
+###EDUCATION
+
+Hohai University(2001 to 2005). Bachelor in Computer Science  
 
 ### ADDITIONAL INFORMATION
 
