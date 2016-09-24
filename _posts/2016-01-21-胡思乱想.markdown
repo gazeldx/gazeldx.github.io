@@ -20,28 +20,29 @@ Sponsorship required to work in the US.
 
 ### Ruby Leader Developer
 
-Unified Communication - Suzhou, CN-March 2014 to Present  
-Built Call Center 3(called CC3) SaaS with RoR.  
+Unified Communication - Suzhou, CN-November 2014 to Present  
+I built Call Center 3(called CC3) SaaS with RoR.  
 CC3 is a successful high concurrency project.  
 I have responsibility for designing most WEB features and implementing them. 
  
 ### Ruby Leader Developer
 
-Junde(Shinetech) Inc-October 2012 to December 2013  
-Built the offshore develop team for our USA client.   
+Junde(Shinetech) Inc-March 2013 to October 2014  
+I built the offshore RoR team for our US client.   
 MebPro is an medical system based on RoR. Via MebPro, doctors can provide service online and by phone call.   
 http://shinescrum.com/ => https://github.com/gazeldx/scrum/ v1.x is built by myself.
 
 ### Java & Ruby Web Developer
 
-Atech Information Technology-June 2010 to August 2012  
-Designed and implemented Atech ERP for restaurants.   
-ERP includes BPM, CRM etc. I also implemented the Web CMS for booking foods from restaurants.
+Atech Information Technology-June 2010 to February 2013  
+I designed and implemented Atech ERP for restaurants by Java.   
+ERP includes BPM, CRM etc.   
+I also implemented the Web CMS for booking foods from restaurants by RoR.
 
 ### Java & Web Developer
 
 ZTE Corp-October 2008 to April 2010  
-Designed and implemented WEB Portal architecture. Distributed on SUSE Linux.  
+I designed and implemented WEB Portal architecture which was distributed on SUSE Linux.  
 
 ### Java & Web Developer
 
