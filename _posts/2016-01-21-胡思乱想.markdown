@@ -1,11 +1,12 @@
 ---
 layout: post
-title:  "Lane's resume"
-date:   2016-09-22 18:26:25
+title:  "胡思乱想"
+date:   2015-09-22 18:26:25
 categories: thought
 ---
 
 ## Lane Zhang
+
 ### Ruby & JavaScript full stack. High performance. Successful and high concurrency project experience.
 Suzhou, CN
 zjloveztt at gmail.com - 8613812700842  
@@ -15,35 +16,46 @@ Hard-working and code perfectionist.
 Good learning new skills ability.  
 Sponsorship required to work in the US.
 
-##WORK EXPERIENCE
+## WORK EXPERIENCE
+
 ### Ruby Leader Developer
+
 Unified Communication - Suzhou, CN-March 2014 to Present  
 Built Call Center 3(called CC3) SaaS with RoR.  
 CC3 is a successful high concurrency project.  
-I have responsibility for designing most WEB features and implementing them.  
+I have responsibility for designing most WEB features and implementing them. 
+ 
 ### Ruby Leader Developer
+
 Junde(Shinetech) Inc-October 2012 to December 2013  
 Built the offshore develop team for our USA client.   
 MebPro is an medical system based on RoR. Via MebPro, doctors can provide service online and by phone call.   
 http://shinescrum.com/ => https://github.com/gazeldx/scrum/ v1.x is built by myself.
+
 ### Java & Ruby Web Developer
+
 Atech Information Technology-June 2010 to August 2012  
 Designed and implemented Atech ERP for restaurants.   
 ERP includes BPM, CRM etc. I also implemented the Web CMS for booking foods from restaurants.
+
 ### Java & Web Developer
+
 ZTE Corp-October 2008 to April 2010  
 Designed and implemented WEB Portal architecture. Distributed on SUSE Linux.  
+
 ### Java & Web Developer
+
 GimisTech LTD-May 2005 to September 2008  
 1 LBS Web for Jiangsu Mobile. 2 Web GPS System for engineering vehicles. 3 Web for judicial parole management.  
 
-###EDUCATION
+### EDUCATION
 
 Hohai University(2001 to 2005). Bachelor in Computer Science  
 
 ### SKILLS
 
 #### Ruby  
+
 Experience, years Level Last used, year  
 Rails 6 Expert 2016  
 Grape 5 Expert 2016  
@@ -69,6 +81,7 @@ Chef 1 Advanced 2013
 ...  
  
 #### JavaScript  
+
 Experience, years Level Last used, year  
 jQuery 8 Expert 2016  
 Faye(WebSocket) 2 Expert 2016  
@@ -87,6 +100,7 @@ AngularJS 1 Experienced 2015
 ...  
  
 #### Other Languages  
+
 Experience, years Level Last used, year  
 Java 5 Senior 2015  
 SQL 11 Senior 2016  
@@ -95,6 +109,7 @@ Python 1 Experienced 2016
 ...  
  
 #### Database  
+
 Experience, years Level Last used, year  
 PostgreSQL 6 Expert 2016  
 Redis 2 Senior 2016  
@@ -106,13 +121,15 @@ Oracle 2 Advanced 2009
 ...  
  
 #### OS  
+
 Experience, years Level Last used, year  
 CentOS 2 Senior 2016  
 Debian 3 Senior 2015  
 MacOS 4 Senior 2016  
 ...  
  
-#### Software  
+#### Software
+  
 Experience, years Level Last used, year  
 Git 5 Senior 2016  
 Nginx 5 Senior 2016  
@@ -120,7 +137,9 @@ RabbitMQ 2 Advanced 2016
 FreeSwitch 2 Experienced 2016  
 ...  
  
-#### Others  
+#### Others 
+ 
+ 
 Experience, years Level Last used, year  
 bootstrap 4 Expert 2016  
 RESTful APIs 2 Senior 2016  
