@@ -25,6 +25,7 @@ LANG="zh_CN.UTF-8"
     $ ps aux | grep postgres # 查看postgres的进程
     $ NUM=`ps M <pid> | wc -l | xargs` && expr $NUM - 1 #Mac下查看一个process下的线程数
     $ ps -ef|grep defunct 或者 ps -A -o stat,ppid,pid,cmd | grep -e '^[Zz]' # 查找僵尸进程zombie,查出的defunct的进程就是僵尸.
+    $ lsof -Pnl +M -i4 | grep 5135 # 查看所有进程和端口。用grep筛选具体的某个端口, 如5135.
 ## System information
     $ cat /proc/cpuinfo
     $ df -H # disk info
