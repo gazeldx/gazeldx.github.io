@@ -4,6 +4,19 @@ title:  "NodeJS日记"
 date:   2015-03-21 08:16:42
 categories: Node
 ---
+
+# Beginners
+How to learn node? Just follow these links =>
+
+https://github.com/maxogden/art-of-node
+
+https://nodejs.org/en/docs/guides/
+
+https://nodejs.org/en/get-involved/
+
+https://nodeschool.io/
+
+
 ### 安装NodeJSv4.2.1时报错
     1、error /usr/src/node-v4.2.1/out/Release/obj.target/v8_base/deps/v8/src/accessors.o
     2、/usr/src/node-v0.12.7/out/Release/mksnapshot: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /usr/src/node-v0.12.7/out/Release/mksnapshot)

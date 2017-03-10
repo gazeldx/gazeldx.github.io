@@ -10,3 +10,11 @@ categories:
 
 # 日志
 * 在 /var/log/rabbitmq/rabbit@web1.log-20160103
+
+# Sneaker
+Sneakers里面的configuration中有threads数量, default value is 10. 
+
+So sneakers is multiple processes with multiple threads each process.
+
+## Please make sure the database connection pools of ActiveRecord has been set to 10!
+  

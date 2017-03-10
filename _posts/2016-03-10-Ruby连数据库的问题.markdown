@@ -20,6 +20,7 @@ Sequel.connect({ adapter:          'postgres',
 {% endhighlight %}
 
 # ActiveRecord
+## Puma
 同样, puma -w的值大于了pool,也会报同样的问题: ActiveRecord::ConnectionTimeoutError - could not obtain a database connection within 5 seconds. The max pool size is currently 5; consider increasing it
 {% highlight ruby %}
 ActiveRecord::Base.establish_connection(
@@ -34,3 +35,22 @@ ActiveRecord::Base.establish_connection(
 {% endhighlight %}
 pool的值应该和puma_max_threads一致.
 这里reaping_frequency不能少,可以确保数据库的自动重连.
+
+## Sneakers
+Sneakers里面的configuration中有threads数量, default value is 10. 
+
+So sneakers is multiple processes with multiple threads each process.
+
+### Please make sure the database connection pools of ActiveRecord has been set to the same value of threads in configuration of Sneakers(default should be 10)!
+
+## Refus_scheduler
+{% highlight ruby %}
+scheduler.every '3h' do
+  # do something every 3 hours
+end
+{% endhighlight %}
+
+Refus_scheduler is one process with multiple threads. 
+Each `.every` `.cron` etc will create a new thread.
+So database connections `pool` should be set to at least the threads count. 
+You should count the threads count by yourself.

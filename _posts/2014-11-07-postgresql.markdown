@@ -72,7 +72,7 @@ PATH=/usr/local/pgsql/bin:$PATH
 export PATH
 {% endhighlight %}
 
-* psql: could not connect to server: 没有到主机的路由  	Is the server running on host "172.30.1.130" and accepting TCP/IP connections on port 5432?
+* psql: could not connect to server: 没有到主机的路由  	Is the server running on host "172.32.1.130" and accepting TCP/IP connections on port 5432?
 是因为防火墙没关闭, 解决方法: 
 {% highlight bash %}
 /etc/init.d/iptables stop
