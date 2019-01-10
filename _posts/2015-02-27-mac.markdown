@@ -53,8 +53,13 @@ $ sudo xcode-select -switch /Library/Developer/CommandLineTools
 
 
 ### 其他
-在Teminal中提示 ： You have new mail 解决办法：
+* 在Teminal中提示 ： You have new mail 解决办法：
 http://stackoverflow.com/questions/22163102/you-have-mail-message-in-terminal-os-x
+
+* Macbook通过VPN连上服务器后，自带的Terminal 中中文显示为乱码解决方案：
+Terminal -> Preferences -> Profiles -> Advanced -> 去掉默认已勾选的'Set locale environment variables on startup'(倒数第二行) 即可。
+
+* Mac Open an app from an unidentified developer，方法就是在Finder中找到那个文件，然后点击Command后再打开它就好了。以后都可以双击自动打开了。
 
 ### 卸载MacKeeper
 这个东西和360干一样的事情：流氓软件变身杀毒软件。

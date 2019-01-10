@@ -1,0 +1,73 @@
+---
+layout: post
+title:  "CentOS"
+date:   2015-10-30 16:26:42
+categories: CentOS
+---
+### 拿到CentOS后第一步
+参考 http://elrepo.org/tiki/tiki-index.php
+CentOS 6
+`$ rpm -Uvh http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm`
+
+```
+$ yum -y update #This will update installed software on CentOS to the latest versions
+$ yum -y groupinstall 'Development Tools'
+$ yum install man #用于查看各种软件的使用手册
+$ yum info man #查看man这软件的说明
+```
+
+rpmforge的源更牛, 如果elrepo的源找不到, 就用rpmforge的源
+```bash
+$ wget http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+$ rpm -Uvh rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+```
+
+###
+```bash
+$ su -c 'yum provides javac' #查看哪个包提供javac
+$ vi /etc/sysconfig/i18n #Change language
+$ cat /etc/redhat-release #See Version
+```
+
+### 修改语言
+```bash
+$ echo $LANG
+$ vi /etc/sysconfig/i18n #修改为：LANG="en_US.UTF-8"
+$ source /etc/sysconfig/i18n #reload
+```
+
+### 修改主机名
+HOSTNAME=localhost.localdomain
+
+
+### yum install search ngrep没有找到相关可安装包  
+```bash
+$ sudo yum install epel-release #参考自 http://www.rackspace.com/knowledge_center/article/install-epel-and-additional-repositories-on-centos-and-red-hat
+$ sudo yum upgrade ca-certificates --disablerepo=epel #参考自 http://serverfault.com/questions/637549/epel-repo-for-centos-6-causing-error
+```
+
+### make报错
+make[1]: g++: Command not found
+```bash
+$ yum groupinstall 'Development Tools'
+```
+
+### 安装git报错 
+```
+$ yum update
+$ yum install git
+报错：No package git available.
+解决见： http://blog.csdn.net/laiahu/article/details/7516939
+git clone时报错： Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+fatal: Could not read from remote repository.
+可能是因为 公钥没有上传到gitlab上。解决见： https://help.github.com/articles/generating-ssh-keys/#platform-linux
+还是不行的话解决见： http://stackoverflow.com/questions/21518074/permission-denied-publickey-gssapi-keyex-gssapi-with-mic-on-openshift
+这时就要安装ruby了，因为rhc是要用rubygems的。见：https://rvm.io/
+Remove the keys: $ rhc sshkey-remove 
+https://developers.openshift.com/en/getting-started-rhel-centos.html#client-tools
+$ gem install rhc   
+这时你要在openshift.com注册了，不过reCAPTCHA是google提供的，要翻墙才行。可以用海bei的VPN。
+然后 https://help.github.com/articles/generating-ssh-keys/#platform-linux
+http://docs.openshift.com/online/user_guide/ssh_keys.html#tutorial-creating-and-uploading-ssh-keys
+$ rhc sshkey add mysshkey ~/.ssh/id_rsa.pub
+```

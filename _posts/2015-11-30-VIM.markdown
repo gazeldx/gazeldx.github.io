@@ -1,0 +1,21 @@
+---
+layout: post
+title:  "VIM"
+date:   2015-11-30 15:05:25
+categories: Vim
+---
+## 设置VIM
+### Mac下
+{% highlight bash %}
+$ touch ~/.vimrc
+$ vi ~/.vimrc # 加入以下内容:
+filetype on
+syntax on
+{% endhighlight %}
+这样就有了高亮了.
+
+## VIM常用的命令
+{% highlight vim %}
+yy # 拷贝本行
+p # 在本行后粘贴 P 是在本行前粘贴
+{% endhighlight %}

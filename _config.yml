@@ -1,7 +1,7 @@
 # Site settings
 title: 张健(Lane)的技术博客
 email: mail_zlj@163.com
-description: "张健(Lane)，专注Ruby，Linux和iOS APP开发"
+description: "张健(Lane)，专注Ruby, JavaScript"
 baseurl: ""
 url: "http://dapan.hk"
 # twitter_username: jekyll

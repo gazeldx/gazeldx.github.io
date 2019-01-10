@@ -5,10 +5,21 @@ date:   2015-07-17 08:16:42
 categories: Nginx
 ---
 
-```bash
+一个教程: https://openresty.org/download/agentzh-nginx-tutorials-zhcn.html
+
+{% highlight bash %}
 $ killall -HUP nginx # 无缝重启Nginx（对于修改了Nginx配置的时候很有用）
-```
+{% endhighlight %}
 
 * 如果出现403错误，即后台的 Permission Deny，可以尝试修改/etc/nginx/nginx.conf，将 `user root;` 加入。
 
+* 源码安装时, conf目录里的内容是要在`http{ include *.conf; }` 才会被加载的
 
+# Mac下
+{% highlight bash %}
+$ brew info nginx # 查看Nginx的一些信息
+$ nginx # 启动Nginx
+$ nginx -s stop # 停止Nginx
+$ nginx -s reload # 如果修改了/usr/local/etc/nginx/servers/下的配置,用本行可以加载一下.之后都不用重启就会立刻生效了(nginx will load all files in /usr/local/etc/nginx/servers/)
+$ ps -ef|grep nginx # 查看Nginx进程
+{% endhighlight %}

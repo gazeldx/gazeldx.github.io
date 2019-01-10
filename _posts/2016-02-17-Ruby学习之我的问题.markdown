@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "Ruby学习"
+date:   2016-02-17 15:19:36
+categories: Ruby
+---
+* Integer(2) String("abc") 这样的写法是含义是什么?
+
