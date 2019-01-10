@@ -30,7 +30,7 @@ categories: database PostgreSQL
     $ cd /usr/local/var/postgres
     $ rm postmaster.pid
     $ pg_ctl -D /usr/local/var/postgres status
-    $ 把取得的进程PID杀死，之后pg应该会自动重生！
+    $ 把取得的进程PID杀死，略等几秒后，pg应该会自动重生！
 
     $ mkdir /var/pgsql_socket/ 
     $ touch /private/tmp/.s.PGSQL.5432

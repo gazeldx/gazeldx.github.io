@@ -38,6 +38,8 @@ $ git push -u coding coding_local:master # Push to (coding master) remote branch
 {% endhighlight %}
 
 #### git branch
+http://nvie.com/posts/a-successful-git-branching-model/
+
 {% highlight bash %}
 $ git branch # View local branches
 $ git branch -r # View remote branches
@@ -59,7 +61,7 @@ $ git log <path/branch>
 
 #### git stash
 {% highlight bash %}
-$ 可以把一些改动先藏起来。这样就可以成功pull 代码了，否则可能报错有冲突，不让你pull。pull完代码后，再git stash apply stash@{id}，就可以把本地藏起来的改动合入本地，可能需要你解决一下冲突。
+$ 可以把一些改动先藏起来。这样就可以成功pull代码了，否则可能报错有冲突，不让你pull。pull完代码后，再git stash apply stash@{id}，就可以把本地藏起来的改动合入本地，可能需要你解决一下冲突。
 $ git stash list
 $ git stash show -p stash@{0} # 查看stash@{0}内容
 $ git stash apply stash@{0} # 将stash@{0}内容恢复到当前版本
@@ -71,3 +73,5 @@ https://help.github.com/articles/checking-out-pull-requests-locally/
 https://help.github.com/articles/merging-a-pull-request/
 $ git pull git://github.com/chenge/ruby-db-admin.git master # Merge from Pull request
 {% endhighlight %}
+
+#### 其它
