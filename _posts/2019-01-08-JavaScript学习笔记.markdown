@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "JavaScript"
+title:  "JavaScript学习笔记"
 date:   2019-01-08 10:26:24
 categories: gitLab
 ---
