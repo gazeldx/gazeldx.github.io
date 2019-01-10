@@ -8,7 +8,9 @@ permalink: /about/
 职业操守好，相信王阳明“致良知”学说。快速、高质量完成任务，达人成已。
 
 Ruby技术栈：Rails, Grape, Sinatra, Rspec, Slim, Puma ...
+
 JavaScript技术栈：NodeJS, ES6, ReactJS ...
+
 其它: PostgreSQL, Redis, RabbitMQ, Git, CentOS ...
 
 #### 个人项目
