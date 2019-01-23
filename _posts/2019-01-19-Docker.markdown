@@ -1,0 +1,49 @@
+---
+layout: post
+title:  "Docker"
+date:   2019-01-19 10:26:24
+categories: Docker
+---
+
+### Docker用途
+Docker在各种操作系统上作了一层Docker Engine，https://docs.docker.com/engine/docker-overview/ ，
+
+使得开发人员可以不再关注操作系统层面的操作，比如安装一个应用，如Redis，在Mac上要用`brew install redis`，
+Ubuntu上要用`apt-get ...` , CentOS上要用`yum install ...`。
+
+在Docker上作，我们只要面向docker，向docker hub上下载一个Redis image，这个image会生成实例Container，Container中安装着可被运行的Redis。
+
+
+### Docker上示例文章重点解读
+#### 解读 https://docs.docker.com/get-started/part4/#create-a-cluster
+
+当前我在Mac上，安装了完整的Docker，并且用Virtual Box创建了两个Linux的VM（其实是`docker-machine create --driver virtualbox myvm1`帮我自动创建的）。
+
+And made `myvm1` as the active machine. Then when I type `docker ....`, actually I was at the `myvm1`'s env.
+
+E.g: `docker image ls`, I see nothing. Good, this means I was really in `myvm1` env. When I switch to a new Terminal tab and type `docker image ls`, I see 4 images created at by Mac OS.
+
+#### OS
+Docker's generic base OS is Ubuntu.  
+
+### 遗留问题和我的解答
+* 常规应用（如Redis）的Base OS没有吗？那么运行它的操作系统是什么？配置文件如何修改？
+Answer: https://github.com/docker-library/redis/blob/7be79f51e29a009fefdc218c8479d340b8c4a5e1/5.0/Dockerfile
+
+For Redis, its base OS is Debian. 
+
+If you want a Redis running on CentOS, just search 'docker Redis CentOS' by Google. You'll get https://hub.docker.com/r/centos/redis/ .
+ 
+* 如何打包项目文件，生成项目image并push到docker hub上？
+Answer:
+ 
+1 Choose a base OS and programming language which you want. Default base OS is Ubuntu.
+
+2 `docker build` your project's image.
+
+3 `docker push` your project's image.
+
+
+ 
+
+

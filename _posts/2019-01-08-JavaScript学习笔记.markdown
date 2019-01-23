@@ -61,11 +61,9 @@ http://es6.ruanyifeng.com/#docs/function#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E5
 
 不适合场景：
 
-1 定义函数的方法; 
+1 定义函数的方法;  
 
-2 定义一个类。new的时候会报错：TypeError: Dog is not a constructor 
-
-3 动态的对象，比如当前的按钮。
+2 动态的对象，比如当前的按钮。
 
 箭头函数本身没有this,它用的this是指向函数定义生效时所在的对象的this(通常是外层对象). 普通函数有this，它指向当前对象的this.
 
