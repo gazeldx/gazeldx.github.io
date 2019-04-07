@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "RubyMine issues"
+date:   2019-02-02 10:26:24
+categories: RubyMine
+---
+
+#### Issue 1: bootsnap made RubyMine debug failed.
+This is the exception info:
+```ruby
+Fast Debugger (ruby-debug-ide 0.7.0.beta7, debase 0.2.3.beta2, file filtering is supported) listens on 0.0.0.0:55962
+Uncaught exception: undefined method `set_trace_flag_to_iseq' for Debase:Module
+/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/debase-0.2.3.beta2/lib/debase.rb:109:in `do_set_flags'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/debase-0.2.3.beta2/lib/debase.rb:103:in `load_iseq'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:21:in `require'
+/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:21:in `block in require_with_bootsnap_lfi'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/load_path_cache/loaded_features_index.rb:65:in `register'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:20:in `require_with_bootsnap_lfi'
+/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:29:in `require'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/activesupport-5.2.2/lib/active_support/dependencies.rb:291:in `block in require'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/activesupport-5.2.2/lib/active_support/dependencies.rb:257:in `load_dependency'
+/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/activesupport-5.2.2/lib/active_support/dependencies.rb:291:in `require'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:44:in `require_relative'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/compile_cache.rb:10:in `setup'
+/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap.rb:30:in `setup'
+	/Users/macuser/.rvm/gems/ruby-2.6.0@thinkingCMS/gems/bootsnap-1.3.2/lib/bootsnap/setup.rb:33:in `<top (required)>'
+	/Users/macuser/projects/mine/thinkingCMS/config/boot.rb:4:in `require'
+/Users/macuser/projects/mine/thinkingCMS/config/boot.rb:4:in `<top (required)>'
+	/Users/macuser/projects/mine/thinkingCMS/bin/rails:3:in `require_relative'
+	/Users/macuser/projects/mine/thinkingCMS/bin/rails:3:in `<top (required)>'
+
+Process finished with exit code 0
+```
+So I just comment `# require 'bootsnap/setup' # Speed up boot time by caching expensive operations.`, then it works.

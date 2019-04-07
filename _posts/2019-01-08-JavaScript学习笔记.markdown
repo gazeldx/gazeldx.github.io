@@ -49,7 +49,7 @@ let pup = Object.create2(dog); // 这个create2就基本上是ES6中Object.creat
 console.log(pup.wang); // OK,返回'WangWangWang!'
 
 let pup2 = {};
-pup2.prototype = dog; // 不行，不能直接让一个对象直接成为另一个对象的prototype。必须是function的prototype，function可以理解为类，其用于继承的属性在prototype中。或者用pup2.__prototype = dog. 或者Object.setPrototypeOf(pup2, dog)
+pup2.prototype = dog; // 不行，不能直接让一个对象直接成为另一个对象的prototype。必须是function的prototype，function可以理解为类，其用于继承的属性在prototype中。或者用pup2.__proto__ = dog. 或者Object.setPrototypeOf(pup2, dog)
 console.log(pup2.wang) //返回undefined。
 Object.setPrototypeOf(pup2, dog)
 console.log(pup2.wang); // 旺出来了。这是正解。 

@@ -23,11 +23,22 @@ And made `myvm1` as the active machine. Then when I type `docker ....`, actually
 
 E.g: `docker image ls`, I see nothing. Good, this means I was really in `myvm1` env. When I switch to a new Terminal tab and type `docker image ls`, I see 4 images created at by Mac OS.
 
+#### Other important articles
+https://docs.docker.com/engine/docker-overview/
+
+https://docs.docker.com/compose/rails/
+
+Here we can see how to cache ruby gems to speed up the image building (Cut 90% time off!)
+
+[Just look at my Dockerfile to see how to make gems cached](https://github.com/gazeldx/thinkingCMS/blob/master/Dockerfile)
+
+
 #### OS
 Docker's generic base OS is Ubuntu.  
 
 ### 遗留问题和我的解答
 * 常规应用（如Redis）的Base OS没有吗？那么运行它的操作系统是什么？配置文件如何修改？
+
 Answer: https://github.com/docker-library/redis/blob/7be79f51e29a009fefdc218c8479d340b8c4a5e1/5.0/Dockerfile
 
 For Redis, its base OS is Debian. 
