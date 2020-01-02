@@ -179,6 +179,65 @@ end
 ```
 Many people may think `super.run_load_hooks!` means `self.superclass.run_load_hooks!` That's wrong.
 
+* Prefer lambda to proc because lambda's `return` and passing `parameters` are good for more using condition.
+
+```ruby
+class MyClass
+  def initialize(value)
+    @x = value
+  end
+  
+  def my_method
+    @x  
+  end
+end
+
+object = MyClass.new(2)
+m = object.method(:my_method)
+m.call
+```
+
+```ruby
+class MyClass
+  class << self
+    puts self.object_id # 70137814629400
+  end
+end
+
+sc = MyClass.singleton_class
+puts sc.object_id # 70137814629400
+
+MyClass.class_eval do
+  # Will treat MyClass as a class. So current class is 'MyClass'.
+
+  def abc
+    puts "-- abc"
+  end
+
+  puts "#{self == MyClass}" # true
+end
+
+MyClass.instance_eval do
+  # Will treat MyClass as an object. So current class is 'sc'.
+  # Will define a method in class 'sc'.
+  def i_t
+    puts "-- i_t"
+  end
+
+  puts "#{self == MyClass}" # true
+end
+
+mc = MyClass.new
+mc.abc
+# mc.i_t # Will throw exception because 'i_t' is a method for MyClass. 'i_t' is defined in MyClass's singleton_class
+MyClass.i_t
+```
+
+* Do you know why the methods defined under the top level context `self is 'main'` can be used for all objects?
+
+Because in the top level context, the current class is `main`'s class: `Object`. That mean you're defining methods in class Object.
+
+
 
 
 

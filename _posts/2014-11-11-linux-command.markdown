@@ -4,6 +4,9 @@ title:  "Unix like常用的重要命令整理"
 date:   2014-10-27 08:16:42
 categories: websocket ruby
 ---
+# How to make your command line tools looks better
+Step 1. Install fish
+Step 2. Install https://github.com/junegunn/fzf
 
 # 最重要的故障排查
 ```bash
@@ -85,7 +88,7 @@ export PATH
 ```
 
 ## SCP
-$ scp id_rsa.pub root@132.43.1.22:./ # 把一个文件上传到服务器
+$ scp -P <port> id_rsa.pub root@132.43.1.22:./ # 把一个文件上传到服务器
 $ scp root@173.131.12.135:/root/production.log ./  #从服务器下载一个文件到当前目录
 If you want to use scp with port number specified, you can use `scp -P your_port_number`
 如果要实现自动的下载,这时就需要有不用输入密码的机制了. 只要执行下面的命令就可以了:

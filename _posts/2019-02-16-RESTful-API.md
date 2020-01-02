@@ -9,6 +9,9 @@ https://blog.apisyouwonthate.com/json-api-openapi-and-json-schema-working-in-har
 
 https://jsonapi.org/ for the json result.
 
+postman header 'Accept' value: 'application/json' can make response only json.
+
+or Rails routes: defaults format: :json do end
 
 
 

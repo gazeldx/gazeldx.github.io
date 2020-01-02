@@ -29,3 +29,6 @@ User has_many Groups
 ## DB Index
 Write like this `add_index :sometable, [:some_id], unique: true, where: 'dropped_at IS NULL'` can avoid create index on empty data.
 
+## stimulus
+https://github.com/stimulusjs/stimulus can be well used for combined frontend and backend projects. 
+

@@ -46,7 +46,7 @@ $ git branch -r # View remote branches
 $ git branch -d the_local_branch # Delete a local branch
 $ git push origin --delete develop # Delete a remote branch develop.
 如何在remote上创建一个branch？下面两句即是，参考自：http://stackoverflow.com/questions/1519006/how-do-you-create-a-remote-git-branch
-$ git checkout -b your_branch # 这句话不会修改任何代码。git pull才会。your_branch的内容是独立的。如果是新建的，则等于现在的内容。
+$ git checkout -b your_branch # 切换到your_branch，如果your_branch不存在就创建它。这句话不会修改任何代码。
 $ git push <remote-name> <branch-name> # E.g: git push origin your_branch
 {% endhighlight %}
 
@@ -63,7 +63,7 @@ $ git log <path/branch>
 {% highlight bash %}
 $ 可以把一些改动先藏起来。这样就可以成功pull代码了，否则可能报错有冲突，不让你pull。pull完代码后，再git stash apply stash@{id}，就可以把本地藏起来的改动合入本地，可能需要你解决一下冲突。
 $ git stash list
-$ git stash show -p stash@{0} # 查看stash@{0}内容
+$ git stash show -p stash@{0} # 查看stash@{0}内容.stash@{0}可用0替换。下同。
 $ git stash apply stash@{0} # 将stash@{0}内容恢复到当前版本
 {% endhighlight %}
 
@@ -74,4 +74,13 @@ https://help.github.com/articles/merging-a-pull-request/
 $ git pull git://github.com/chenge/ruby-db-admin.git master # Merge from Pull request
 {% endhighlight %}
 
-#### 其它
+#### git rebase
+https://gitbook.tw/chapters/rewrite-history/merge-multiple-commits-to-one-commit.html
+{% highlight bash %}
+$ git log --oneline
+$ git rebase -i <commit_id_or_branch_name> # commit_id_or_branch_name一般会选择用master。进入后，在界面中可以reorder(直接修改行的位置), squash(把若干commit合成一个)或（直接删除掉不需要的commit就可以删除commit了）
+$ 假如现在有两个分支同时开发，都基于master。现在branch_A先合入到master中了，这时在branch_B中应该git rebase -i master，然后`:q!`。如果有冲突，就修复冲突，然后把修复后的文件`git add`进来，然后
+$ git rebase --continue # 可能还有冲突，继续解决冲突，并git rebase --continue。最终会使得branch_B中的所有提交都在branch_A之后。所有人都这样做就完美了。
+$ git push origin your_branch -f # 要加-f才能提交成功
+{% endhighlight %}
+
