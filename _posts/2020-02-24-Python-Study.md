@@ -10,6 +10,7 @@ https://stackoverflow.com/questions/36901/what-does-double-star-asterisk-and-sta
 {% highlight python %}
 obj.__attr__ or vars(obj)
 dir(obj)
+type(obj)
 {% endhighlight %}
 
 #### IPYTHON
@@ -17,4 +18,3 @@ dir(obj)
 %load_ext autoreload
 %autoreload 2
 {% endhighlight %}
-

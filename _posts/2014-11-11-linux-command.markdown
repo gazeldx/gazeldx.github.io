@@ -89,7 +89,7 @@ export PATH
 
 ## SCP
 $ scp -P <port> id_rsa.pub root@132.43.1.22:./ # 把一个文件上传到服务器
-$ scp root@173.131.12.135:/root/production.log ./  #从服务器下载一个文件到当前目录
+$ scp root@your_server_ip:/root/production.log ./  #从服务器下载一个文件到当前目录
 If you want to use scp with port number specified, you can use `scp -P your_port_number`
 如果要实现自动的下载,这时就需要有不用输入密码的机制了. 只要执行下面的命令就可以了:
 `$ ssh-copy-id root@ip_b_machine # ip_b_machine是被登录的机器, 这样, 在执行了这条命令的机器上登录ip_b_machine就不用密码了`
