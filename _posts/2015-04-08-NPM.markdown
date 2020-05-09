@@ -5,7 +5,15 @@ date:   2015-04-08 08:16:42
 categories: NPM
 ---
 
+### Set npm proxy
+```bash
+npm config list
+npm config set proxy http://127.0.0.1:1087
+npm config set https-proxy http://127.0.0.1:1087
+cat ~/.npmrc
+```
 
+### Others
 ```bash
 $ mkdir your_project_name
 $ cd your_project_name

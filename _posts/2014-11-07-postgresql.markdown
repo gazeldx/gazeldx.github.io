@@ -260,7 +260,8 @@ $ nohup /usr/local/pgsql/bin/pg_dump -U postgres -Fc some_production > some_prod
 ```bash
 $ sudo -u postgres /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ status
 $ sudo -u postgres /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ restart -m f # 带这两个参数才能正常的重启, 否则有client连接在是无法顺利关闭的
-$ sudo -u postgres /usr/local/pgsql/bin/dropdb some_production
+$ createdb -U postgres django_spa_blog_dev # For Mac brew installed PG
+$ sudo -u postgres /usr/local/pgsql/bin/dropdb some_production # For linux
 $ sudo -u postgres /usr/local/pgsql/bin/createdb some_production
 $ cd /srv/db_35
 $ scp root@172.35.11.21:/srv/database_backup/some_production_20160412 ./

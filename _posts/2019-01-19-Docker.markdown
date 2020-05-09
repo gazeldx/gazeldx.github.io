@@ -13,6 +13,31 @@ Ubuntu上要用`apt-get ...` , CentOS上要用`yum install ...`。
 
 在Docker上作，我们只要面向docker，向docker hub上下载一个Redis image，这个image会生成实例Container，Container中安装着可被运行的Redis。
 
+### Helpful skills
+```bash
+docker image ls
+docker image prune
+
+docker container ls -a 
+docker container rm <tag or id, etc.>
+
+docker exec -it db_1 bash # Enter a shell of a container. db_1 is the name of the container.
+
+docker-compose build
+docker-compose up
+docker-compose ps
+docker-compose down
+```
+
+* For Django user, the service named `db_name` in `docker-compose.yml` should be referred properly in DATABASES = { 'default': { 'HOST': 'db_name' } } `settings.py`.
+```bash
+$ docker-compose run db_name bash
+then you can run belew command in a new container created from image 'db_name'
+$ psql
+```
+* click `docker - preferences - Resources - File Sharing +` can make a local folder shared for docker.
+* Change `Dockerfile` will cause `docker image build` created an new image.
+
 
 ### Docker上示例文章重点解读
 #### 解读 https://docs.docker.com/get-started/part4/#create-a-cluster
@@ -31,7 +56,6 @@ https://docs.docker.com/compose/rails/
 Here we can see how to cache ruby gems to speed up the image building (Cut 90% time off!)
 
 [Just look at my Dockerfile to see how to make gems cached](https://github.com/gazeldx/thinkingCMS/blob/master/Dockerfile)
-
 
 #### OS
 Docker's generic base OS is Ubuntu.  

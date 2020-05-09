@@ -5,6 +5,7 @@ date:   2019-01-08 10:26:24
 categories: JavaScript
 ---
 ## 基本语法
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript
 
 ### call apply bind区别
 见 https://www.youtube.com/watch?v=c0mLRpw-9rI
