@@ -5,6 +5,12 @@ date:   2020-03-31 21:11:11
 categories: rails
 ---
 
+Change config.yml.erb db_writer: need_to_set_as_sequel describe.
+lanezhang@lanezhangs-MacBook-Pro ~/p/r/c/dashboard (master) [1]> RAILS_ENV=production bundle exec rails assets:precompile
+rails aborted!
+NoMethodError: undefined method `to_sym' for nil:NilClass
+/Users/lanezhang/projects/ruby/code-dot-org-staging/lib/cdo/db.rb:76:in `sequel_connect'
+
 # 运维说明
 ## 排查问题
 发现无法访问网站时，先ssh登入服务器
@@ -14,7 +20,7 @@ categories: rails
 查看Rails服务是否开启：
 `ps -ef|grep 3000`看到
 
-`root      4532     1  0 Mar29 ?        00:06:22 ruby /root/.rbenv/versions/2.5.0/bin/thin start -a 0.0.0.0 -p 3000`说明Rails是开着的。
+`root     4532     1 15 18:56 pts/1    00:02:43 puma 3.12.0 (tcp://0.0.0.0:3000) [dashboard]`说明Rails是开着的。
 
 先通过执行`kill -9 4532`关掉它。`4532`是进程ID, 每次启动后都不一样。
 然后执行如下启动它。
@@ -24,17 +30,33 @@ nohup bin/dashboard-server  /dev/null 2>&1 &
 ```
 
 ## 重启Pegasus(Sinatra程序，次要程序，通过3099端口访问)
+`ps -ef|grep 3090`看到
 
+`root     24387     1  0 Mar29 ?        00:00:54 thin server (0.0.0.0:3090)`
+先通过执行`kill -9 24387`关掉它。`24387`是进程ID, 每次启动后都不一样。
+然后执行如下启动它。
+```bash
+cd /root/code-dot-org-staging/pegasus/
+thin start -p 3090 -d
+```
 
 ## 日志
 查看日志：
 ```bash
 tail -n 500 /var/log/messages
 tail -n 500 /root/code-dot-org-staging/nohup.out
+tail -f /var/log/nginx/error.log
 ```
 
+## 目前主要问题
+* 许多图片还没有经过缓存。缓存后加载速度可加快。
+* 许多js还没有经过压缩，导致初次加载时太慢。
+* Rails没有进行多进程处理，对并发处理不理想。
+* 注册和登录不能用。因为csrf问题。
+
 ## 关键问题解决方案
-* 访问网站太慢。
+### 访问网站太慢
+#### 原因1
 原因是网站引入的javascript文件没有经过缓存，每次都要加载。需要把Nginx配置正确。目前的Nginx配置是正确的，在`/etc/nginx/nginx.conf`中。
 大略是这样的：
 ```nginx
@@ -133,13 +155,7 @@ http {
 }
 ```
 
-## 目前主要问题
-* 许多图片还没有经过缓存。缓存后加载速度可加快。
-* 许多js还没有经过压缩，导致初次加载时太慢。
-* Rails没有进行多进程处理，对并发处理不理想。
-* 注册和登录不能用。因为csrf问题。
-
-# OSX Installation 
+# OSX Installation
 ```bash
 brew install redis
 brew install rbenv
@@ -290,7 +306,6 @@ $ yum install -y nginx
 $ systemctl start nginx # 'restart', 'stop' are also available.
 $ systemctl status nginx.service # Vew nginx status
 $ vim /etc/nginx/nginx.conf
-
 ```
 
 
@@ -298,9 +313,11 @@ log will be `tail -f /var/log/messages`.
 ## Changed code
 Slow is because js not cached. Follow https://mattbrictson.com/nginx-reverse-proxy-cache 
 
+### Configuration changes
+Add `optimize_webpack_assets: true` to `locals.yml`
+
 ### Dashboard changes
 `config/environment/production.rb`
-`config.action_dispatch.rack_cache = true` (This is not really used. Omit it)
 `config.log_level = debug`
 
 `dashboard/config/database.yml` line 55
@@ -312,12 +329,13 @@ dashboard_development
 line 11: dashboard_enable_pegasus: false
 
 `config.yml.erb`
+
+line 516: db_writer: mysql://root@localhost/
 line 407: pegasus_port: 3001
 
-`bin/dashboard-server` line 17: Add `-d` for thin to start as daemon.(May not used)
-`bin/dashboard-server` line 17: RAILS_ENV=production
+`bin/dashboard-server` line 17:
+`system "RAILS_ENV=production bundle exec #{rerun} puma -t 5:5 -w 4 -p #{CDO.dashboard_port}"`
 After run `bin/dashboard-server` please be patient to wait 1 minute to see the `Listening on 0.0.0.0:3000 ...`.
-`system "RAILS_ENV=production bundle exec #{rerun} thin start -a #{CDO.dashboard_host} -p #{CDO.dashboard_port}" -s 4 -d`
 
 `lib/cdo.rb` 
 line 94, 106: studio.code.org => studio.example.com
@@ -378,7 +396,7 @@ end
 
 ### JS part
 `nvm`
-`npm run build`
+`npm run build:dist`
 `src/templates/progress/ProgressBubble.jsx`
 line 267:
 'localhost-studio.code.org' for production. port 3000 for development
@@ -387,4 +405,20 @@ href={href.replace(
     'localhost-studio.code.org:3000',
     'studio.example.com'
 )}
+```
+
+### 其它说明
+#### 关于Build
+请一定读一下 `apps/docs/build.md`.
+
+#### 加载的js大文件没有经过压缩。
+* 用`npm run build:dist`生成的压缩后的目标文件`build/package/js/code-studio-commonwpf....js`，会被`ln -s`软链接到`dashboard/public/blockly/`，
+在`lib/cdo/asset_helper.rb`中会`dashboard/public/blockly/js/manifest.json`，`application.html.haml`中用到`webpack_asset_path`，会调用压缩后的js。
+* Add `optimize_webpack_assets: true` to `locals.yml`(这一步不能漏，否则调用的不是压缩后的文件)。
+
+####  检验public/assets/js下文件每次都是最新，不用缓存的办法
+修改`production.rb`中
+```ruby
+config.public_file_server.headers = {'Cache-Control' => "public, max-age=86400, s-maxage=43200"}改成
+config.public_file_server.headers = {'Cache-Control' => "no-cache"}
 ```
