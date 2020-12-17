@@ -8,6 +8,11 @@ categories: websocket ruby
 Step 1. Install fish
 Step 2. Install https://github.com/junegunn/fzf
 
+# Domain name (DNS)
+* dig - DNS lookup utility
+`dig mail.163.com`
+
+
 # 最重要的故障排查
 ```bash
 $ dd bs=64k count=4k if=/dev/zero of=test oflag=dsync # 测试硬盘性能, 产品服务器上这个值至少要达到100M

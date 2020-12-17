@@ -249,6 +249,12 @@ $ pg_restore -l some_production_0410 > 0401.list # 用这个-l可以看到这个
 报错role "xxx" does not exist解决办法：
 $ sudo -u postgres(or lane) createuser xxx
 
+Restore From `xxx.sql` (https://gist.github.com/syafiqfaiz/5273cd41df6f08fdedeb96e12af70e3b)
+```shell script
+createdb db_name
+$ $ psql -U <postgresql username> -d <db_name> -f <dump file that you want to restore like xxx.sql>
+```
+
 一个完整的数据库备份和还原的过程:
 ### 原数据库机器
 ```bash
@@ -366,3 +372,7 @@ FROM (
 WHERE S.procpid =a.pid
 and a.state ='active'
 ORDER BY lap DESC;
+
+## AWS RDS
+pg_dump and pg_restore
+https://gist.github.com/syafiqfaiz/5273cd41df6f08fdedeb96e12af70e3b

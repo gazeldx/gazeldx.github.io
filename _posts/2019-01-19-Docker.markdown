@@ -16,17 +16,22 @@ Ubuntu上要用`apt-get ...` , CentOS上要用`yum install ...`。
 ### Helpful skills
 ```bash
 docker image ls
-docker image prune
-
-docker container ls -a 
-docker container rm <tag or id, etc.>
-
-docker exec -it db_1 bash # Enter a shell of a container. db_1 is the name of the container.
+docker image prune 
 
 docker-compose build
 docker-compose up
 docker-compose ps
 docker-compose down
+
+docker build -t sometagname . # build a image from Dockerfile
+docker run --publish 80:8000 --detach --name container0 sometagname # Will create a container from image sometagname.
+--env-file .env 
+docker ps
+docker container ls -a
+<tag or id, etc.>
+docker exec -it container_name_or_id bash # Enter a shell of a container. 'container_name' is the name of the container or can be the container id.
+docker stop container_name_or_id
+docker start container_name_or_id
 ```
 
 * For Django user, the service named `db_name` in `docker-compose.yml` should be referred properly in DATABASES = { 'default': { 'HOST': 'db_name' } } `settings.py`.

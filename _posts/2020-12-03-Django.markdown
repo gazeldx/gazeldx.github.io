@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "Django skills"
+date:   2020-12-03 21:11:11
+categories: Django Python
+---
+
+### Migration
+```shell script
+python manage.py migrate --fake yourproject 0041 # Mark the migration as it is there.
+```
+
+```python
+style = models.CharField(default='classic')
+```
+Django's default for a Field is not set into Database column. It will be set by Django's code.
+
+So when we see this in migration script:
+```python
+migrations.AddField(
+    model_name='project',
+    name='style',
+    field=models.CharField(default='classic', max_length=20),
+    preserve_default=False,
+),
+```
+The `preserve_default` is `False`, so it is one-off code (more info: [Django migration-operations](https://docs.djangoproject.com/en/3.1/ref/migration-operations/)).
+
+

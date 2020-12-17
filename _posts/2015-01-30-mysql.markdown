@@ -11,9 +11,24 @@ $ unset TMPDIR
 
 $ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
 
-### Commands
+# Commands
+```shell script
+mysql.server start
+mysql.server stop
+mysql # Cli tool
 ```
-$ mysql.server start
-$ mysql.server stop
-$ mysql# Cli tool
+
+# Backup and restore
+https://dev.mysql.com/doc/refman/5.7/en/mysqldump-sql-format.html
+
+## Backup database 
+```shell script
+mysqldump --user root project_development > project_development_20200725.sql # This sql won't contain `CREATE DATABASE project_development` 
+mysqldump --databases project_development --user root > project_development_20200725.sql # This sql will contain `CREATE DATABASE project_development`
+```
+
+## Restore database
+```shell script
+mysqladmin --user=root create project_development # Needn't create database if you use the `mysqldump --databases` way to backup database.
+
 ```

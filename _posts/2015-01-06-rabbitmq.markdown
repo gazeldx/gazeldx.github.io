@@ -5,13 +5,17 @@ date:   2015-01-06 15:16:42
 categories: 
 ---
 
-* WEB在 http://127.0.0.1:15672/ user: guest password: guest
+```shell script
+brew install rabbitmq # May take a long time for installing elang. Maybe you can export an proxy to accelerate it.
+```
+
+* WEB在 `http://127.0.0.1:15672/` user: guest password: guest
 `$ /usr/local/sbin/rabbitmq-server -detached # 后台启动RabbitMQ-Server`
 
 # 日志
 * 在 /var/log/rabbitmq/rabbit@web1.log-20160103
 
-# Sneaker
+# Ruby Sneaker
 Sneakers里面的configuration中有threads数量, default value is 10. 
 
 So sneakers is multiple processes with multiple threads each process.

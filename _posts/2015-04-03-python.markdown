@@ -5,6 +5,15 @@ date:   2015-04-03 15:16:42
 categories: 
 ---
 
+To have a good format of a json result, we can do this:
+```python
+import requests
+import json
+response = requests.request()
+print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+```
+
+# With Ruby
 在Mac 悠仙美地系统中，貌似Ruby开发环境和Python开发环境无法共存。
 安装一些Python和Ruby都用到的包,比如json，Ruby报native extention的错。
 

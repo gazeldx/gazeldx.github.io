@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "Jira"
+date:   2020-12-04 21:11:11
+categories: Jira
+---
+
+# Relationships of Jira
+## Issue type
+* When a issue type is created, it is put into `default issue type schema` by default. 
+* issue types has schema. Here I call it `issue_type_schema`.
+
+## Issue type schema
+* `issue_type_schema` is a group of issue types.
+* `issue_types_schema` can be assigned to many projects, 
+  but a project can only has one `issue_types_schema`.
+
+## Project
+* You can pick only one `issue_type_schema` for a project.
+
+## Issue status
+* Issue status is an attribute of issue. E.g: `Backlog`, `In progress` or `Done` are some of the predefined issue statuses.
+
+## Workflow
+* A workflow is a group of `issue statuses`. E.g: You can define a custom workflow only contains these three issue statuses.
+* Jira has some predefined workflows.
+
+`Issue statuses` are finally assigned to an `issue type` by assigning workflow to that issue type in a project (must under a project).
+
+# Marketplace apps
+## Time in status
+* After you click install, it will ask you that it want to get some permissions from you.
+* After installed, a post page will display.
+* 
+ 
+
+
+
+
