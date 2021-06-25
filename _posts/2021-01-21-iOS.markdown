@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "iOS"
+date:   2020-12-04 21:11:11
+categories: Jira
+---
+
+# Hello world App
+* Create iOS app
+* Select story board
+* In `main.storyboard` file, drag and drop.
+* Run in Simulator.

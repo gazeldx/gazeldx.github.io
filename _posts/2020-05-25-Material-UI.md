@@ -39,3 +39,60 @@ https://material-ui.com/system/spacing/
 <Grid item xs={false}>
 </Grid>
 ```
+
+## Grid
+* When you want to put something on the left, but something on the right, you can use:
+```jsx harmony
+<Grid container justify="space-between" spacing={1}>
+  <Grid item>
+  </Grid>
+  <Grid item>
+  </Grid>
+</Grid>
+```
+
+* Look at this code:
+```jsx harmony
+<Grid container>
+  {/* Grid one */}
+  <Grid container item xs={12} md={8}>
+    <Grid>1</Grid>
+    <Grid>2</Grid>
+  </Grid>
+  
+  {/* Grid two */}
+  {/* Here whether has a `container` prop do matter. If no `container` prop, it's children will not align the previous Grid (Grid one). */}
+  <Grid item xs={12} md={4}>
+    <Grid>1</Grid>
+    <Grid>2</Grid>
+  </Grid>
+</Grid>
+```
+
+# Test
+* Test `withStyles`.
+
+```jsx harmony
+import { createShallow } from '@material-ui/core/test-utils';
+
+describe('<Issues />', () => {
+  let shallow;
+
+  beforeAll(() => {
+    shallow = createShallow({ dive: true });
+  });
+  
+  it('something', async () => {
+    mockListIssues(issuesRes);
+
+    const wrapper = shallow(
+      <ComponentToTest />,
+    );
+    
+    await waitForAsync();
+
+    chai.expect(wrapper.find(SomeInnerComponent).prop('issues')).to.have.lengthOf(1);
+  });
+
+})
+```

@@ -31,3 +31,4 @@ $ sudo xcode-select -switch /Library/Developer/CommandLineTools
 ### 移除Python
 http://stackoverflow.com/questions/3819449/how-to-uninstall-python-2-7-on-a-mac-os-x-10-6-4
 
+

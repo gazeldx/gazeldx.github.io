@@ -255,6 +255,12 @@ createdb db_name
 $ $ psql -U <postgresql username> -d <db_name> -f <dump file that you want to restore like xxx.sql>
 ```
 
+```bash
+pg_dump -h yourproject-qa.fd2411323.us-east-1.rds.amazonaws.com -U postgres -f yourproject_qa_20210119.sql yourproject_qa # Backup from AWS. Need to wait for several minutes which depends on the size of your db. 
+createdb yourproject_qa_20210119
+psql -d yourproject_qa_20210119 -f yourproject_qa_20210119.sql # Restore from `.sql`
+```
+
 一个完整的数据库备份和还原的过程:
 ### 原数据库机器
 ```bash

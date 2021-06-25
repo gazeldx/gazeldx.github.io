@@ -1,0 +1,10 @@
+---
+layout: post
+title:  "Android"
+date:   2021-02-21 07:47:11
+categories: Android
+---
+
+# Android functionality
+* How to turn on/off `dark mode`?
+A: For turn on it, `Settings -> Battery Saver -> On`. Then `Settings -> Display -> Theme -> Dark mode`.

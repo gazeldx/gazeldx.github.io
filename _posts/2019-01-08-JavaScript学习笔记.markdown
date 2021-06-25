@@ -74,5 +74,5 @@ http://es6.ruanyifeng.com/#docs/function#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E5
 (() => this.x ).bind({ x: 'inner' })() // 返回undefined。
 ```
 
-
-
+### JavaScript Regexp
+Regular expression visualizer: https://jex.im/regulex/

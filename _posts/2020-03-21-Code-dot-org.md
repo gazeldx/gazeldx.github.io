@@ -11,13 +11,18 @@ Two ways:
 2 Fix the bottom galaxy in React or in database link url change.
 
 # TODOs:
-
 * Remove this article from github.
 
 # 运维说明
 ## 排查问题
 发现无法访问网站时，先ssh登入服务器
 `ssh root@server_ip`
+
+`free -m` 看到如果 `free + buff/cache` 的和值相对 `total` 而言比较小，说明内存不足。需要重启。
+
+`reboot` 重启服务器。然后 `ssh root@server_ip`，然后 `nginx` 启动 Nginx.
+
+然后按如下步骤做 `重启Rails Dashboard (主程序)` 和 `重启Pegasus` 这两步。
 
 ## 重启Rails Dashboard (主程序)
 查看Rails服务是否开启：

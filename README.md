@@ -1,3 +1,3 @@
-张健(Lane)'s blog -> http://gazeldx.github.io/
+张健(Lane)'s blog -> https://gazeldx.github.io/
 ===================
-点击上面的连接可以直达我的个人博客。博客刚刚开始纪录，暂时内容不多。
+点击上面的连接可以直达我的个人博客。

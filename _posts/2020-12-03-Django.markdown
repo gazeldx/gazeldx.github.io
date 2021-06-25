@@ -6,13 +6,14 @@ categories: Django Python
 ---
 
 ### Migration
-```shell script
+```shell
 python manage.py migrate --fake yourproject 0041 # Mark the migration as it is there.
 ```
 
 ```python
 style = models.CharField(default='classic')
 ```
+
 Django's default for a Field is not set into Database column. It will be set by Django's code.
 
 So when we see this in migration script:
@@ -26,4 +27,38 @@ migrations.AddField(
 ```
 The `preserve_default` is `False`, so it is one-off code (more info: [Django migration-operations](https://docs.djangoproject.com/en/3.1/ref/migration-operations/)).
 
+#### Many to Many
+* A ManyToMany field, now you want to make it through a model, how to make it?
+https://stackoverflow.com/questions/26927705/django-migration-error-you-cannot-alter-to-or-from-m2m-fields-or-add-or-remove
 
+https://adriennedomingus.com/blog/django-adding-an-intermediate-model-to-a-manytomany-field-without-one
+
+[inspectdb](https://docs.djangoproject.com/en/1.11/howto/legacy-databases/#auto-generate-the-models)
+
+
+#### DB optimization
+https://docs.djangoproject.com/en/3.1/topics/db/optimization/
+
+https://docs.djangoproject.com/en/3.1/faq/models/#faq-see-raw-sql-queries
+
+##### Kill n + 1 query
+https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-related
+
+https://docs.djangoproject.com/en/3.0/ref/models/querysets/#django.db.models.prefetch_related_objects 
+
+https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-objects
+
+https://docs.djangoproject.com/en/3.0/ref/models/querysets/#django.db.models.query.QuerySet.defer
+
+##### 
+```python
+from itertools import chain
+queryset = queryset.filter(
+    github_account_id__in=chain(self.get_committer_ids(), self.get_reviewer_ids())
+)
+```
+Here `chain` need the value of `self.get_committer_ids()` and `self.get_reviewer_ids()`.
+That means database query will be invoked immediately after `self.get_committer_ids()` and `self.get_reviewer_ids()`.
+Invoked 2 times.
+
+`union` can help us avoid this problem.

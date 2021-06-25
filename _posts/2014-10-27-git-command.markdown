@@ -21,6 +21,8 @@ $ git cherry-pick a_commit # 把某个commit放到当前本地branch
 {% highlight bash %}
 $ git config --global user.email 'mail_zlj a-t 163.com' ＃Set email
 $ git config --global user.email #Show email
+$ git config --global user.name
+$ git config user.email # If we don't use the `--global`, that means we set in this git project we use another user.email. `git commit` and `git log` to see what difference. Then if it is displayed in GitHub, we can see another user is contributing if this email is an account of GitHub. 
 {% endhighlight %}
 
 #### git remote

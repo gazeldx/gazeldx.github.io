@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Jenkins"
+date:   2021-09-24 21:11:11
+categories: CI jenkins GitHub
+---
+
+# Integrate Jenkins with GitHub
+https://resources.github.com/whitepapers/practical-guide-to-CI-with-Jenkins-and-GitHub/
+https://docs.github.com/en/github/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks
+https://docs.github.com/en/rest/reference/repos#statuses
+https://www.jenkins.io/doc/book/pipeline-as-code/
+https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
+https://plugins.jenkins.io/github/#GitHubPlugin-GitHubhooktriggerforGITScmpolling
+https://github.com/alexanderkasten/test_runtime/blob/c5131ce6251a9317b34de8c6619a9cf29df41e01/Jenkinsfile
+
+According to [about-GitHub-webhooks](https://docs.github.com/en/github/extending-github/about-webhooks)
+and https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project ,
+please add GitHub webhook for Jenkins first.
+
+# User and Role
+If user have `Access Denied`, then you need to grant the user proper role.
+In `Configure Global Security`, choose `Jenkins’ own user database` and `Authorization`.

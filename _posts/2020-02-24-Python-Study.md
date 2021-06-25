@@ -18,3 +18,14 @@ type(obj)
 %load_ext autoreload
 %autoreload 2
 {% endhighlight %}
+
+##### IPython shortcuts
+Fn-Left or  Ctrl-a	Move cursor to the beginning of the line
+Fn-Right or Ctrl-e	Move cursor to the end of the line
+Option-Left Move cursor to previous word
+Option-Right Move cursor to next word
+
+Ctrl-k	Cut text from cursor to end of line
+Ctrl-u	Cut text from beginning of line to cursor
+Ctrl-y	paste
+
