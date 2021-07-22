@@ -86,3 +86,9 @@ $ git rebase --continue # 可能还有冲突，继续解决冲突，并git rebas
 $ git push origin your_branch -f # 要加-f才能提交成功
 {% endhighlight %}
 
+#### Git tag
+```
+git tag -a v1.0.17 -m "My version v1.0.17"
+git push origin v1.0.17
+git push --delete origin v1.0.23
+```

@@ -29,3 +29,4 @@ Ctrl-k	Cut text from cursor to end of line
 Ctrl-u	Cut text from beginning of line to cursor
 Ctrl-y	paste
 
+

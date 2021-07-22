@@ -29,6 +29,7 @@ mysqldump --databases project_development --user root > project_development_2020
 
 ## Restore database
 ```shell script
+mysql -u root -p project_development < project_development_20200725.sql
+or
 mysqladmin --user=root create project_development # Needn't create database if you use the `mysqldump --databases` way to backup database.
-
 ```

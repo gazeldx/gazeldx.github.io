@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "Jenkins"
+date:   2021-07-16 21:11:11
+categories: JetBrain PyCharm
+---
+
+# Some useful settings
+* Settings | Editor | Strip trailing spaces on Save | All
+* Settings | Editor | Code style | Javascript | Use `Single Quote` `in new code`.
+* Settings | Editor | Code style | Javascript | Spaces | Within | ES6 import/export braces (Check it)
