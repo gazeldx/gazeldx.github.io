@@ -5,7 +5,37 @@ date:   2021-07-16 21:11:11
 categories: JetBrain PyCharm
 ---
 
-# Some useful settings
-* Settings | Editor | Strip trailing spaces on Save | All
-* Settings | Editor | Code style | Javascript | Use `Single Quote` `in new code`.
-* Settings | Editor | Code style | Javascript | Spaces | Within | ES6 import/export braces (Check it)
+# PyCharm
+Open `PyCharm`, then `File -> Open -> select '/path/to/sauron/' -> click 'Open'`.
+
+## PyCharm for backend
+### Python Interpreter
+`PyCharm -> Preferences -> Project:sauron -> Project Interpreter -> Click 'sauron' folder ->
+Project Interpreter -> Select the correct interpreter`.
+
+We suggest reading [pyenv-virtualenv](https://lane1472.medium.com/how-to-switch-python-environments-gracefully-use-pyenv-b1cc50a133e9) for the Python virtualenv.
+
+### Enable Django support
+`PyCharm -> Preferences -> Languages & Frameworks -> Django -> Click 'sauron' folder -> 
+Choose 'Enable Django support'`.
+* Set `Django project root` as `/path/to/sauron/api`.
+* Set `Settings` as `sauron/settings`.
+* Under `manager.py tasks`, set `Environment variables` as what you want if you need.
+* Click `OK`.
+
+### Run Django tests
+Please read [How to run Django tests in PyCharm](https://lane1472.medium.com/how-to-run-django-tests-in-pycharm-fccdfa718bbc).
+
+## PyCharm for frontend
+### Node package manager
+`PyCharm -> Preferences -> Languages & Frameworks -> Node.js & NPM -> Package manager -> Choose 'NPM' (not 'yarn')`
+
+Because in this way, we can make the ESLint integrate well with PyCharm.
+
+So please manually run `npm install` when new package added.
+If running `npm install` changes `./frontend/yarn.lock`, then revert the change to still use the original `yarn.lock`.
+ 
+## Other useful settings
+* Preferences | Editor | Strip trailing spaces on Save | All
+* Preferences | Editor | Code style | Javascript | Use `Single Quote` `in new code`.
+* Preferences | Editor | Code style | Javascript | Spaces | Within | ES6 import/export braces (Check it)
