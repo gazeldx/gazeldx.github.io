@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "NVM"
+date:   2021-09-24 21:11:11
+categories: NVM
+---
+
+# Install NVM by Homebrew
+The best way on Mac to install NodeJS may be via NVM (according to [Stackoverflow topic](https://stackoverflow.com/questions/28017374/what-is-the-suggested-way-to-install-brew-node-js-io-js-nvm-npm-on-os-x)).
+
+`brew install nvm`.
+
+### oh-my-fish
+https://github.com/oh-my-fish/oh-my-fish
+
+### nvm in fish
+https://github.com/derekstavis/plugin-nvm
+
+# Commands
+```shell
+nvm ls-remote # List available versions
+nvm install v14.17.3 # Install a specific NodeJS version
+```
+

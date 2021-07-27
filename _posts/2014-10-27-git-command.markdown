@@ -92,3 +92,20 @@ git tag -a v1.0.17 -m "My version v1.0.17"
 git push origin v1.0.17
 git push --delete origin v1.0.23
 ```
+
+#### Permission issues
+Run `git push origin PROJ-674` but got:
+```
+ERROR: Repository not found.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights, and the repository exists.
+```
+
+This repo in GitHub is a private repository.
+First, `ls ~/.ssh` to see if there are `id_rsa` and `id_rsa.pub` pairs.
+Actually, you can generate many pairs for different accounts by `ssh-keygen -t rsa`.
+
+Then add the `id_rsa.pub` or something like `id_rsa_2.pub` to GitHub [SSH and GPG keys](https://github.com/settings/keys).
+
+Then run `ssh-add ~/.ssh/id_rsa_2`.

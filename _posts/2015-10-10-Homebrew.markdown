@@ -15,3 +15,8 @@ $ brew search redis # 查找所有名称含redis的Formula
 $ brew info redis # 看看名称为redis的Formula的详细信息
 $ brew install redis # 安装redis
 {% endhighlight %}
+
+## Troubleshoots
+* `443` SSL connection issues for `raw.githubusercontent.com` or `github.com`, you can switch your VPN or SS to a good one (like in US) and
+  `export http_proxy=http://127.0.0.1:1087; export https_proxy=http://127.0.0.1:1087;`. 
+  You can test it by `curl raw.githubusercontent.com ...`.

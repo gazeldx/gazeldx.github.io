@@ -5,6 +5,21 @@ date:   2015-04-03 15:16:42
 categories: 
 ---
 
+### Venv
+https://docs.python.org/3/tutorial/venv.html
+https://docs.python.org/3/library/venv.html
+```shell
+cd /path/to/your/project
+python3 -m venv .venv # will create a folder named `.venv` under `/path/to/your/project`.
+which pip # You may see `/usr/bin/pip3`
+which python # See what?
+. .venv/bin/activate.fish # fish user do this
+which pip # You will see `/path/to/your/project/.venv/bin/pip3`
+which python # See what?
+```
+
+### Code Skills
+#### Json formatting
 To have a good format of a json result, we can do this:
 ```python
 import requests
@@ -13,7 +28,23 @@ response = requests.request()
 print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
 ```
 
-# With Ruby
+### IPYTHON
+{% highlight python %}
+%load_ext autoreload
+%autoreload 2
+{% endhighlight %}
+
+#### IPython shortcuts
+Fn-Left or  Ctrl-a	Move cursor to the beginning of the line
+Fn-Right or Ctrl-e	Move cursor to the end of the line
+Option-Left Move cursor to previous word
+Option-Right Move cursor to next word
+
+Ctrl-k	Cut text from cursor to end of line
+Ctrl-u	Cut text from beginning of line to cursor
+Ctrl-y	paste
+
+### With Ruby
 在Mac 悠仙美地系统中，貌似Ruby开发环境和Python开发环境无法共存。
 安装一些Python和Ruby都用到的包,比如json，Ruby报native extention的错。
 
@@ -26,9 +57,7 @@ print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators
 报gcc错误，无法编译，可以通过安装xcode develop commandLineTools后设置：
 $ sudo xcode-select -switch /Library/Developer/CommandLineTools
 
-
-
-### 移除Python
+#### 移除Python
 http://stackoverflow.com/questions/3819449/how-to-uninstall-python-2-7-on-a-mac-os-x-10-6-4
 
 
