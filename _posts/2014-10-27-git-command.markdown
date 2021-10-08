@@ -108,4 +108,19 @@ Actually, you can generate many pairs for different accounts by `ssh-keygen -t r
 
 Then add the `id_rsa.pub` or something like `id_rsa_2.pub` to GitHub [SSH and GPG keys](https://github.com/settings/keys).
 
-Then run `ssh-add ~/.ssh/id_rsa_2`.
+Then run `ssh-add -K ~/.ssh/id_rsa_2`.
+
+If have the error again after restarting, you may want to permanently add ssh private key. Please refer to 
+[permanently add ssh private key](https://apple.stackexchange.com/questions/48502/how-can-i-permanently-add-my-ssh-private-key-to-keychain-so-it-is-automatically) and 
+[SSH-keys-in-macOS-Sierra-keychain](https://github.com/jirsbek/SSH-keys-in-macOS-Sierra-keychain)
+
+```shell
+touch ~/.ssh/config # paste bellow into this file
+```
+```
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa_2
+```
+

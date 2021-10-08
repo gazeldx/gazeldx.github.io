@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "ESLint"
+date:   2021-07-27 21:11:11
+categories: ESLint
+---
+
+According to [stackoverflow article](https://stackoverflow.com/questions/37705440/eslint-is-not-recognized-as-an-internal-or-external-command)
+
+first install `eslint-cli` globally: `npm -g i eslint-cli`.
+
+you can see `eslint` are available to run in your bash.
+
+

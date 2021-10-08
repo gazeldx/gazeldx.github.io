@@ -1,9 +1,15 @@
 ---
 layout: post
-title:  "Jenkins"
+title:  "Jetbrains PyCharm & RubyMine"
 date:   2021-07-16 21:11:11
 categories: JetBrain PyCharm
 ---
+
+# JetBrain
+## Useful Shortcuts
+```text
+command + option + ` : Switch among different opened projects
+```
 
 # PyCharm
 Open `PyCharm`, then `File -> Open -> select '/path/to/sauron/' -> click 'Open'`.
