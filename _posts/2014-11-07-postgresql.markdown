@@ -185,6 +185,8 @@ log_statement = 'none' #这个属性代表记录sql的类型
 $ pg_ctl reload -D data #当配置文件改变时，使用. 这样数据库不会重启，只会发出一个信号，让其重新读取log
 
 ## 常用命令
+    $ sudo -u postgres psql 
+    $ \connect project_production # 切换数据库
     $ psql -d postgres # Login to postgres
     
     $ psql -l # List all databases

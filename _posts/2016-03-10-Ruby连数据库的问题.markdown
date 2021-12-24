@@ -43,6 +43,32 @@ So sneakers is multiple processes with multiple threads each process.
 
 ### Please make sure the database connection pools of ActiveRecord has been set to the same value of threads in configuration of Sneakers(default should be 10)!
 
+Like this:
+{% highlight ruby %}
+Sneakers.configure(
+  threads: 5, # Here I change it to 5 which is equal to ActiveRecord connection pool
+)
+
+ActiveRecord::Base.establish_connection(
+  pool: 5, # 5 too.
+)
+{% endhighlight %}
+But this is still not enough. When there is a big concurrency, you may still have that issue.
+
+So this would work:
+{% highlight ruby %}
+SNEAKER_THREADS = 5
+Sneakers.configure(
+  threads: SNEAKER_THREADS,
+  after_fork: -> {
+    puts " ==================  after_fork  ================"
+    ActiveRecord::Base.establish_connection(
+      pool: SNEAKER_THREADS,
+    )
+  }
+)
+{% endhighlight %}
+
 ## Refus_scheduler
 {% highlight ruby %}
 scheduler.every '3h' do

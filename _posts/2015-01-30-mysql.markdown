@@ -4,6 +4,7 @@ title:  "MySQL个人笔记"
 date:   2015-01-30 08:16:42
 categories: database mysql
 ---
+# 
 
 http://blog.neten.de/posts/2014/01/27/install-mysql-using-homebrew/
 
@@ -13,9 +14,18 @@ $ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" 
 
 # Commands
 ```shell script
-mysql.server start
-mysql.server stop
-mysql # Cli tool
+brew install mysql@5.6
+cd /usr/local/Cellar/mysql@5.6/5.6.51/bin
+./mysqld --initialize --explicit_defaults_for_timestamp
+mysql.server start # no sudo!
+mysql -h localhost -u root -p
+```
+
+```shell
+mysql> show databases;
+mysql> use a_database_name; # switch to a db.
+mysql> show tables;
+mysql> SHOW PROCESSLIST; 
 ```
 
 # Backup and restore
@@ -33,3 +43,7 @@ mysql -u root -p project_development < project_development_20200725.sql
 or
 mysqladmin --user=root create project_development # Needn't create database if you use the `mysqldump --databases` way to backup database.
 ```
+
+## Troubleshooting
+* For error `ERROR! The server quit without updating PID file`, refer to https://stackoverflow.com/a/36156848/639040 .
+* For `mysql2` native extension, refer to https://github.com/brianmario/mysql2/issues/1175 .

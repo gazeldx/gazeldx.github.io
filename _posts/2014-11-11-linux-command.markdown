@@ -4,6 +4,12 @@ title:  "Unix like常用的重要命令整理"
 date:   2014-10-27 08:16:42
 categories: websocket ruby
 ---
+
+## Basic command
+```shell
+sudo -i # In CentOS, if you are not a root user, use this command to become a root user.
+```
+
 # How to make your command line tools looks better
 Step 1. Install fish
 Step 2. Install https://github.com/junegunn/fzf
@@ -38,6 +44,15 @@ LANG="zh_CN.UTF-8"
     $ cat /proc/cpuinfo
     $ df -H # disk info
     $ df -T # 查看硬盘格式, 数据库服务器等最好用ext4, 效率更高
+
+## Networking
+https://superuser.com/questions/621870/test-if-a-port-on-a-remote-system-is-reachable-without-telnet
+
+```shell
+telnet ip port # 查看网络的连通性
+nc -zv 172.31.4.138 80 # netcat
+```
+
 ## netstat
 ```bash
 $ netstat -lnt # 查看启用的端口号
@@ -51,6 +66,7 @@ http://linux.vbird.org/linux_server/0140networkcommand.php#netstat
     
 ## find
 ```bash
+$ find / -name "pg_config" # 查找 pg_config 文件
 $ find / -type f -name '*.iso' #查找iso普通文件    
 $ find / -type f -size +500000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }' # 查询所有大小大于500M的文件
 $ find DIR_NAME -type f | wc -l # 遍历某个目录, 显示该目录下的文件数量

@@ -4,6 +4,12 @@ title:  "数据库优化"
 date:   2016-04-13 14:15:31
 categories: database
 ---
+# 高并发的设计
+* When a big table has a huge insertion, then if there are many queries, it will reduce the insertion performance because of the lock of table by query.
+So first, extract the huge table to many smaller tables, like daily tables: cdr_20210903.
+Then, do not query today's table, only query previous days' table.
+
+* 数据库引擎选取，取决于业务。有的数据库侧重于高性能写入，有的侧重于大并发查询。
 
 ### 查询优化
 * table index数量不宜过多。仅在查询比较多的column上创建index. string或text类型的字段创建索引效果比integer类型差很多。

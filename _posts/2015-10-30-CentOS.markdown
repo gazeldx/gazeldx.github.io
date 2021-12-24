@@ -4,6 +4,7 @@ title:  "CentOS"
 date:   2015-10-30 16:26:42
 categories: CentOS
 ---
+
 ### 拿到CentOS后第一步
 参考 http://elrepo.org/tiki/tiki-index.php
 CentOS 6
@@ -70,4 +71,9 @@ $ gem install rhc
 然后 https://help.github.com/articles/generating-ssh-keys/#platform-linux
 http://docs.openshift.com/online/user_guide/ssh_keys.html#tutorial-creating-and-uploading-ssh-keys
 $ rhc sshkey add mysshkey ~/.ssh/id_rsa.pub
+```
+
+# RPM and yum
+```shell
+rpm -qa | grep postgresql14-devel # To check if a package is installed.
 ```
