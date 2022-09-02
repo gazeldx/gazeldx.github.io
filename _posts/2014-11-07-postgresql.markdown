@@ -289,7 +289,7 @@ $ nohup sudo -u postgres /usr/local/pgsql/bin/pg_restore -d some_production < /s
 $ cd /root/pgbadger-master  # /home/soft/pgbadger-8.1
 $ pgbadger --prefix 'postgresql.conf里面 log_line_prefix 的值(如'%t [%p]: [%l-1] ')' /path/to/your/pglog/*.log -o out.html
 $ pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pgdata95/pg_log/postgresql-Mon.log -o out_20160530.html
-$ scp root@173.130.1.132:/root/pgbadger-master/out_20160530.html ./ 
+$ scp -P 22 root@173.130.1.132:/root/pgbadger-master/out_20160530.html ./ 
 $ pgbadger --prefix '[%t/ %u/ %d/ %p]-' /root/pgbadger-master/logs_from_21/postgresql-Wed_1042.log -o out_20160413_1.html
 {% endhighlight %}
 
@@ -383,4 +383,13 @@ ORDER BY lap DESC;
 
 ## AWS RDS
 pg_dump and pg_restore
-https://gist.github.com/syafiqfaiz/5273cd41df6f08fdedeb96e12af70e3b
+Refer to https://gist.github.com/syafiqfaiz/5273cd41df6f08fdedeb96e12af70e3b
+
+```shell
+pg_dump -h rds-server -d your_db_qa -U postgres -f your_db_qa_20220429.sql # backup
+psql -U postgres -d your_db_qa_20220429 -f your_db_qa_20220429.sql # Restore
+or compressed backup
+pg_dump -h -d project_name_qa -U postgres -Fc -f project_name_qa_20220506 # compressed backup
+createdb project_name_qa_20220506
+pg_restore -d project_name_qa_20220506 < project_name_qa_20220506 # Restore
+```

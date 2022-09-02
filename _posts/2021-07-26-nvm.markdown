@@ -20,5 +20,5 @@ https://github.com/derekstavis/plugin-nvm
 ```shell
 nvm ls-remote # List available versions
 nvm install v14.17.3 # Install a specific NodeJS version
+nvm alias default v14.17.3 # Set this version as the global default version.
 ```
-

@@ -13,10 +13,15 @@ Ubuntu上要用`apt-get ...` , CentOS上要用`yum install ...`。
 
 在Docker上作，我们只要面向docker，向docker hub上下载一个Redis image，这个image会生成实例Container，Container中安装着可被运行的Redis。
 
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+
+https://docs.docker.com/engine/reference/builder/
+
 ### Helpful skills
 ```bash
 docker image ls
-docker image prune 
+docker image prune
+docker image rm <image_name> # Remove an image
 
 docker-compose build
 docker-compose up
@@ -29,6 +34,7 @@ docker run --publish 80:8000 --detach --name container0 sometagname # Will creat
 docker ps
 docker container ls -a
 <tag or id, etc.>
+docker container rm container_name_or_id # Remove a container
 docker exec -it container_name_or_id bash # Enter a shell of a container. 'container_name' is the name of the container or can be the container id.
 docker stop container_name_or_id
 docker start container_name_or_id

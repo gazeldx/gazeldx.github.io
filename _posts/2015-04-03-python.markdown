@@ -29,10 +29,14 @@ print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators
 ```
 
 ### IPYTHON
-{% highlight python %}
-%load_ext autoreload
-%autoreload 2
-{% endhighlight %}
+```shell
+pip install ipython
+ipython
+python manage.py shell -i ipython # in django project
+
+load_ext autoreload
+autoreload 2
+```
 
 #### IPython shortcuts
 Fn-Left or  Ctrl-a	Move cursor to the beginning of the line

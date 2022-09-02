@@ -4,6 +4,11 @@ title:  "Mac"
 date:   2015-02-27 08:16:42
 categories: Mac
 ---
+## How to prevent Mac automatically sleeping or lockscreen
+* `Security and Privacy - Require password ...`
+* `Desktop and Screen saver - Screen saver - Show screen saver after ...`
+* `Power Adapter - Preven your Mac from automatically sleeping when the display is off`
+
 ## 待解决问题
 目前我XCode一直打不开，报错plugin错误。我查了下资料，说可能是一些plugin在新版本下兼容性的问题。要把相关plugins卸掉。
 需要尝试一下。

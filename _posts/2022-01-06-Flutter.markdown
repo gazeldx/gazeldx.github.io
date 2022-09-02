@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "Develop flutter on MacOS"
+date:   2022-01-06 09:45:41
+categories: Flutter
+---
+# Installation
+https://docs.flutter.dev/get-started/install/macos
+
+```shell
+cd ~/tools
+unzip ~/Downloads/flutter_macos_2.8.1-stable.zip
+vim ~/.zshrc # Add `export PATH="$PATH:~/tools/flutter/bin"` to this file. Then close and open a new terminal tab.
+flutter doctor
+```
+
+# Editor
+https://docs.flutter.dev/get-started/editor
+
+I use `Android Studio`.
+
+When I open `Android Studio` the first time, I saw a pop-up window `Unable to access Android SDK add-on list`.
+Then I set the Proxy to match my ShadowSocks configuration. Host name is `127.0.0.1`, port is `1087`. Then it works.
+
+# Create Flutter project
+* Click `New Flutter Project`.
+* Change the package name to make it unique.
+* 

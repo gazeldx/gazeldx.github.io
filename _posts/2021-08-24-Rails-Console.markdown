@@ -7,16 +7,17 @@ categories: Rails
 
 # Rails console Shortcuts
 https://catonmat.net/ftp/readline-emacs-editing-mode-cheat-sheet.pdf
+Ctrl + r => Search history command
 Ctrl + a => End of line
 Ctrl + e => Start of line
+Esc then B => Move back a word (should be quick to make it)
+Esc then F => Move forward a word
 Ctrl + l => Clear screen
 Ctrl + k => Cut text from cursor position till end of line
 Ctrl + u => Cut text from cursor position till start of line
 Ctrl + y => Paste text that was cut using above two shortcuts
 Ctrl + d => Delete a letter after cursor
 Ctrl + h => Delete a letter before cursor
-Esc then B => Move back a word
-Esc then F => Move forward a word
 
 According to [about-GitHub-webhooks](https://docs.github.com/en/github/extending-github/about-webhooks)
 and https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project ,

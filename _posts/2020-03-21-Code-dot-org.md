@@ -5,22 +5,33 @@ date:   2020-03-31 21:11:11
 categories: rails
 ---
 
-1.5 hours left
 Two ways:
 1 Add to header but remove the bottom galaxy.
 2 Fix the bottom galaxy in React or in database link url change.
 
-# TODOs:
-* Remove this article from github.
+# Time left: 2h
 
 # 运维说明
+## 简明排查问题版本
+这次发现Rails Web服务没有开，所以网页打不开了。
+先`ssh root@123.56.154.xxx`，后查看Rails Web服务是否开启，执行`ps -ef|grep 3000`。
+如果看到：`root     4532     1 15 18:56 pts/1    00:02:43 puma 3.12.0 (tcp://0.0.0.0:3000) [dashboard]` 说明Rails是开着的；
+如果没看到，说明没开，需要开一下，方法如下：
+```shell script
+cd /root/code-dot-org-staging
+nohup bin/dashboard-server  /dev/null 2>&1 &
+```
+等3分钟，就可以访问页面了。然后输入`exit`退出ssh.
+以后你们就这样操作，以防止我不方便操作。
+如果还是不行，请参考我之前发的文档进行操作。
+
 ## 排查问题
 发现无法访问网站时，先ssh登入服务器
 `ssh root@server_ip`
 
 `free -m` 看到如果 `free + buff/cache` 的和值相对 `total` 而言比较小，说明内存不足。需要重启。
 
-`reboot` 重启服务器。然后 `ssh root@server_ip`，然后 `nginx` 启动 Nginx.
+`reboot` 重启服务器。然后 `ssh root@server_ip`，然后执行 `nginx` 启动 Nginx.
 
 然后按如下步骤做 `重启Rails Dashboard (主程序)` 和 `重启Pegasus` 这两步。
 
@@ -54,6 +65,12 @@ thin start -p 3090 -d
 tail -n 500 /var/log/messages
 tail -n 500 /root/code-dot-org-staging/nohup.out
 tail -f /var/log/nginx/error.log
+```
+
+## 数据库备份
+```
+mysqldump --user root dashboard_development > dashboard_development_20220417.sql
+mysqldump --user root pegasus_development > pegasus_development_20220417.sql
 ```
 
 ## 目前主要问题
