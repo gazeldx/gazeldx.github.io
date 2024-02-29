@@ -8,8 +8,16 @@ categories: JetBrain PyCharm
 # JetBrain
 ## Useful Shortcuts
 ```text
-command + option + ` : Switch among different opened projects
+command + option + ` : Switch among different opened projects  
 ```
+
+### Join multiple lines' item to one line.
+`Ctrl + Shift + J`: Click the first item of an array first. Then, `Ctrl + Shift + J` to move next line to this line
+
+### Split one long line's items to multiple lines. 
+This is the reverse of `Ctrl + Shift + J`. 
+You can use `Find - Search - Replace` feature. 
+E.g. `Find - search (,) - replace with (, Enter)`. The `Enter` is a press of Enter key.
 
 # PyCharm
 Open `PyCharm`, then `File -> Open -> select '/path/to/sauron/' -> click 'Open'`.

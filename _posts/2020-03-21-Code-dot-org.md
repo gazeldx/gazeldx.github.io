@@ -5,11 +5,8 @@ date:   2020-03-31 21:11:11
 categories: rails
 ---
 
-Two ways:
-1 Add to header but remove the bottom galaxy.
-2 Fix the bottom galaxy in React or in database link url change.
-
 # Time left: 2h
+pass H3!
 
 # 运维说明
 ## 简明排查问题版本

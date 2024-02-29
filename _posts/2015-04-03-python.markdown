@@ -48,6 +48,8 @@ Ctrl-k	Cut text from cursor to end of line
 Ctrl-u	Cut text from beginning of line to cursor
 Ctrl-y	paste
 
+`%hist -g the_keywords` => Search the history command and filter by `the_keywords`. 
+
 ### With Ruby
 在Mac 悠仙美地系统中，貌似Ruby开发环境和Python开发环境无法共存。
 安装一些Python和Ruby都用到的包,比如json，Ruby报native extention的错。

@@ -38,6 +38,11 @@ docker container rm container_name_or_id # Remove a container
 docker exec -it container_name_or_id bash # Enter a shell of a container. 'container_name' is the name of the container or can be the container id.
 docker stop container_name_or_id
 docker start container_name_or_id
+
+docker system prune -a # When you build images, it will take your disk space for storing the cache. You can use this command to reclaim your space.
+
+docker tag 8f804fe0084d harley/great-repo1:latest # 8f804fe0084d is an existing `IMAGE ID`, you run it to create a new image which REPOSITORY is `harley/great-repo1` and TAG is `latest`. In this way, you don't need to build again and again.
+docker push harley/great-repo1:latest # push it to Docker hub
 ```
 
 * For Django user, the service named `db_name` in `docker-compose.yml` should be referred properly in DATABASES = { 'default': { 'HOST': 'db_name' } } `settings.py`.
