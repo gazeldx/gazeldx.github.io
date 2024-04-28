@@ -6,7 +6,9 @@ categories: Algorithm
 ---
 
 # The time complexity of the algorithm
+
 * Call function recursively. Example one:
+
 ```python
 def func(n):
     if n <= 1: return n
@@ -25,6 +27,7 @@ counts = {
 So for this example, the time complexity of the algorithm is 2^n or 2**n (exponent, exponential).
 
 * Call function recursively. Example two:
+
 ```python
 def func(n):
     if n <= 1: return n
