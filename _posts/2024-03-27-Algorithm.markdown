@@ -7,7 +7,8 @@ categories: Algorithm
 
 # The time complexity of the algorithm
 * Call function recursively. Example 1:
-```Python
+
+```python
 def func(n):
     if n <= 1: return n
 
@@ -21,10 +22,12 @@ counts = {
     '4': 2 * 2 * 2,
 }
 ```
+
 So for this example, the time complexity of the algorithm is 2^n or 2**n (exponent, exponential).
 
 * Call function recursively. Example 2:
-```Python
+
+```python
 def func(n):
     if n <= 1: return n
 
@@ -51,4 +54,5 @@ counts = {
     '17': 2 + 1 + 1 + 1,
 }
 ```
+
 So for this example, the time complexity of the algorithm is log_2(n) 以2为底n的对数 (logarithm, logarithmic).
