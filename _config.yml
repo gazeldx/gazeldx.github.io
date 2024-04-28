@@ -1,12 +1,14 @@
 # Site settings
-title: 张健(Lane)的技术博客
-email: mail_zlj@163.com
-description: "张健(Lane)，专注Ruby, JavaScript"
+title: 张健(Lane Zhang)'s technology blog
+email: zjloveztt@gmail.com
+description: "张健(Lane Zhang)，专注 Ruby, Python, JavaScript"
 baseurl: ""
-url: "http://dapan.hk"
+url: "https://github.com/gazeldx/gazeldx.github.io/blob/master/_posts/"
 # twitter_username: jekyll
 github_username:  gazeldx
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
+  input: GFM
 permalink: pretty
