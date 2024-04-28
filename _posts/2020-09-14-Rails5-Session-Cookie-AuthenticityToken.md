@@ -6,6 +6,7 @@ categories: Rails
 ---
 
 # session_store
+
 `config/initializers/session_store.rb`
 
 ```ruby
@@ -14,6 +15,7 @@ secure is set to true when https enabled.
 ```
 
 # LoginController
+
 ```ruby
 class LoginController < ActionController::Base
   # https://stackoverflow.com/questions/38331496/rails-5-actioncontrollerinvalidauthenticitytoken-error
