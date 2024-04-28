@@ -10,5 +10,4 @@ github_username:  gazeldx
 # Build settings
 markdown: kramdown
 highlighter: rouge
-  input: GFM
 permalink: pretty
