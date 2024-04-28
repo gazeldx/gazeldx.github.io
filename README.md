@@ -1,3 +1,5 @@
-张健(Lane)'s blog -> https://gazeldx.github.io/
+张健(Lane Zhang)'s blog -> https://gazeldx.github.io/
 ===================
-点击上面的连接可以直达我的个人博客。
+* Click the link above to see my blog.
+
+* This blog's source code is at [https://github.com/gazeldx/gazeldx.github.io/tree/master/_posts](https://github.com/gazeldx/gazeldx.github.io/tree/master/_posts).
