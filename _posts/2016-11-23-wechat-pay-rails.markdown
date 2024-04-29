@@ -13,9 +13,9 @@ categories: Rails Wechat
 
 然后把证书上传到服务器上, 之后修改`initialize/wx_pay.rb`
 
-{% highlight ruby %}
+```ruby
 WxPay.set_apiclient_by_pkcs12(File.read("/path/to/cert/apiclient_cert.p12"), WxPay.mch_id)
-{% endhighlight %}
+```
 
 ### 微信其它
 

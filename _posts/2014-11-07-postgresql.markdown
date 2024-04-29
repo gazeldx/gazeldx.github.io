@@ -13,8 +13,10 @@ $ df -T # 在安装前先查看硬盘格式, 数据库服务器等最好用ext4,
 ```
 
 ### CentOS
+
 ####  源码安装
-{% highlight bash %}
+
+```shell
 $ curl -O https://ftp.postgresql.org/pub/source/v9.5.2/postgresql-9.5.2.tar.gz
 $ tar zxvf postgresql-9.5.2.tar.gz
 $ cd postgresql-9.5.2
@@ -40,14 +42,18 @@ $ ./pg_ctl -D /usr/local/pgsql/data start #启动PostgreSQL
 $ ./pg_ctl -D /usr/local/pgsql/data restart #重启PostgreSQL
 如果pg无法重启,把 /usr/local/pgsql/data/postmaster.pid 删除就可以了正常启动了
 $ /opt/pgsql/9.5.2/bin/postmaster -D /pgdata95 # 这是另外一种启动方式
-{% endhighlight %}
+```
 
 #### 配置
 ##### PostgreSQL配置
+
 主要参考:
 https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server
+
 http://www.revsys.com/writings/postgresql-performance.html
-{% highlight bash %}
+
+
+```shell
 cd /usr/local/pgsql/data
 vim pg_hba.conf
 vim postgresql.conf
@@ -59,29 +65,33 @@ shared_buffers = 你机器内存的1/4
 min_wal_size = 80MB (9.5)
 wal_keep_segments = 1000 (9.5)
 废除了一个参数checkpoint_segments = 128-256  (below 9.5) 
-{% endhighlight %}
+```
 
 ##### 其它设置
-* 设置postgreSQL在CentOS reboot的时候自动启动
+
+* 设置postgreSQL在CentOS reboot的时候自动启动:
 把`/usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data start`加入到`/etc/rc.d/rc.local`中.
 
 * 把postgreSQL的bin目录加到PATH中
 修改~/.bash_profile, 加入如下内容:
-{% highlight bash %}
+
+```shell
 PATH=/usr/local/pgsql/bin:$PATH
 export PATH
-{% endhighlight %}
+```
 
 * psql: could not connect to server: 没有到主机的路由  	Is the server running on host "172.32.1.130" and accepting TCP/IP connections on port 5432?
-是因为防火墙没关闭, 解决方法: 
-{% highlight bash %}
+是因为防火墙没关闭, 解决方法:
+
+```shell
 /etc/init.d/iptables stop
 /etc/init.d/ip6tables stop
 chkconfig iptables off
 chkconfig ip6tables off
-{% endhighlight %}
+```
 
 #### 操作系统配置
+
 $ df -T # 查看硬盘格式, 数据库服务器等最好用ext4, 效率更高
 一、操作系统安装
 
@@ -110,6 +120,7 @@ PG软件目录：本地磁盘/opt/pgsql9.5 或 /usr/local/pgsql/
 
 ##### vi  /etc/sysctl.conf
 
+```
 * fs.aio-max-nr = 1048576
 * fs.file-max = 6815744
 
@@ -126,11 +137,12 @@ net.core.rmem_default = 262144
 net.core.rmem_max = 4194304
 net.core.wmem_default = 262144
 net.core.wmem_max = 1048576
-
+```
 
 ###### vi /etc/security/lmits.conf
 ###### End of file
 ###### pg limit new add
+
 postgres       soft    nproc           4096
 postgres       hard    nproc           16384
 postgres       soft    nofile          65535
@@ -140,6 +152,7 @@ postgres       hard    stack           32768
 
 
 ###### vi /etc/pam.d/login
+
 session required /lib/security/pam_limits.so
 
 2.postgresql调整
@@ -171,6 +184,7 @@ wal_writer_delay = 10ms                 # 1-10000 milliseconds
 + full_page_writes = off
 
 ##### Postgresql 开启Log分析
+
 http://daigong.sinaapp.com/?p=67
 log_min_duration_statement = 1000     # -1 不log sql  0 log 所有sql，如果大于1 ，以ms单位，记录超过该时间的sql，也就是我们说的查找sql中瓶颈
 
@@ -185,50 +199,56 @@ log_statement = 'none' #这个属性代表记录sql的类型
 $ pg_ctl reload -D data #当配置文件改变时，使用. 这样数据库不会重启，只会发出一个信号，让其重新读取log
 
 ## 常用命令
-    $ sudo -u postgres psql 
-    $ \connect project_production # 切换数据库
-    $ psql -d postgres # Login to postgres
-    
-    $ psql -l # List all databases
-    
-    $ psql --version # 查看pg版本
-    
-    # \dt+ # List all tables.
-    
-    # \d+ schema_migrations # Show DDL of a table
-    
-    # \du
-                                 List of roles
-     Role name |                   Attributes                   | Member of 
-    -----------+------------------------------------------------+-----------
-     someuser  | Superuser, Create role, Create DB              | {}
-     postgres  | Superuser, Create role, Create DB, Replication | {}
-     repluser  | Replication                                    | {}
-    
-    详细见:
-    http://www.postgresql.org/docs/9.3/static/sql-createrole.html
-    http://www.postgresql.org/docs/9.3/static/sql-alterrole.html
-    http://www.postgresql.org/docs/9.2/static/app-createuser.html 
-    # /usr/local/pgsql/bin/psql -d postgres -U postgres
-    # CREATE ROLE someuser SUPERUSER CREATEDB CREATEROLE LOGIN;
-    # ALTER ROLE someuser WITH PASSWORD 'hu8jmn3';
-    # ALTER ROLE someuser LOGIN;
-     
-    
-    # \q 退出psql
-    
-    # CREATE USER postgres SUPERUSER;# if you got error: ActiveRecord::NoDatabaseError: FATAL:  role "postgres" does not exist
-    http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
-  
-    http://stackoverflow.com/questions/10301794/difference-between-rake-dbmigrate-dbreset-and-dbschemaload
-    
-    select * from pg_stat_activity where datname = 'some_production'; # 查看clients
-    
+
+```shell
+$ sudo -u postgres psql 
+$ \connect project_production # 切换数据库
+$ psql -d postgres # Login to postgres
+
+$ psql -l # List all databases
+
+$ psql --version # 查看pg版本
+
+# \dt+ # List all tables.
+
+# \d+ schema_migrations # Show DDL of a table
+
+# \du
+                             List of roles
+ Role name |                   Attributes                   | Member of 
+-----------+------------------------------------------------+-----------
+ someuser  | Superuser, Create role, Create DB              | {}
+ postgres  | Superuser, Create role, Create DB, Replication | {}
+ repluser  | Replication                                    | {}
+
+详细见:
+http://www.postgresql.org/docs/9.3/static/sql-createrole.html
+http://www.postgresql.org/docs/9.3/static/sql-alterrole.html
+http://www.postgresql.org/docs/9.2/static/app-createuser.html 
+# /usr/local/pgsql/bin/psql -d postgres -U postgres
+# CREATE ROLE someuser SUPERUSER CREATEDB CREATEROLE LOGIN;
+# ALTER ROLE someuser WITH PASSWORD 'hu8jmn3';
+# ALTER ROLE someuser LOGIN;
+ 
+
+# \q 退出psql
+
+# CREATE USER postgres SUPERUSER;# if you got error: ActiveRecord::NoDatabaseError: FATAL:  role "postgres" does not exist
+http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
+
+http://stackoverflow.com/questions/10301794/difference-between-rake-dbmigrate-dbreset-and-dbschemaload
+
+select * from pg_stat_activity where datname = 'some_production'; # 查看clients
+```
+
 #### pg_hba.conf
-    这个重要，因为涉及到允许哪些ip地址的哪些用户以什么样的方式访问哪些数据库！
-    http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
+
+这个重要，因为涉及到允许哪些ip地址的哪些用户以什么样的方式访问哪些数据库！
+
+http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
 
 ## clients数量过多会导致postgresql直线性能下降
+
 在大并发时就会有问题.
 连接数据库的clients数量(用SELECT count(*) FROM pg_stat_activity;可以查看)在120内就够了. 不必过多, 够用就好. 
 因为clients都是进程,在postgresql的服务器上用`ps -ef|grep postgres` 可以看到,进程多了是实打实的消耗资源.
@@ -243,34 +263,43 @@ rails的database.yml中pool应填写puma的max_threads值, rails启动后会按p
 * 任何一个查询都会占用1个CPU。慢的SQL会100%的占用CPU若干秒(用top查看)。所以CPU负荷大可能就是慢SQL过多。优化掉就OK了。
 
 ## 备份
+
 如果有大表，备份费力，可以通过如下方式剔除
-$ pg_dump -U postgres -Fc --exclude-table='big_table_name|not_important_big_table_name' your_production > your_production_20150728
+`$ pg_dump -U postgres -Fc --exclude-table='big_table_name|not_important_big_table_name' your_production > your_production_20150728`
+
 ## 还原
+
+```shell
 $ sudo -u lane pg_restore -d some_development < some_db
 $ pg_restore -l some_production_0410 > 0401.list # 用这个-l可以看到这个pg_dump出来的文件有什么东西. 比如有哪些表, index等等. 方便你最后pg_restore完了比对下.
 报错role "xxx" does not exist解决办法：
 $ sudo -u postgres(or lane) createuser xxx
+```
 
 Restore From `xxx.sql` (https://gist.github.com/syafiqfaiz/5273cd41df6f08fdedeb96e12af70e3b)
-```shell script
+
+```shell
 createdb db_name
 $ $ psql -U <postgresql username> -d <db_name> -f <dump file that you want to restore like xxx.sql>
 ```
 
-```bash
+```shell
 pg_dump -h yourproject-qa.fd2411323.us-east-1.rds.amazonaws.com -U postgres -f yourproject_qa_20210119.sql yourproject_qa # Backup from AWS. Need to wait for several minutes which depends on the size of your db. 
 createdb yourproject_qa_20210119
 psql -d yourproject_qa_20210119 -f yourproject_qa_20210119.sql # Restore from `.sql`
 ```
 
 一个完整的数据库备份和还原的过程:
+
 ### 原数据库机器
+
 ```bash
 $ cd /srv/database_backup
 $ nohup /usr/local/pgsql/bin/pg_dump -U postgres -Fc some_production > some_production_0410 &
 ```
 
 #### 新数据库机器
+
 ```bash
 $ sudo -u postgres /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ status
 $ sudo -u postgres /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ restart -m f # 带这两个参数才能正常的重启, 否则有client连接在是无法顺利关闭的
@@ -284,56 +313,66 @@ $ nohup sudo -u postgres /usr/local/pgsql/bin/pg_restore -d some_production < /s
 
 ## 性能监控
 ### pgBadger
+
 * 官方的包在CentOS上我发现无法解压
-{% highlight bash %}
+
+```shell
 $ cd /root/pgbadger-master  # /home/soft/pgbadger-8.1
 $ pgbadger --prefix 'postgresql.conf里面 log_line_prefix 的值(如'%t [%p]: [%l-1] ')' /path/to/your/pglog/*.log -o out.html
 $ pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pgdata95/pg_log/postgresql-Mon.log -o out_20160530.html
 $ scp -P 22 root@173.130.1.132:/root/pgbadger-master/out_20160530.html ./ 
 $ pgbadger --prefix '[%t/ %u/ %d/ %p]-' /root/pgbadger-master/logs_from_21/postgresql-Wed_1042.log -o out_20160413_1.html
-{% endhighlight %}
+```
 
 ### 性能查看
-{% highlight sql %}
+
+```sql
 select indexrelname, pg_size_pretty(pg_relation_size(indexrelid)),*
 from pg_stat_user_indexes where schemaname='public' order by pg_relation_size(indexrelid) desc;
 
 select relname, pg_size_pretty(pg_relation_size(relid)) ,*
 from pg_stat_user_tables where schemaname='public' order by pg_relation_size(relid) desc;
-{% endhighlight %}
+```
 
 ## 其他
+
 Postgresql max integer 2100000000
 查看当前的clients
-$ SELECT usesysid, usename FROM pg_stat_activity;
+
+`$ SELECT usesysid, usename FROM pg_stat_activity;`
 
 ### greenplum
+
 http://greenplum.org/ 
 查询性能成为问题的时候可以考虑用它
 
 # Mac
 ## 故障处理
 
-    http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x
-    $ less /usr/local/var/postgres/postgresql.conf
-    $ ps aux|grep postgres
-    $ pg_ctl -D /usr/local/var/postgres status
-    $ pg_ctl -D /usr/local/var/postgres restart
-    
-    TroubleShoot: could not connect to server: No such file or directory Is the server running locally and accepting connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?
-    PG::ConnectionBad - could not connect to server: Connection refused
-    http://stackoverflow.com/questions/19828385/pgconnectionbad-could-not-connect-to-server-connection-refused
-    是因为关机时postgres没有正确的关闭！
-    $ cd /usr/local/var/postgres
-    $ rm postmaster.pid
-    $ pg_ctl -D /usr/local/var/postgres status
-    $ 把取得的进程PID杀死，略等几秒后，pg应该会自动重生！
+```shell
+http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x
+$ less /usr/local/var/postgres/postgresql.conf
+$ ps aux|grep postgres
+$ pg_ctl -D /usr/local/var/postgres status
+$ pg_ctl -D /usr/local/var/postgres restart
 
-    $ mkdir /var/pgsql_socket/ 
-    $ touch /private/tmp/.s.PGSQL.5432
-    $ ln -s /private/tmp/.s.PGSQL.5432 /var/pgsql_socket/
-    
+TroubleShoot: could not connect to server: No such file or directory Is the server running locally and accepting connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?
+PG::ConnectionBad - could not connect to server: Connection refused
+http://stackoverflow.com/questions/19828385/pgconnectionbad-could-not-connect-to-server-connection-refused
+是因为关机时postgres没有正确的关闭！
+$ cd /usr/local/var/postgres
+$ rm postmaster.pid
+$ pg_ctl -D /usr/local/var/postgres status
+$ 把取得的进程PID杀死，略等几秒后，pg应该会自动重生！
+
+$ mkdir /var/pgsql_socket/ 
+$ touch /private/tmp/.s.PGSQL.5432
+$ ln -s /private/tmp/.s.PGSQL.5432 /var/pgsql_socket/
+```
+
 ## Mac homebrew 安装完postgresql后的提示信息
+
+```
 Lanes-MacBook-Air-2:ucweb lane$ brew install postgresql
 ==> Downloading https://homebrew.bintray.com/bottles/postgresql-9.4.4.yosemite.bottle.tar.gz
 ######################################################################## 100.0%
@@ -355,8 +394,11 @@ Or, if you don't want/need launchctl, you can just run:
   postgres -D /usr/local/var/postgres
 ==> Summary
 🍺  /usr/local/Cellar/postgresql/9.4.4: 3014 files, 40M
+```
 
 ## EXPLAIN
+
+```
 psql# EXPLAIN SELECT  "customers".* FROM "customers"  WHERE "customers"."company_id" = 64023 AND "customers"."act" IS NULL  ORDER BY "customers"."id" DESC;
                                                QUERY PLAN                                                
 ---------------------------------------------------------------------------------------------------------

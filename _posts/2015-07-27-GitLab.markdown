@@ -17,15 +17,17 @@ Host your_gitlab.your_domain.com
 Port your_port
 
 ### 方法二
-{% highlight bash %}
+
+```shell
 $ vim /etc/gitlab/gitlab.rb
-$ 修改external_url
-$ 搜素worker，把unicorn workers 设置为CPU核数+1
-$ 搜索ssh，把port=your_port打开，阿里云可能不是22端口，需要设置正确，改完后，页面上某个项目的ssh地址就变成了 ssh://git@ip:port/zhangjian/nodesl.git
+修改external_url
+# 搜素worker，把unicorn workers 设置为CPU核数+1
+# 搜索ssh，把port=your_port打开，阿里云可能不是22端口，需要设置正确，改完后，页面上某个项目的ssh地址就变成了 ssh://git@ip:port/zhangjian/nodesl.git
 $ gitlab-ctl reconfigure
-{% endhighlight %}
+```
 
 ## gitLab和RedMine互通
+
 http://your_gitlab.your_domain.com/some_programmer/some_project/services/redmine/edit
 
 Project -> Settings -> Services -> RedMine

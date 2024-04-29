@@ -57,3 +57,5 @@ counts = {
 ```
 
 So for this example, the time complexity of the algorithm is log_2(n) 以2为底n的对数 (logarithm, logarithmic).
+
+* Ruby code `a_array.include?(target)` could be slow. Use other ways if necessary.

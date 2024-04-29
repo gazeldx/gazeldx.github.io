@@ -8,7 +8,8 @@ categories: Ruby
 
 # Sequel
 和puma连用,如果报Sequel::PoolTimeout错误,可能是的puma -t的max_threads的值大于了max_connections的值(默认为4, 见 http://sequel.jeremyevans.net/rdoc/classes/Sequel/ThreadedConnectionPool.html ).
-{% highlight ruby %}
+
+```ruby
 Sequel.connect({ adapter:          'postgres',
                 user:             Settings.database.username,
                 password:         Settings.database.password,
@@ -17,12 +18,13 @@ Sequel.connect({ adapter:          'postgres',
                 pool_class:       Sequel::ThreadedConnectionPool,
                 database:         Settings.database.name,
                 max_connections:  100 })
-{% endhighlight %}
+```
 
 # ActiveRecord
 ## Puma
 同样, puma -t的值大于了pool,也会报同样的问题: ActiveRecord::ConnectionTimeoutError - could not obtain a database connection within 5 seconds. The max pool size is currently 5; consider increasing it
-{% highlight ruby %}
+
+```ruby
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
   host:     Settings.database.host,
@@ -32,19 +34,21 @@ ActiveRecord::Base.establish_connection(
   pool: puma_max_threads,
   reaping_frequency: 30
 )
-{% endhighlight %}
-pool的值应该和puma_max_threads一致.
-这里reaping_frequency不能少,可以确保数据库的自动重连.
+```
+pool 的值应该和 puma_max_threads 一致.
+这里 reaping_frequency 不能少,可以确保数据库的自动重连.
 
 ## Sneakers
-Sneakers里面的configuration中有threads数量, default value is 10. 
+
+Sneakers 里面的 configuration 中有 threads 数量, default value is 10. 
 
 So sneakers is multiple processes with multiple threads each process.
 
 ### Please make sure the database connection pools of ActiveRecord has been set to the same value of threads in configuration of Sneakers(default should be 10)!
 
 Like this:
-{% highlight ruby %}
+
+```ruby
 Sneakers.configure(
   threads: 5, # Here I change it to 5 which is equal to ActiveRecord connection pool
 )
@@ -52,11 +56,13 @@ Sneakers.configure(
 ActiveRecord::Base.establish_connection(
   pool: 5, # 5 too.
 )
-{% endhighlight %}
+```
+
 But this is still not enough. When there is a big concurrency, you may still have that issue.
 
 So this would work:
-{% highlight ruby %}
+
+```ruby
 SNEAKER_THREADS = 5
 Sneakers.configure(
   threads: SNEAKER_THREADS,
@@ -67,14 +73,15 @@ Sneakers.configure(
     )
   }
 )
-{% endhighlight %}
+```
 
 ## Refus_scheduler
-{% highlight ruby %}
+
+```ruby
 scheduler.every '3h' do
   # do something every 3 hours
 end
-{% endhighlight %}
+```
 
 Refus_scheduler is one process with multiple threads. 
 Each `.every` `.cron` etc will create a new thread.
