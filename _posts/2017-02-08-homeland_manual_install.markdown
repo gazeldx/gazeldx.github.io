@@ -13,7 +13,7 @@ Homeland官方已经有基于Docker的自动化安装的说明了, 手动安装�
 
 3 可以帮助你在本地开发环境上搭建homeland, 进而二次开发。
 
-{% highlight bash %}
+```shell
 git clone https://github.com/ruby-china/homeland.git
 cd homeland
 现在要安装gem了。
@@ -22,5 +22,5 @@ cd homeland
 gem install bundler
 bundle
 gem安装完了, 这个时候你会发现 config/database.yml 文件还没有存在于源代码中, 所以请把它创建好。
-{% endhighlight %}
+```
 

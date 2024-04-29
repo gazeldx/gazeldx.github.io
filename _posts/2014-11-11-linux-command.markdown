@@ -85,10 +85,11 @@ $ uname -r
 打开`~/.bash_profile`可以看到它在最后一行. 修改`~/.bash_profile`可以调整$PATH的顺序.
 
 在linux下修改~/.bash_profile, 加入如下内容可以把你想要的folder加到PATH中:
-{% highlight bash %}
+
+```
 PATH=/usr/local/pgsql/bin:$PATH:$HOME/bin
 export PATH
-{% endhighlight %}
+```
 
 ## 设置时钟
 参考http://linux.vbird.org/linux_server/0440ntp.php
@@ -97,10 +98,11 @@ $ hwclock -w; # 更新Bios的时间，使得其与本地时间保持一致
 ntp伺服器普通情况下不太用得到，就像上面这样设置一下一般就可以了。
 
 ## Cron jobs
-{% highlight bash %}
-$ crontab -l # user的cron jobs list
-$ crontab -e # 编辑user的cron jobs
-{% endhighlight %}
+
+```shell
+crontab -l # user的cron jobs list
+crontab -e # 编辑user的cron jobs
+```
 
 因为Cron不会自动把所有的$PATH加载，所以要`vim ~/.bash_profile`，确保node的执行文件所在的目录（`$ which node`所返回的结果，CentOS中是`/usr/local/bin`）在$PATH中。如果没在，请把以下内容加入到`~/.bash_profile`
 ```
@@ -126,7 +128,8 @@ $ gzip -d logger2.log.gz # 解压缩
 
 ## 日志相关
 ### logrotate
-{% highlight bash %}
+
+```shell
 $ touch /etc/logrotate.d/myrails #配置一下
 $ vim /etc/logrotate.d/myrails
 /path/to/myrails/log/production.log {
@@ -139,41 +142,48 @@ $ vim /etc/logrotate.d/myrails
   copytruncate
 }
 $ logrotate -vf /etc/logrotate.d/myrails # 立刻生成一下
-{% endhighlight %}
+```
 
 ## NFS
 http://linux.vbird.org/linux_server/0330nfs.php#nfsserver
 
 ### client
-{% highlight bash %}
+
+```shell
 $ mount 175.111.1.52:/home/fs/ /sharedfs #NFS挂载,这样,本地的/sharedfs目录就对应到了目标机器175.111.1.52:/home/fs/
 $ df # 查看挂载结果
 $ umount /sharedfs # 取消挂载, 如果报错device is busy,则用 umount -l
-{% endhighlight %}
+```
+
 ### server
-{% highlight bash %}
+
+```shell
 $ rpm -qa | grep nfs # 看nfs安装了没有
 $ vim /etc/exports
 加入
 /your/server/shared/folder     *(rw,sync,no_root_squash,fsid=0)
-{% endhighlight %}
+```
 
 # 其他
-```bash
+
+```shell
 $ > logfile # 清掉一个日志文件内容
 $ nohup make & #在后台执行make操作，并输出到nohup.out。其中`make`可以是任何Linux命令
 ```
 
 # 性能监控
 ## CPU和IO
+
 `$ top`
 Cpu(s): 10.0%us,  0.9%sy,  0.0%ni, 85.7%id,  3.3%wa,  0.0%hi,  0.1%si,  0.0%st
 这里的85.7%id表示idle-空闲CPU百分比, 越大越好, 3.3%wa表示等待输入输出的CPU时间百分比, 越小越好.
 
 ## Linux内存分析
+
 1. 首先对free -m查看结果进行分析
 `free -m`
-  
+
+```
              total       used       free     shared    buffers     cached  
 Mem:          3952       2773       178          0         130        1097  
 -/+ buffers/cache:       1545       2406  
@@ -193,3 +203,4 @@ cached：缓存，用于已打开的文件
 total = used + free
 -buffers/cache=used-buffers-cached，这个是应用程序真实使用的内存大小
 +buffers/cache=free+buffers+cached，这个是服务器真实还可利用的内存大小
+```

@@ -20,7 +20,7 @@ https://www.postgresql.org/docs/9.1/static/ddl-schemas.html Schema
 
 Ensure that the constraint_exclusion configuration parameter is not disabled in postgresql.conf. If it is, queries will not be optimized as desired.
 
-{% highlight sql %}
+```sql
 Customer.create_infrastructure
    (0.8ms)  select count(*) from pg_namespace where nspname = 'customers_partitions'
    (14.6ms)  CREATE SCHEMA customers_partitions
@@ -39,10 +39,4 @@ Customer.create_infrastructure
             (
                SELECT always_fail_on_insert('customers')
             )
-{% endhighlight %}
-
-
-
-{% highlight bash %}
-
-{% endhighlight %}
+```

@@ -233,7 +233,8 @@ you can download it in your local machine and then upload the package by `SCP`.
 
 ## Install Redis
 * Follow https://linuxize.com/post/how-to-install-and-configure-redis-on-centos-7/ to install Redis.
-{% highlight bash %}
+
+```shell
 sudo yum install -y epel-release yum-utils
 sudo yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 sudo yum-config-manager --enable remi
@@ -241,9 +242,10 @@ sudo yum install -y redis
 sudo systemctl start redis
 sudo systemctl enable redis
 sudo systemctl status redis
-{% endhighlight %}
+```
 
 ## Install rbenv
+
 ```shell script
 yum install -y git bzip2 openssl-devel readline-devel zlib-devel
 wget https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer -O rbenv-installer
@@ -263,6 +265,7 @@ ruby -v # Test
 ```
 
 ## Install node and yarn
+
 ```shell script
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash # Install nvm
 nvm install 8.17.0
@@ -295,6 +298,7 @@ systemctl restart mysqld
 ```
 
 ## Install Others
+
 ```shell script
 yum install -y enscript
 yum install -y sqlite-devel
@@ -302,6 +306,7 @@ yum install -y sqlite-devel
 
 ## Install phantomjs
 According to https://www.liquidweb.com/kb/how-to-install-phantomjs-on-centos-7/
+
 ```shell script
 yum install -y fontconfig
 yum install -y freetype-devel
@@ -310,6 +315,7 @@ yum install -y fontconfig-devel
 
 ## Install ImageMagick
 https://tecadmin.net/install-imagemagick-on-centos-rhel/
+
 ```shell script
 yum install -y gcc php-devel php-pear
 yum install -y ImageMagick
@@ -317,6 +323,7 @@ yum install -y ImageMagick-devel # If you got error of conficting with ghostscri
 ```
 
 ## Install Project
+
 ```shell script
 vim ~/.gemrc # Add this line:
 gem: --no-document
@@ -345,6 +352,7 @@ thin start -p 3090 -d
 
 ## Install Nginx
 https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-centos-7
+
 ```shell script
 $ yum install epel-release -y
 $ yum install -y nginx
@@ -400,7 +408,8 @@ line 94, 106: studio.code.org => studio.example.com
 line 110: studio_url use "//example.com/#{path}"
 
 And add
-```
+
+```ruby
 def studio_url2(path = '', scheme = '')
   "//example.com#{path}"
 end

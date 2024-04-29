@@ -6,8 +6,8 @@ categories: JavaScript
 ---
 
 ## Async Await in JavaScript
+
 ```javascript
-{% highlight javascript %}
 'use strict'
 
 const delay = (time) => new Promise((resolve, reject) => setTimeout(resolve, time));
@@ -30,11 +30,9 @@ async function bar() {
 }
 
 start1();
-{% endhighlight %}
 ```
 For the above code, guess what it will print?
 
-{% highlight javascript %}
 ```javascript
 'use strict'
 
@@ -59,7 +57,6 @@ async function bar() {
 
 start1();
 ```
-{% endhighlight %}
 
 Actually, `await delay(3000);` will block the next line `console.log("==== end bar() ====");`,
 but it will not block `foo()` unless it is `await bar();`.

@@ -26,7 +26,8 @@ RubyMine8.0开始支持rbenv-gemset了,不过目前RubyMine有个bug,就是在�
 
 # 常用命令
 ## rbenv
-{% highlight bash %}
+
+```shell
 $ rbenv local # 查看当前目录的ruby版本，和`less .ruby-version`一样的效果
 $ rbenv global # 如果没有配local，默认用global，用本命令查看global ruby版本
 $ rbenv versions # 显示当前系统中已经安装的ruby版本
@@ -37,13 +38,16 @@ $ rbenv uninstall 2.1.4 # Uninstall Ruby 2.1.4
 $ rbenv rehash # 任何涉及到可执行命令的，都要rehash下，如安装了gem sequel等
 $ rbenv which rake # 显示一个可执行shims下的bin所在的目录/Users/lane/.rbenv/versions/2.2.3/bin/rake
 $ rbenv whence irb # 查看哪个版本有irb命令可用
-{% endhighlight %}
+```
 
 ## rbenv-gemset
-{% highlight bash %}
+
+* This is not necessary. `rbenv` with `bundler` works well enough.
+
+```shell
 $ rbenv-gemset delete 2.2.3 -global # 把2.2.3版本下的"-global"gemset删除，最终会把 /Users/you/.rbenv/versions/2.2.3/gemsets 下的"-global"目录删除
 $ RBENV_GEMSETS="your_gemset" gem install thin # 在指定的gemset下安装一个gem
-{% endhighlight %}
+```
 
 ## Relative articles
 https://github.com/rbenv/rbenv/wiki/Understanding-binstubs
