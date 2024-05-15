@@ -7,49 +7,58 @@ categories: CI jenkins GitHub
 
 # Integrate Jenkins with GitHub
 https://resources.github.com/whitepapers/practical-guide-to-CI-with-Jenkins-and-GitHub/
+
 https://docs.github.com/en/github/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks
+
 https://docs.github.com/en/rest/reference/repos#statuses
+
 https://www.jenkins.io/doc/book/pipeline-as-code/
+
 https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
+
 https://plugins.jenkins.io/github/#GitHubPlugin-GitHubhooktriggerforGITScmpolling
+
 https://github.com/alexanderkasten/test_runtime/blob/c5131ce6251a9317b34de8c6619a9cf29df41e01/Jenkinsfile
 
 According to [about-GitHub-webhooks](https://docs.github.com/en/github/extending-github/about-webhooks)
-and https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project ,
+and 
+
+https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project
+
+,
 please add GitHub webhook for Jenkins first.
 
 # User and Role
 If user have `Access Denied`, then you need to grant the user proper role.
 In `Configure Global Security`, choose `Jenkins’ own user database` and `Authorization`.
 
-My Goal
+## My Goal:
 I want to make sure all the Django tests passed before a GitHub reviewer can merge it into repository’s base branch. Otherwise, block the merge. Like this:
 
+I want to make it by Using a `Jenkinsfile`. 
 
-I want to make it by Using a Jenkinsfile. 
-
-Jenkins
-Login
+### Jenkins
+#### Login
 You need to have an account to login to: https://newjenkins.your-orgci.com/ or https://jenkins.your-orgci.com/ . Please ask your admin for it.
 
-Create Pipeline
+#### Create Pipeline
 After you have login, click New Item , them enter an item name like project-qa and select Pipeline , then click Save.
 
-Configure Jenkins
+#### Configure Jenkins
 The Configure URL for this job would be https://jenkins.your-orgci.com/job/project-qa/configure .
 
-General
+#### General
 Check GitHub project , enter https://github.com/your-org/project to Project url.
 
 Check This project is parameterized. Click Add Parameter, select String Parameter, then fill ref in name, fill a_custom_branch_name to Default Value. Like this: 
 
-
 Build Triggers
+
 Check Generic Webhook Trigger
+
 For Post content parameters, fill ref in Variable, fill $.ref in Expression. Like this:
 
-
-Fill MyTokenForProject in token .
+Fill MyTokenForProject in token.
 
 Fill Hi there, the ref is $ref in Cause. 
 
@@ -59,19 +68,19 @@ Click Save.
 
 Copy the URL like https://jenkins.your-orgci.com/generic-webhook-trigger/invoke?token=MyTokenForProject and open it in browser. You should see {"jobs":{"project-qa":{...}}}.
 
-Add GitHub Webhook
+#### Add GitHub Webhook
 Visit https://github.com/your-org/project/settings/hooks, click Add webhook , paste the previous link to the Payload URL. Set Content type as application/json. For Which events would you like to trigger this webhook? , please only check Pushes. Save it. 
 
 
 You should see the first event ping in the Recent Deliveries has been delivered successfully. If not, you can go back and check. You can click the Redeliver button to test it until it is successfully delivered.
 
-Optional filter
+#### Optional filter
+
 Fill ^refs/heads/PROJECT-.*$ in Expression.
 
 Fill $ref in Text. Like this:
 
-
-Pipeline
+#### Pipeline
 In Configure - Pipeline panel, select Pipeline script from SCM for Definition.
 
 Select Git for SCM.
@@ -79,6 +88,7 @@ Select Git for SCM.
 Fill https://github.com/your-org/project.git in Repositories. Since it is a private repository, we will need a Credentials. This is one of the ways to generate the Credentials:
 
 GitHub token as Credentials
+
 Go https://github.com/settings/tokens and click Generate new token.
 
 Check the Repo and Workflow (these two options are Jenkins admin told me to check) in Select scopes, click Generate token.
@@ -95,14 +105,13 @@ Fill Jenkinsfile in Script Path.
 
 Uncheck the Lightweight checkout.
 
-Click Save. Like this: 
-
+Click Save. Like this:
 
 Jenkinsfile
 Simplest Jenkinsfile
 Create a Jenkinsfile under your repo’s root folder. The Jenkinsfile can be like this:
 
-
+````java
 void setBuildStatus(String message, String state) {
   step([
     $class: "GitHubCommitStatusSetter",
@@ -148,29 +157,28 @@ pipeline {
         }
     }
 }
+```
 
 After you have committed this file and pushed to GitHub by git push origin PROJECT-573 , you will see the build is running. 
 
-
 If you click link of build number, you can see something like this:
-
- 
 
 You need to make sure the Changes is the commits which you have just made, the Revision is the right head commit and the branch in the last line is just the branch you want to build.
 
 Troubleshooting
 You may want to check the Console Output if the build is failed.
 
-
 Here we saw a Jenkinsfile not found error. That is because there are many other branches which didn’t contain a Jenkinsfile yet.
 
 Agent label
 You can see there is an 
 
-
+```java
 pipeline {
     agent { label 'project' }
 }
+```
+
 in Jenkinsfile. 
 
 You can go https://jenkins.your-orgci.com/computer/ to select one of the Node like: https://jenkins.your-orgci.com/computer/ubuntu-b/configure , fill project in Labels and click Save.
@@ -180,7 +188,7 @@ Then your build will always be run on Node ubuntu-b.
 Set build status
 For
 
-
+```java
 pipeline {
     post {
         success {
@@ -188,6 +196,8 @@ pipeline {
         }
     }
 }
+```
+
 The setBuildStatus will update the GitHub commit status. So you should see this:
 
 
@@ -198,7 +208,7 @@ To run a Django test, we will need to install Python and PostgreSQL first. I tri
 
 The full Jenkinsfile would be:
 
-
+```java
 void setBuildStatus(String message, String state) {
   step([
     $class: "GitHubCommitStatusSetter",
@@ -269,42 +279,38 @@ pipeline {
         }
     }
 }
+```
 
-The ./api folder is a Django project.
+The `./api` folder is a Django project.
 
 Add PostgreSQL connection credentials
 In the Jenkinsfile, we can see:
 
+`POSTGRES_CREDS = credentials('project-postgres-creds')`
 
-POSTGRES_CREDS = credentials('project-postgres-creds')
 When we connect to PostgreSQL database, we will need a username and password.
 
 Please ask Jenkins admin to add project-postgres-creds as credentials ID, the credentials kind is User with password, your_custom_postgres_user as credentials username, your_custom_postgres_password as credentials password.
 
 Your Python code’s database connection code should use the same configuration defined in this Jenkisfile. FYI:
 
-
 Build default branch
 Once you have done the previous steps, you may also want to build the default branch (e.g: master).
 
 So you will need to change the Optional filter expression as this:
 
-
-The trouble is that when you do a Rebase and mergein GitHub
-
-
-, it will send two push events at the same time.
-
+The trouble is that when you do a Rebase and mergein GitHub, it will send two push events at the same time.
 
 The key props of this payload are:
 
-
+```
 ref: refs/heads/PROJECT-595
 before: 'ccedc4ef29af1a5b7433cdeb8890b234f03fa9c5'
 after: '0000000000000000000000000000000000000000'
 deleted: true
 commits: []
 head_commit:
+```
 The push to master is what we what to build. The other push event indicating that the branch is deleted. But it will cause a Jenkins build which it will always fail. The reason of the failure is that the  cleanWs() in Jenkinsfile need a revision which cannot be found in the deletion push event.
 
 So our best bet is to prevent this push event from triggering build. But I didn’t make it. I think it is not a big deal for it to fail. It seems no hurt.

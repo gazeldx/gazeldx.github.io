@@ -44,12 +44,13 @@ Please read [How to run Django tests in PyCharm](https://lane1472.medium.com/how
 ### Node package manager
 `PyCharm -> Preferences -> Languages & Frameworks -> Node.js & NPM -> Package manager -> Choose 'NPM' (not 'yarn')`
 
-Because in this way, we can make the ESLint integrate well with PyCharm.
+Because in this way, we can make the ESLint integrate well with `PyCharm`.
 
 So please manually run `npm install` when new package added.
+
 If running `npm install` changes `./frontend/yarn.lock`, then revert the change to still use the original `yarn.lock`.
  
 ## Other useful settings
-* Preferences | Editor | Strip trailing spaces on Save | All
-* Preferences | Editor | Code style | Javascript | Use `Single Quote` `in new code`.
-* Preferences | Editor | Code style | Javascript | Spaces | Within | ES6 import/export braces (Check it)
+* `Preferences | Editor | Strip trailing spaces on Save | All`
+* `Preferences | Editor | Code style | Javascript |`, use `Single Quote` `in new code`.
+* `Preferences | Editor | Code style | Javascript | Spaces | Within | ES6 import/export braces` (Check it)

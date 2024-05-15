@@ -7,6 +7,7 @@ categories: Chrome-extension
 
 # How to save a file into Downloads in a Chrome extension?
 * Firstly, add these to `manifest.json`:
+
 ```json
 {
     "manifest_version": 2,
@@ -28,6 +29,7 @@ categories: Chrome-extension
 ```
 
 * Secondly, add these to `background.js`:
+
 ```javascript
 /* jshint esversion: 6 */
 /* jshint node: true */

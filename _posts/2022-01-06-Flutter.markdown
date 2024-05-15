@@ -25,4 +25,3 @@ Then I set the Proxy to match my ShadowSocks configuration. Host name is `127.0.
 # Create Flutter project
 * Click `New Flutter Project`.
 * Change the package name to make it unique.
-* 

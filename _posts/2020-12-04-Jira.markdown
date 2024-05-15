@@ -31,9 +31,3 @@ categories: Jira
 ## Time in status
 * After you click install, it will ask you that it want to get some permissions from you.
 * After installed, a post page will display.
-* 
- 
-
-
-
-

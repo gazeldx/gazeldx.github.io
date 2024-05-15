@@ -17,7 +17,8 @@ https://material-ui.com/components/hidden/
 https://material-ui.com/system/spacing/
 
 `<Container>` help to dynamically change the margin right and left to fit the screen size. 
-```jsx harmony
+
+```html
 <Container>
   <Grid container>
     <Grid xs={12} md={6} lg={5} item className="landing-grow">    
@@ -29,20 +30,22 @@ https://material-ui.com/system/spacing/
 ```
 
 ## Hidden something
-```jsx harmony
+
+```html
 <Hidden smDown>
   <Box />
 </Hidden>
 ```
 
-```jsx harmony
+```jsx
 <Grid item xs={false}>
 </Grid>
 ```
 
 ## Grid
 * When you want to put something on the left, but something on the right, you can use:
-```jsx harmony
+
+```jsx
 <Grid container justify="space-between" spacing={1}>
   <Grid item>
   </Grid>
@@ -52,7 +55,8 @@ https://material-ui.com/system/spacing/
 ```
 
 * Look at this code:
-```jsx harmony
+
+```jsx
 <Grid container>
   {/* Grid one */}
   <Grid container item xs={12} md={8}>
@@ -72,7 +76,7 @@ https://material-ui.com/system/spacing/
 # Test
 * Test `withStyles`.
 
-```jsx harmony
+```jsx
 import { createShallow } from '@material-ui/core/test-utils';
 
 describe('<Issues />', () => {
@@ -93,6 +97,5 @@ describe('<Issues />', () => {
 
     chai.expect(wrapper.find(SomeInnerComponent).prop('issues')).to.have.lengthOf(1);
   });
-
 })
 ```
