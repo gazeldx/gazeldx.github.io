@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "Ruby on Rails 8"
+date:   2025-01-07 13:34:24
+categories: [Ruby, Rails 8]
+tags: [Ruby, Rails]
+---
+
+## Stimulus
+* Today I found if I change the `app/javascript/controllers/hello_controller.js`, the html page does not change correspondingly.
+
+To solve it, I need to run `rails assets:clobber`.
+
+
+## Turbo
+https://turbo.hotwired.dev/handbook/introduction
+
+link are intercepted, not follow. Use `fetch` 

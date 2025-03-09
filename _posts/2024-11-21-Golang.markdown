@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Studying Golang"
+date:   2024-11-21 08:55:25
+categories: ["Golang"]
+---
+
+# Slice
+
+```go
+for _, price := range prices[1:] {
+    // this will change `prices`, but it will never affect the previous lines' `prices[1:]`
+    prices = prices[:len(prices) - 1]
+}
+
+// The above code is equivelent to the following code:
+prices2 := prices[1:]
+for _, price := range prices2 {
+    // this will change `prices`, but it will never affect the previous lines' `prices[1:]`
+    prices = prices[:len(prices) - 1]
+}
+```

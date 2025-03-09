@@ -204,3 +204,15 @@ total = used + free
 -buffers/cache=used-buffers-cached，这个是应用程序真实使用的内存大小
 +buffers/cache=free+buffers+cached，这个是服务器真实还可利用的内存大小
 ```
+
+## link or ln
+### The differences between `hard link` and `soft link`.
+* In Linux, files are represented by `inodes`.
+* A file is just a link to an `inode`.
+* A `hard link` of a file is just another link to same `inode`.
+* When you delete a file, you remove one of the link to the `inode`.
+* The `inode` is only deleted when all the links to it are deleted.
+* So any changes to the data of `inode` is reflected in all files (or `hard links`) that refer to the `inode`.
+* A symbolic link is a link to another name (file). `ln -s source_file_or_directory a_link`.
+* When you delete the source file, you cannot access the `soft link`, you will get a warning: `No such file or directory`.
+* You can create a `hard link` by `ln source_file new_file`, but you can create a hard link on a directory.

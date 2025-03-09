@@ -1,0 +1,131 @@
+---
+layout: post
+title:  "CPP"
+date:   2024-10-25 08:55:25
+categories: CPP
+---
+
+## TODOs or questions
+
+## Basic concepts
+* The difference of `NULL` and `nullptr`.
+
+The difference is that `NULL` is an integer, `nullptr` is a pointer type.
+
+It is a crucial difference when dealing with (resolving) method overloads.
+
+* `std::map`: This container is implemented as a binary search tree, which ensures that its elements are always sorted. As a result, insertions and searches have a time complexity of O(log N), where N is the number of elements in the container. Due to its sorted nature, std::map is useful when you need ordered traversal of elements.
+
+`std::unordered_map`: This container is implemented as a hash table, offering faster insertions and searches with an average time complexity of O(1).
+
+* This is different from Python `dict` or Ruby's `hash` which are both ordered by the element insertion time but still have `0(1)` time complexity. 
+
+To make this, I guess Python and Ruby did some extra work when inserting elements, like using an array (store the inserted keys in order) and another c++ `map` (key is key, value is the array's index) to implement it. When a key is removed, just also remove the `map` key, and get the index of array, then set null to that index in the array. 
+
+* Assignment is copy. Not only it is like this for system objects like `vector`, but also applies to custom class's objects. This is called `shallow copy`. Member variables are copied. E.g:
+```c++
+std::vector<std::string> vec = {"abc", "defg"};
+auto vec2 = vec; // Change `vec2` does not affect `vec`
+```
+
+* In C++, when you pass an object as an argument to a method by value, a copy of the object is created and passed to the method. This means that any modifications made to the object within the method will not affect the original object.E.g:
+```c++
+int printCoolThing(std::vector<std::string> vec) { 
+    vec.emplace_back("kkk"); // The change of `vec` does not affect the `vec1` bellow.
+}
+
+std::vector<std::string> vec1 = {"abc", "defg"};
+printCoolThing(vec1);
+```
+
+* `template`. Custom `sum` function could apply the same function body to many types of parameters, like `int` or `double`, for the sake of `overload`.
+To avoid duplicate code for writing the same `function body`, we can use `template`.
+
+```c++
+template <class T>
+T sum(T o1, T o2)
+{
+    return o1 + o2;
+}
+```
+
+* Use `const` for `reference parameters` if they (compound types, not fundamental types) are not intended to be modified.
+
+* A pointer point to a variable's address. When the variable was changed to another value, the pointer will actually be changed to the address of the new value.
+```
+`&` is the address-of operator, and can be read simply as "address of"
+`*` is the dereference operator, and can be read as "value pointed to by"
+```
+
+```c++
+int myarray [20];
+int * mypointer;
+mypointer = myarray; // After that, `mypointer` and `myarray` would be equivalent and would have very similar properties. The main difference being that mypointer can be assigned a different address, whereas myarray can never be assigned anything, Remember that if an array, its name can be used just like a pointer to its first element.
+```
+
+* For example: char always has a size of 1 byte, short is generally larger than that, and int and long are even larger; the exact size of these being dependent on the system. For example, let's imagine that in a given system, char takes 1 byte, short takes 2 bytes, and long takes 4.
+```c++
+char *mychar; // if it points to address 1000 
+short *myshort; // if it points to address 2000
+long *mylong;  // if it points to address 3000
+++mychar; // point to 1001
+++myshort; // point to 2002
+++mylong; // point to 3004
+```
+
+```c++
+int x;
+      int *       p1 = &x;  // non-const pointer to non-const int
+const int *       p2 = &x;  // non-const pointer to const int
+      int * const p3 = &x;  // const pointer to non-const int
+const int * const p4 = &x;  // const pointer to const int 
+const int * p2a = &x;  //      non-const pointer to const int
+int const * p2b = &x;  // also non-const pointer to const int
+```
+
+* `void pointer` can be assigned to any pointer. But it can not be dereferenced. So you must convert it to another specific pointer and dereference.
+```c++
+void* data;
+char a = 'x';
+data = &a;
+char* pchar; pchar=(char*)data; ++(*pchar);
+int b = 1602;
+data = &b;
+int* pint; pint=(int*)data; ++(*pint);
+cout << *pchar << ", " << *pint << '\n';
+```
+
+* Pass a pointer (`pointer_a`) of a function, can call this function by `(*pointer_a)(p1, p2..)`.
+This is somehow like callback. I think other languages like JavaScript, Python, Ruby implements features of `passing callback function to another function` through this way.
+```c++
+// pointer to functions
+#include <iostream>
+using namespace std;
+
+int addition (int a, int b)
+{ return (a+b); }
+
+int subtraction (int a, int b)
+{ return (a-b); }
+
+int operation (int x, int y, int (*functocall)(int,int))
+{
+  int g;
+  g = (*functocall)(x,y);
+  return (g);
+}
+
+int main ()
+{
+  int m,n;
+  int (*minus)(int,int) = subtraction;
+
+  m = operation (7, 5, addition);
+  n = operation (20, m, minus);
+  cout <<n;
+  return 0;
+}
+```
+
+* A function taken `&` as a parameter, if you want to pass a pointer to replace that `&` paremeter, you must change the function definition by changing the `&` to `*`.
+* For pointers, if you want to access an attributes, you need to use `->`, for non-pointer objects, just use `.`.

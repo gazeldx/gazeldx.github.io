@@ -4,6 +4,7 @@ title:  "Redis"
 date:   2015-01-28 08:16:42
 categories: Redis
 ---
+
 # 配置相关
 Redis的启动不是Daemon，所以在服务器上需要设置一下：
 http://stackoverflow.com/questions/14816892/how-to-keep-redis-server-running
@@ -11,8 +12,7 @@ http://stackoverflow.com/questions/14816892/how-to-keep-redis-server-running
  # By default Redis does not run as a daemon. Use 'yes' if you need it.
 
 $ vi ./redis.conf
-启动：$ ﻿./redis-server /usr/local/src/redis-2.8.16/redis.conf
-
+启动：$ ./redis-server /usr/local/src/redis-2.8.16/redis.conf
 
 ## Most used Redis Commands
 ```

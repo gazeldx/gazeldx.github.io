@@ -1,0 +1,195 @@
+---
+layout: post
+title:  "Ruby on Rails 7"
+date:   2024-10-11 13:34:24
+categories: Ruby Rails7
+---
+
+## TODO
+### Action Cable
+https://guides.rubyonrails.org/action_cable_overview.html
+
+### Active Storage 
+https://guides.rubyonrails.org/active_storage_overview.html
+
+* Active Storage facilitates uploading files to a cloud storage service like Amazon S3, Google Cloud Storage, or Microsoft Azure Storage and attaching those files to Active Record objects. It comes with a local disk-based service for development and testing and supports mirroring files to subordinate services for backups and migrations.
+
+### Action Text
+https://guides.rubyonrails.org/action_text_overview.html
+
+* Action Text facilitates the handling and display of rich text content. Rich text content is text that includes formatting elements such as bold, italics, colors, and hyperlinks, providing a visually enhanced and structured presentation beyond plain text. It allows us to create rich text content, store it in a table, then attach it to any of our models.
+
+Action Text includes a WYSIWYG editor called Trix, which is used in web applications to provide users with a user-friendly interface for creating and editing rich text content.
+
+## Create a new demo website
+```shell
+rails new demo
+rails generate scaffold post title:string content:string
+rails g resource comment post:references content:text
+rails db:create
+rails db:migrate
+rails server
+nohup redis-server /usr/local/etc/redis.conf & # start redis server. Because Action Cable use Redis as backend
+```
+
+### folders
+```
+app/
+    - assets/
+    - javascript/
+    
+    - jobs/     # Active Job (Backend jobs)
+    - channals/ # Action Cable (WebSocket)
+    - mailers/
+    
+    - helpers/
+    - models/
+    - views/
+    - controllers/
+bin/
+    - rails
+    - rake
+    - importmap
+    - bundle
+config/
+    - enviroments/
+    - environment.rb
+    
+    - initializers/
+    - locales/
+    
+    - application.rb
+
+    - routes.rb
+    - importmap.rb
+    - puma.rb
+    
+    - database.yml
+    - cable.yml # need Redis backed
+    - storage.yml
+    - credentials.yml.enc
+    - master.key
+db/                                         # a, b, c, d folder names start with. 
+    - migrate/
+    - schema.rb
+    - seeds.rb
+lib/tasks/
+public/
+    - 404.html
+    - 500.html
+vendor/
+    - javascript
+.ruby-version
+config.ru # This file is used by Rack-based servers to start the application.
+Rakefile
+Gemfile
+Gemfile.lock
+```
+
+### Session store and CSRF
+* `POST` to `localhost:3000/posts.json`, but got 
+```
+ActionController::InvalidAuthenticityToken
+Can't verify CSRF token authenticity.
+``` 
+`CSRF` is for `Cross site request forgery`. 
+Rails inserted into a form a `hidden` field named `authenticity_token` with a random value each request. 
+It ensures the request originated from your own web app. Rails generates the random token and stores it in the session.
+Your form's `authenticity_token` should match the token in the session of server.
+
+As [CookieStore](https://api.rubyonrails.org/classes/ActionDispatch/Session/CookieStore.html) said, cookie-based session 
+store is Rails' default. It needs a `secret_key_base` which is encrypted in `config/credentials.yml.enc`
+```Ruby
+Rails.application.config.session_store :cookie_store, key: '_value_of_secret_key_base'
+```
+
+For APIs, it is not useful since API may be called from other servers or clients.
+
+```html
+<form action="/posts" method="post">
+    <input type="hidden" name="authenticity_token" value="XRDzA13Zwb3JFVKWZZ9NIeq3Dhw4kHhJxET22FBavXVc2wVP3khdVcu-jua6K4mCpqhRw8wkHcp6FENxdY9lfQ" autocomplete="off">
+</form>
+```
+
+### import-map
+https://www.honeybadger.io/blog/import-maps/
+
+* `import-map` allows us to use JavaScript packages directly in browser without using `Node.js` `npm install` and Webpack building first.
+* An import map is a JSON object that allows developers to control how the browser resolves module specifiers when importing JavaScript modules.
+
+```javascript
+<script type="importmap">
+{
+  "imports": {
+    "dayjs": "https://cdn.skypack.dev/dayjs@1.10.7",
+  }
+}
+</script>
+
+<script type="module">
+  import dayjs from 'dayjs';
+
+  console.log(dayjs('2019-01-25').format('YYYY-MM-DDTHH:mm:ssZ[Z]'));
+</script>
+```
+
+* Rails integrated `import-map` with gem `importmap-rails`.
+* It's configured in `config/importmap.rb`. If a package (e.g, `trix`) is not `pin` in `importmap.rb`, the `import 'trix'` will fail in the js of `app/javascript/`.
+* `./bin/importmap pin local-time`
+* Before we use webpack to build a big js file, now we use `importmap` to load many small js files. When one of them is changed, we don't need to build a big js file, it will be very small js.
+* `./bin/importmap pin local-time --download` will download target js from CDN to local `vendor/javascript/`.
+
+### Hotwire, Turbo, Stimulus
+https://hotwired.dev/
+
+* `Hotwire` stands for HTML over the wire. For traditional SPA page, it needs to call backend APIs to get some JSON data for presentation of the page.
+But not we don't need to do it this way. We can ask backend (like `Rails`) to generate the partial html for us and use it directly. 
+* `Turbo` introduces `frames` that separate a html into many sections (`<turbo-frame id='xxx'>...</turbo-frame>`). You can update any `frame` without refresh the whole page.
+* `Stimulus` is used for changing `dom`.
+
+### Active Job
+https://guides.rubyonrails.org/active_job_basics.html
+
+* Active Job is a framework for declaring jobs and making them run on a variety of queuing backends.
+* The main point is to ensure that all Rails apps will have a job infrastructure in place. 
+* We can integrate with different job runners (such as Delayed Job, Sidkiq and Resque) without having to rewrite our jobs.
+* Rails by default comes with an asynchronous queuing implementation that runs jobs with an in-process thread pool. 
+
+```shell
+rails generate job guests_cleanup
+```
+
+```ruby
+class Application < Rails::Application
+    config.active_job.queue_adapter = :sidekiq
+end
+
+class GuestsCleanupJob < ApplicationJob
+  # retry_on ErrorLoadingSite, wait: 5.minutes, queue: :low_priority
+  queue_as :default
+
+  def perform(*args)
+    # Do something later
+    args.each do |arg|
+      puts "job perform arg: #{arg}"
+    end
+  end
+end
+
+GuestsCleanupJob.perform_later(@posts.first, @posts.last, filter: 'some_filter')
+```
+
+### Rails key classes
+
+```ruby
+module Demo
+  Application < Rails::Application
+    # configuration here  
+  end
+end
+
+module Rails
+  class Application < Engine
+  end
+end
+```

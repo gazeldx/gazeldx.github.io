@@ -307,7 +307,8 @@ $ createdb -U postgres django_spa_blog_dev # For Mac brew installed PG
 $ sudo -u postgres /usr/local/pgsql/bin/dropdb some_production # For linux
 $ sudo -u postgres /usr/local/pgsql/bin/createdb some_production
 $ cd /srv/db_35
-$ scp root@172.35.11.21:/srv/database_backup/some_production_20160412 ./
+# Run it on you local computer, not the server!
+$ scp root@172.35.11.21:/srv/database_backup/some_production_20160412 ./ # download a file to local
 $ nohup sudo -u postgres /usr/local/pgsql/bin/pg_restore -d some_production < /srv/db_35/some_production_0410 -v >> ./db_restore.log &
 ```
 
